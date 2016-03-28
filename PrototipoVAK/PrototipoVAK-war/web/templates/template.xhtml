@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+        <title>PrototipoVAK :: <ui:insert name="title">Title</ui:insert></title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <table style="margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px" >
+                <tr>
+                    <td width="100%" align="center">
+                        <ui:insert name="header">
+                            <ui:include src="header.xhtml" />
+                        </ui:insert>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%" align="center">
+                        <ui:insert name="menu">
+                            <ui:include src="menu.xhtml" />
+                        </ui:insert>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" width="75%">
+                        <ui:insert name="body">Body</ui:insert>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100%" align="center">
+                        <ui:insert name="footer">
+                            <ui:include src="footer.xhtml" />
+                        </ui:insert>
+                    </td>
+                </tr>
+            </table>
+        </f:view>
+    </h:body>
+</html>
