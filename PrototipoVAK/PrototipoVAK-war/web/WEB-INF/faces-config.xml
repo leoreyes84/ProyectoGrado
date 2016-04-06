@@ -23,6 +23,10 @@
             <from-outcome>estudiante</from-outcome>
             <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>registroUsuario</from-outcome>
+            <to-view-id>/paginas/registrarUsuario.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/paginas/profListaGrupos.xhtml</from-view-id>
@@ -40,6 +44,13 @@
         <navigation-case>
             <from-outcome>veResultados</from-outcome>
             <to-view-id>/paginas/estVeResultados.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/registrarUsuario.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>registroExitoso</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

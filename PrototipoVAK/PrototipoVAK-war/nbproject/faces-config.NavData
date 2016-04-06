@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="paginas/estPresentaTest.xhtml" x="483" y="131" zoom="true"/>
+        <Node id="login.xhtml" x="36" y="339" zoom="true"/>
+        <Node id="templates/menu.xhtml" x="637" y="396" zoom="true"/>
+        <Node id="paginas/profListaGrupos.xhtml" x="161" y="153" zoom="true"/>
+        <Node id="paginas/profVeResultados.xhtml" x="155" y="49" zoom="true"/>
+        <Node id="paginas/estVeResultados.xhtml" x="498" y="197" zoom="true"/>
+        <Node id="templates/header.xhtml" x="636" y="358" zoom="true"/>
+        <Node id="templates/footer.xhtml" x="635" y="432" zoom="true"/>
+        <Node id="paginas/estSeleccionTest.xhtml" x="153" y="262" zoom="true"/>
+        <Node id="templates/template.xhtml" x="634" y="321" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
