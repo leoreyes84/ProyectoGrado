@@ -13,4 +13,33 @@
             <var>msg</var>
         </resource-bundle>
     </application>
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>profesor</from-outcome>
+            <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>estudiante</from-outcome>
+            <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/profListaGrupos.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>veResultados</from-outcome>
+            <to-view-id>/paginas/profVeResultados.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/estSeleccionTest.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>presentaTest</from-outcome>
+            <to-view-id>/paginas/estPresentaTest.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>veResultados</from-outcome>
+            <to-view-id>/paginas/estVeResultados.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

@@ -10,16 +10,16 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author lreyes
+ * @author Leonardo
  */
 @ManagedBean
 @RequestScoped
-public class TempMB {
+public class EstSeleccionTestMB {
 
     /**
-     * Creates a new instance of TempMB
+     * Creates a new instance of EstSeleccionTestMB
      */
-    public TempMB() {
+    public EstSeleccionTestMB() {
     }
     
 }
