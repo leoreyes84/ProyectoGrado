@@ -10,16 +10,16 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Leonardo
+ * @author lreyes
  */
 @ManagedBean
 @RequestScoped
-public class ProfListaGruposMB {
+public class TempMB {
 
     /**
-     * Creates a new instance of ProfListaGruposMB
+     * Creates a new instance of TempMB
      */
-    public ProfListaGruposMB() {
+    public TempMB() {
     }
     
 }
