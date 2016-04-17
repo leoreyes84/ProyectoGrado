@@ -19,14 +19,15 @@
                     <p:panel id="basic" header="#{msg['login.label.inicio.sesion']}" style="margin-bottom:20px">
                         <h:panelGrid columns="2" cellpadding="10">
                             <h:outputText value="#{msg['login.label.usuario']}" />
-                            <p:inputText  value="" required="false" label="#{msg['login.label.usuario']}" maxlength="50"/>
+                            <p:inputText   required="false" label="#{msg['login.label.usuario']}" maxlength="50"/>
                             <h:outputText value="#{msg['login.label.contrasenia']}" />
-                            <p:password  value="" required="false" label="#{msg['login.label.contrasenia']}" maxlength="50"/>
+                            <p:password  required="false" label="#{msg['login.label.contrasenia']}" maxlength="50"/>
                         </h:panelGrid>
                         <div align="center">
                             <p:commandButton  value="#{msg['login.button.ingresar']}" 
-                                             
-                                             update="login" process="@all"/>
+                                              update="login" process="@all" action="estudiante"/>
+                            <p:commandButton  value="TmpProfesor" 
+                                              update="login" process="@all" action="profesor"/>
                         </div>
                         <div align="right ">
                             <h:commandLink action="registrarUsuario" value="Registrar Usuario"/>

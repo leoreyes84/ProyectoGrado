@@ -4,13 +4,27 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <head>
-        <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div>TODO write content</div>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{msg['profesor.ver.resultados.title']}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="formPrincipal">
+                    <p:panel id="basic" header="Profesor - Ver resultados" style="margin-bottom:20px">
+                        <p:commandButton  value="Volver" action="volver"/>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
     </body>
 </html>

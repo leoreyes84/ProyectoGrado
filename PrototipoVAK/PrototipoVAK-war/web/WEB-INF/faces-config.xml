@@ -42,7 +42,7 @@
             <to-view-id>/paginas/estPresentaTest.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>veResultados</from-outcome>
+            <from-outcome>verResultados</from-outcome>
             <to-view-id>/paginas/estVeResultados.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
@@ -51,6 +51,35 @@
         <navigation-case>
             <from-outcome>registroExitoso</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>salir</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/profVeResultados.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>volver</from-outcome>
+            <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/estPresentaTest.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>verResultados</from-outcome>
+            <to-view-id>/paginas/estVeResultados.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/estVeResultados.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>volver</from-outcome>
+            <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

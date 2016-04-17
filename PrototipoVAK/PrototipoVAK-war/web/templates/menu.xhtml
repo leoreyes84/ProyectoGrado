@@ -11,7 +11,13 @@
     </h:head>
     <h:body>
         <h:form id="formMenu">
-           
+            <p:menubar>
+               
+                <f:facet name="options">
+                    <p:commandButton value="Salir" action="salir"  ajax="false" 
+                                     icon="ui-icon-close" style="font-size: small"/>
+                </f:facet>
+            </p:menubar>
         </h:form>
     </h:body>
 </html>
