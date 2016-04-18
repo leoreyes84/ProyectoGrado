@@ -6,9 +6,11 @@
 package co.edu.udistrital.prototipovak.session;
 
 import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ProgramaAcademicoFacade extends AbstractFacade<ProgramaAcademico> implements ProgramaAcademicoFacadeLocal {
+
     @PersistenceContext(unitName = "PrototipoVAK-ejbPU")
     private EntityManager em;
 
@@ -27,5 +30,24 @@ public class ProgramaAcademicoFacade extends AbstractFacade<ProgramaAcademico> i
     public ProgramaAcademicoFacade() {
         super(ProgramaAcademico.class);
     }
-    
+
+    @Override
+    public List<ProgramaAcademico> programaAcadPorEstudiante(String codigoEstudiante) {
+        try {
+            Query consulta;
+            String cadena_consulta = "SELECT * FROM programa_academico progaca, grupo grup, usuario_grupo usugrupo, usuario usu "
+                    + "WHERE progaca.prog_id=grup.prog_id "
+                    + "AND usugrupo.usr_id= usu.usr_id "
+                    + "AND usu.usr_codigo= " + codigoEstudiante;                   
+
+            // Asigna crea el query de cadena_consulta
+            consulta = getEntityManager().createNativeQuery(cadena_consulta, ProgramaAcademico.class);
+            List<ProgramaAcademico> consultada = (List<ProgramaAcademico>) consulta.getResultList();
+            return consultada;
+        } catch (Exception e) {
+            e.getCause();
+            return null;
+        }
+    }
+
 }

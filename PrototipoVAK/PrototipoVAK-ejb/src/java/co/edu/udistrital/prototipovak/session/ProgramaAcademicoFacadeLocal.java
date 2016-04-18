@@ -30,4 +30,6 @@ public interface ProgramaAcademicoFacadeLocal {
 
     int count();
     
+    List<ProgramaAcademico> programaAcadPorEstudiante(String codigoEstudiante);
+    
 }

@@ -14,15 +14,29 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        <f:event type="preRenderView" listener="#{estSeleccionTestMB.init}" /> 
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="title">
                 <h:outputText value="#{msg['estudiante.seleccion.test.title']}" />
             </ui:define>
             <ui:define name="body">
-                <h:form id="formPrincipal">
-                    <p:panel id="basic" header="Estudiante - Seleccionar test" style="margin-bottom:20px">
-                        <p:commandButton  value="TmpPresentarTest" action="presentaTest"/>
-                        <p:commandButton  value="TmpVerResultados" action="verResultados"/>
+                <h:form id="formPrincipal">                      
+                    <p:panel id="basic" header="#{msg['estudiante.seleccionar.test.header']}" style="width: 70%; margin-bottom:20px">
+                        
+                        <p:dataTable id="tablaSeleccionarTest" var="programaAcademico" style="width: 90%;" value="#{estSeleccionTestMB.listaPrograma}">
+                            
+                            <p:column headerText="#{msg['estudiante.seleccionar.test.programa']}">
+                                <h:outputText value="#{programaAcademico.progNombre}" />
+                            </p:column>                           
+
+                            <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
+                                <div align="right">
+                                   <p:commandButton value="#{msg['estudiante.seleccionar.test.presentar']}" rendered="#{!estSeleccionTestMB.presentarVerTestResultados}" action="presentaTest"/>
+                                   <p:commandButton  value="#{msg['estudiante.seleccionar.test.resultados']}" rendered="#{estSeleccionTestMB.presentarVerTestResultados}" action="verResultados"/>
+                                </div>
+                            </p:column>                            
+                        </p:dataTable>
+                        
                     </p:panel>
                 </h:form>
             </ui:define>

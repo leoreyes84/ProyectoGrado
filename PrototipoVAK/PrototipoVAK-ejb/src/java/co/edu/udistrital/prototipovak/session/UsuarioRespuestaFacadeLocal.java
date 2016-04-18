@@ -30,4 +30,6 @@ public interface UsuarioRespuestaFacadeLocal {
 
     int count();
     
+    List<UsuarioRespuesta> obtenerRespuestaUsuario(Integer idUsuario);
+    
 }
