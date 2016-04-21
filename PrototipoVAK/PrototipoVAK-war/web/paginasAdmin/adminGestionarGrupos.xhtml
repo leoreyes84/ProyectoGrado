@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{msg['admin.gestionar.grupo.title']}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="formPrincipal">
+                    <p:growl id="growl" showDetail="false" sticky="true" life="500"/>
+                    <p:panel id="basic" header="#{msg['admin.gestionar.grupo.title']}" style="margin-bottom:20px">
+                        <h:panelGroup layout="block">
+                            <p:commandButton value="#{msg['button.agregar']}" onclick="PF('nuevoItem').show()" id="agregar" icon="ui-icon-circle-plus" />
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" style="margin-top: 10px">
+
+                            <p:outputPanel id="panelTabla">
+                                <p:dataTable id="idDataTable" var="item"  
+                                             paginatorPosition="bottom" paginator="true" rows="10" widgetVar="tablaItems"
+                                             emptyMessage="#{msg['datatable.empty']}">
+
+
+
+                                    <f:facet name="footer"> 
+                                        <p:commandButton value="#{msg['button.modificar']}" icon="ui-icon-pencil" 
+                                                         update=":formModificar:panelGridModificar" oncomplete="if(PF('tablaItems').selection != ''){PF('modificaItem').show()}else{PF('informacion').show()}"/>
+                                        <p:commandButton value="#{msg['button.eliminar']}" icon="ui-icon-circle-close" 
+                                                         update=":formEliminar:dialogEliminar" oncomplete="if(PF('tablaItems').selection != ''){PF('eliminaItem').show()}else{PF('informacion').show()}"/>
+                                    </f:facet> 
+                                </p:dataTable> 
+                            </p:outputPanel>
+
+                        </h:panelGroup>
+                    </p:panel>
+                </h:form>
+                <!-- NUEVO ITEM -->
+                <h:form id="formNuevo">
+                    <p:growl id="messagesNuevo" showDetail="false" autoUpdate="false"/>
+                    <p:dialog id="dialogNuevo" header="#{msg['admin.gestionar.grupo.agregar.grupo']}" widgetVar="nuevoItem"
+                              visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true">  
+                        <p:panelGrid id="panelGridNuevo">
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" />
+                                </p:column>
+                                <p:column>
+                                   <p:inputText  required="true" 
+                                                 label="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <div align="center">
+                                        <p:commandButton id="cancelarNuevo" value="#{msg['button.cancelar']}" 
+                                                         update="dialogNuevo" process="@none" icon="ui-icon-close"/>  
+                                        <p:commandButton id="aceptarNuevo" value="#{msg['button.agregar']}"  
+                                                         update="messagesNuevo,dialogNuevo,:formPrincipal:panelTabla" process="@this,panelGridNuevo" icon="ui-icon-check"/>  
+                                    </div>
+                                </p:column>
+                            </p:row>                           
+                        </p:panelGrid>  
+                    </p:dialog>
+                </h:form>
+                <!-- MODIFICAR PRODUCTO -->
+                <h:form id="formModificar">
+                    <p:growl id="messagesModificar" showDetail="false" autoUpdate="false"/>
+                    <p:dialog id="dialogModificar" header="#{msg['admin.gestionar.grupo.modificar.grupo']}" widgetVar="modificaItem"
+                              visible="#{not empty facesContext.maximumSeverity}" closable="false">  
+                        <p:panelGrid id="panelGridModificar">
+                            
+                            <p:row>
+                                <p:column colspan="3">
+                                    <div align="center">
+                                        <p:commandButton value="#{msg['button.modificar']}"  
+                                                         update="messagesModificar,dialogModificar,:formPrincipal:panelTabla" process="@this,panelGridModificar" icon="ui-icon-check"/>  
+                                        <p:commandButton value="#{msg['button.cancelar']}" 
+                                                         update="dialogModificar" process="@none" icon="ui-icon-close"/> 
+                                    </div>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>  
+                    </p:dialog>
+                </h:form>
+                <!-- ELIMINAR PRODUCTO -->
+                <h:form id="formEliminar">
+                    <p:growl id="messagesEliminar" showDetail="false" autoUpdate="false"/>
+                    <p:confirmDialog id="dialogEliminar" message="#{msg['confirm.pregunta']}" 
+                                     header="Confirme" widgetVar="eliminaItem" closable="false">  
+                        <p:commandButton id="confirmElim" value="#{msg['button.confirm.si']}" update="messagesEliminar,dialogEliminar,:formPrincipal:panelTabla" oncomplete="PF('eliminaItem').hide()"  
+                                          icon="ui-icon-check"/>  
+                        <p:commandButton id="declineEnv" value="#{msg['button.confirm.no']}" onclick="PF('eliminaItem').hide()" type="button" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

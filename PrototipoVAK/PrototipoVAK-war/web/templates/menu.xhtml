@@ -12,9 +12,14 @@
     <h:body>
         <h:form id="formMenu">
             <p:menubar>
-               
+                <p:submenu label="#{msg['menu.label.gestionar']}" icon="ui-icon-document">
+                    <p:menuitem value="#{msg['menu.label.gestionar.probramas']}" action="gestionarProgramas" />
+                    <p:menuitem value="#{msg['menu.label.gestionar.peridos']}" action="gestionarPeridos" />
+                    <p:menuitem value="#{msg['menu.label.gestionar.grupos']}" action="gestionarGrupos" />
+                </p:submenu>
+
                 <f:facet name="options">
-                    <p:commandButton value="Salir" action="salir"  ajax="false" 
+                    <p:commandButton value="#{msg['menu.label.salir']}" action="salir"  ajax="false" 
                                      icon="ui-icon-close" style="font-size: small"/>
                 </f:facet>
             </p:menubar>

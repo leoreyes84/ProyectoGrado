@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author lreyes
+ * @author Leonardo
  */
 @Entity
 @Table(name = "usuario_respuesta")
@@ -31,15 +31,15 @@ public class UsuarioRespuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UsuarioRespuestaPK usuarioRespuestaPK;
-    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Usuario usuario;
-    @JoinColumn(name = "rta_id", referencedColumnName = "rta_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Respuesta respuesta;
     @JoinColumn(name = "peri_id", referencedColumnName = "peri_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Periodo periodo;
+    @JoinColumn(name = "rta_id", referencedColumnName = "rta_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Respuesta respuesta;
+    @JoinColumn(name = "usr_id", referencedColumnName = "usr_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
     public UsuarioRespuesta() {
     }
@@ -60,12 +60,12 @@ public class UsuarioRespuesta implements Serializable {
         this.usuarioRespuestaPK = usuarioRespuestaPK;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Periodo getPeriodo() {
+        return periodo;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPeriodo(Periodo periodo) {
+        this.periodo = periodo;
     }
 
     public Respuesta getRespuesta() {
@@ -76,12 +76,12 @@ public class UsuarioRespuesta implements Serializable {
         this.respuesta = respuesta;
     }
 
-    public Periodo getPeriodo() {
-        return periodo;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

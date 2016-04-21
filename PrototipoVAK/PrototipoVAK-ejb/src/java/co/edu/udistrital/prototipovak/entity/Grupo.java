@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author lreyes
+ * @author Leonardo
  */
 @Entity
 @Table(name = "grupo")
@@ -53,12 +53,12 @@ public class Grupo implements Serializable {
         @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")})
     @ManyToMany
     private List<Usuario> usuarioList;
-    @JoinColumn(name = "prog_id", referencedColumnName = "prog_id")
-    @ManyToOne(optional = false)
-    private ProgramaAcademico progId;
     @JoinColumn(name = "peri_id", referencedColumnName = "peri_id")
     @ManyToOne(optional = false)
     private Periodo periId;
+    @JoinColumn(name = "prog_id", referencedColumnName = "prog_id")
+    @ManyToOne(optional = false)
+    private ProgramaAcademico progId;
 
     public Grupo() {
     }
@@ -97,20 +97,20 @@ public class Grupo implements Serializable {
         this.usuarioList = usuarioList;
     }
 
-    public ProgramaAcademico getProgId() {
-        return progId;
-    }
-
-    public void setProgId(ProgramaAcademico progId) {
-        this.progId = progId;
-    }
-
     public Periodo getPeriId() {
         return periId;
     }
 
     public void setPeriId(Periodo periId) {
         this.periId = periId;
+    }
+
+    public ProgramaAcademico getProgId() {
+        return progId;
+    }
+
+    public void setProgId(ProgramaAcademico progId) {
+        this.progId = progId;
     }
 
     @Override

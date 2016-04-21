@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author lreyes
+ * @author Leonardo
  */
 @Entity
 @Table(name = "programa_academico")
@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ProgramaAcademico.findAll", query = "SELECT p FROM ProgramaAcademico p"),
     @NamedQuery(name = "ProgramaAcademico.findByProgId", query = "SELECT p FROM ProgramaAcademico p WHERE p.progId = :progId"),
+    @NamedQuery(name = "ProgramaAcademico.findByProgCodigo", query = "SELECT p FROM ProgramaAcademico p WHERE p.progCodigo = :progCodigo"),
     @NamedQuery(name = "ProgramaAcademico.findByProgNombre", query = "SELECT p FROM ProgramaAcademico p WHERE p.progNombre = :progNombre")})
 public class ProgramaAcademico implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -41,6 +42,11 @@ public class ProgramaAcademico implements Serializable {
     @Basic(optional = false)
     @Column(name = "prog_id")
     private Integer progId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "prog_codigo")
+    private String progCodigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -56,8 +62,9 @@ public class ProgramaAcademico implements Serializable {
         this.progId = progId;
     }
 
-    public ProgramaAcademico(Integer progId, String progNombre) {
+    public ProgramaAcademico(Integer progId, String progCodigo, String progNombre) {
         this.progId = progId;
+        this.progCodigo = progCodigo;
         this.progNombre = progNombre;
     }
 
@@ -67,6 +74,14 @@ public class ProgramaAcademico implements Serializable {
 
     public void setProgId(Integer progId) {
         this.progId = progId;
+    }
+
+    public String getProgCodigo() {
+        return progCodigo;
+    }
+
+    public void setProgCodigo(String progCodigo) {
+        this.progCodigo = progCodigo;
     }
 
     public String getProgNombre() {

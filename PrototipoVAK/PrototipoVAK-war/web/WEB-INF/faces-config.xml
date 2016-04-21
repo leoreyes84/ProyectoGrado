@@ -27,6 +27,25 @@
             <from-outcome>registroUsuario</from-outcome>
             <to-view-id>/paginas/registrarUsuario.xhtml</to-view-id>
         </navigation-case>
+         <navigation-case>
+            <from-outcome>administrador</from-outcome>
+            <to-view-id>/paginasAdmin/adminBienvenida.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginasAdmin/*</from-view-id>
+         <navigation-case>
+            <from-outcome>gestionarProgramas</from-outcome>
+            <to-view-id>/paginasAdmin/adminGestionarProgramas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>gestionarPeridos</from-outcome>
+            <to-view-id>/paginasAdmin/adminGestionarPeridos.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>gestionarGrupos</from-outcome>
+            <to-view-id>/paginasAdmin/adminGestionarGrupos.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/paginas/profListaGrupos.xhtml</from-view-id>
