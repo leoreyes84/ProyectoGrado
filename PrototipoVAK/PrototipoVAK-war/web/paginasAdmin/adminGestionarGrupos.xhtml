@@ -21,23 +21,44 @@ and open the template in the editor.
             <ui:define name="body">
                 <h:form id="formPrincipal">
                     <p:growl id="growl" showDetail="false" sticky="true" life="500"/>
-                    <p:panel id="basic" header="#{msg['admin.gestionar.grupo.title']}" style="margin-bottom:20px">
+                    <p:panel id="basic" header="#{msg['admin.gestionar.grupo.title']}" style="margin-bottom:20px;width: 60%">
                         <h:panelGroup layout="block">
                             <p:commandButton value="#{msg['button.agregar']}" onclick="PF('nuevoItem').show()" id="agregar" icon="ui-icon-circle-plus" />
+                            <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" style="margin-top: 10px">
 
                             <p:outputPanel id="panelTabla">
-                                <p:dataTable id="idDataTable" var="item"  
+                                <p:dataTable id="idDataTable" var="item" value="#{adminGestionarGruposMB.mediumGrupoModel}"
                                              paginatorPosition="bottom" paginator="true" rows="10" widgetVar="tablaItems"
-                                             emptyMessage="#{msg['datatable.empty']}">
-
-
-
+                                             selectionMode="single"
+                                             selection="#{adminGestionarGruposMB.selectedGrupo}"
+                                             emptyMessage="#{msg['datatable.empty']}"
+                                             rowKey="#{item.grupId}">
+                                    
+                                    <f:facet name="header">  
+                                        Grupos en programas académicos
+                                    </f:facet>
+                                    <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.nombre']}"
+                                              filterBy="#{item.grupNombre}" sortBy="#{item.grupNombre}" 
+                                              filterMatchMode="contains">  
+                                        #{item.periNombre}
+                                    </p:column>
+                                    <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.programa']}"
+                                              filterMatchMode="contains">  
+                                        
+                                    </p:column>
+                                     <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.periodo']}"
+                                              filterMatchMode="contains">  
+                                        
+                                    </p:column>
                                     <f:facet name="footer"> 
-                                        <p:commandButton value="#{msg['button.modificar']}" icon="ui-icon-pencil" 
+                                        <p:commandButton value="#{msg['button.modificar']}" icon="ui-icon-pencil"
+                                                         process="idDataTable"
+                                                         actionListener="#{adminGestionarGruposMB.cargarValoresModificar()}"
                                                          update=":formModificar:panelGridModificar" oncomplete="if(PF('tablaItems').selection != ''){PF('modificaItem').show()}else{PF('informacion').show()}"/>
-                                        <p:commandButton value="#{msg['button.eliminar']}" icon="ui-icon-circle-close" 
+                                        <p:commandButton value="#{msg['button.eliminar']}" icon="ui-icon-circle-close"
+                                                         actionListener="#{adminGestionarGruposMB.cargarObjetoSeleccionado()}"
                                                          update=":formEliminar:dialogEliminar" oncomplete="if(PF('tablaItems').selection != ''){PF('eliminaItem').show()}else{PF('informacion').show()}"/>
                                     </f:facet> 
                                 </p:dataTable> 
@@ -48,26 +69,52 @@ and open the template in the editor.
                 </h:form>
                 <!-- NUEVO ITEM -->
                 <h:form id="formNuevo">
-                    <p:growl id="messagesNuevo" showDetail="false" autoUpdate="false"/>
                     <p:dialog id="dialogNuevo" header="#{msg['admin.gestionar.grupo.agregar.grupo']}" widgetVar="nuevoItem"
                               visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true">  
                         <p:panelGrid id="panelGridNuevo">
-                            <p:row>
+                             <p:row>
                                 <p:column>
                                     <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" />
                                 </p:column>
                                 <p:column>
-                                   <p:inputText  required="true" 
+                                    <p:inputText  required="true" value="#{adminGestionarGruposMB.nombreGrupo}"
                                                  label="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="prog" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}"
+                                                     value="#{adminGestionarGruposMB.idPrograma}" required="true">
+						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
+						
+					</p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="peri" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}"
+                                                     value="#{adminGestionarGruposMB.idPeriodo}" required="true">
+						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
+						
+					</p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
                                     <div align="center">
+                                        <p:commandButton id="aceptarNuevo" value="#{msg['button.agregar']}" oncomplete="PF('nuevoItem').hide()"
+                                                         actionListener="#{adminGestionarGruposMB.guardarItem()}"
+                                                         update="dialogNuevo,:formPrincipal:idDataTable,:formPrincipal:messages" 
+                                                         process="@this,panelGridNuevo" icon="ui-icon-check"/>  
                                         <p:commandButton id="cancelarNuevo" value="#{msg['button.cancelar']}" 
-                                                         update="dialogNuevo" process="@none" icon="ui-icon-close"/>  
-                                        <p:commandButton id="aceptarNuevo" value="#{msg['button.agregar']}"  
-                                                         update="messagesNuevo,dialogNuevo,:formPrincipal:panelTabla" process="@this,panelGridNuevo" icon="ui-icon-check"/>  
+                                                         actionListener="#{adminGestionarGruposMB.limpiarValores()}"
+                                                         update="dialogNuevo" process="@none" icon="ui-icon-close"/>
                                     </div>
                                 </p:column>
                             </p:row>                           
@@ -76,17 +123,51 @@ and open the template in the editor.
                 </h:form>
                 <!-- MODIFICAR PRODUCTO -->
                 <h:form id="formModificar">
-                    <p:growl id="messagesModificar" showDetail="false" autoUpdate="false"/>
                     <p:dialog id="dialogModificar" header="#{msg['admin.gestionar.grupo.modificar.grupo']}" widgetVar="modificaItem"
-                              visible="#{not empty facesContext.maximumSeverity}" closable="false">  
+                              visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true">  
                         <p:panelGrid id="panelGridModificar">
-                            
                             <p:row>
-                                <p:column colspan="3">
+                                <p:column>
+                                    <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText  required="true" value="#{adminGestionarGruposMB.nombreGrupo}"
+                                                 label="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="prog" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}"
+                                                     value="#{adminGestionarGruposMB.idPrograma}" required="true">
+						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
+						
+					</p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="peri" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}"
+                                                     value="#{adminGestionarGruposMB.idPeriodo}" required="true">
+						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
+						
+					</p:selectOneMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
                                     <div align="center">
-                                        <p:commandButton value="#{msg['button.modificar']}"  
-                                                         update="messagesModificar,dialogModificar,:formPrincipal:panelTabla" process="@this,panelGridModificar" icon="ui-icon-check"/>  
+                                        <p:commandButton value="#{msg['button.modificar']}" oncomplete="PF('modificaItem').hide()"
+                                                         actionListener="#{adminGestionarGruposMB.modificarItem()}"
+                                                         update="dialogModificar,:formPrincipal:idDataTable,:formPrincipal:messages" 
+                                                         process="@this,panelGridModificar" icon="ui-icon-check"/>  
                                         <p:commandButton value="#{msg['button.cancelar']}" 
+                                                         actionListener="#{adminGestionarGruposMB.limpiarValores()}"
                                                          update="dialogModificar" process="@none" icon="ui-icon-close"/> 
                                     </div>
                                 </p:column>
@@ -97,12 +178,21 @@ and open the template in the editor.
                 </h:form>
                 <!-- ELIMINAR PRODUCTO -->
                 <h:form id="formEliminar">
-                    <p:growl id="messagesEliminar" showDetail="false" autoUpdate="false"/>
                     <p:confirmDialog id="dialogEliminar" message="#{msg['confirm.pregunta']}" 
                                      header="Confirme" widgetVar="eliminaItem" closable="false">  
-                        <p:commandButton id="confirmElim" value="#{msg['button.confirm.si']}" update="messagesEliminar,dialogEliminar,:formPrincipal:panelTabla" oncomplete="PF('eliminaItem').hide()"  
-                                          icon="ui-icon-check"/>  
+                        <p:commandButton id="confirmElim" value="#{msg['button.confirm.si']}" 
+                                         update="dialogEliminar,:formPrincipal:idDataTable,:formPrincipal:messages" 
+                                         oncomplete="PF('eliminaItem').hide()"  
+                                         actionListener="#{adminGestionarGruposMB.eliminarItem()}" 
+                                         icon="ui-icon-check"/>  
                         <p:commandButton id="declineEnv" value="#{msg['button.confirm.no']}" onclick="PF('eliminaItem').hide()" type="button" icon="ui-icon-close"/>
+                    </p:confirmDialog>
+                </h:form>
+                <!-- INFORMACIÓN -->
+                <h:form id="formInfo">
+                    <p:confirmDialog id="dialogInformacion" message="Debe seleccionar un registro"  
+                                     header="Atención" severity="alert" widgetVar="informacion">  
+                        <p:commandButton value="Aceptar" onclick="PF('informacion').hide()" type="button" icon="ui-icon-check"/>  
                     </p:confirmDialog>
                 </h:form>
             </ui:define>

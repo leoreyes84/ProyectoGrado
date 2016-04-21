@@ -5,8 +5,10 @@
  */
 package co.edu.udistrital.prototipovak.mb;
 
+import co.edu.udistrital.prototipovak.entity.Periodo;
 import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
-import co.edu.udistrital.prototipovak.session.ProgramaAcademicoFacadeLocal;
+import co.edu.udistrital.prototipovak.session.PeriodoFacadeLocal;
+import co.edu.udistrital.prototipovak.util.PeriodoDataModel;
 import co.edu.udistrital.prototipovak.util.ProgramaDataModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,26 +26,25 @@ import org.jboss.logging.Logger;
  */
 @ManagedBean
 @RequestScoped
-public class AdminGestionarProgramasMB {
+public class AdminGestionarPeriodosMB {
 
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(AdminGestionarProgramasMB.class);
+    private static Logger _logger = Logger.getLogger(AdminGestionarPeriodosMB.class);
 
     @EJB
-    private ProgramaAcademicoFacadeLocal programaAcademicoFacade;
+    private PeriodoFacadeLocal periodoFacade;
 
-    private String codigoPrograma;
-    private String nombrePrograma;
-    private List<ProgramaAcademico> programas;
-    private ProgramaAcademico selectedPrograma;
-    private ProgramaDataModel mediumProgramaModel;
+    private String nombrePeriodo;
+    private String descripcion;
+    private List<Periodo> periodos;
+    private Periodo selectedPeriodo;
+    private PeriodoDataModel mediumPeriodoModel;
 
     //////////////////////////////////////
     ////Métodos de la clase
     //////////////////////////////////////
-  
     /**
      * Metodo que inicializa el bean
      */
@@ -52,23 +53,23 @@ public class AdminGestionarProgramasMB {
         //Cargar tabla
         cargarTabla();
     }
-
+    
     /**
      * Guarda el programa académico
      */
     public void guardarItem() {
         try {
-            ProgramaAcademico programaAcademico = new ProgramaAcademico();
-            programaAcademico.setProgCodigo(codigoPrograma);
-            programaAcademico.setProgNombre(this.nombrePrograma);
-            programaAcademicoFacade.create(programaAcademico);
+            Periodo periodo = new Periodo();
+            periodo.setPeriNombre(nombrePeriodo);
+            periodo.setPeriDescripcion(descripcion);
+            periodoFacade.create(periodo);
             this.cargarTabla();
             this.limpiarValores();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro creado.", ""));
-            _logger.info("Programa creado");
+            _logger.info("Periodo creado");
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error guardarPrograma() "+ex.getMessage(), ex);
+            _logger.error("Error guardarPeriodo() "+ex.getMessage(), ex);
         }
     }
     
@@ -77,21 +78,21 @@ public class AdminGestionarProgramasMB {
      */
     public void modificarItem() {
         try {
-            selectedPrograma = (ProgramaAcademico) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("selectedPrograma");
-            if (selectedPrograma != null) {
+            selectedPeriodo = (Periodo) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("selectedPeriodo");
+            if (selectedPeriodo != null) {
                 //Setear valores
-                selectedPrograma.setProgCodigo(this.codigoPrograma);
-                selectedPrograma.setProgNombre(this.nombrePrograma);
+                selectedPeriodo.setPeriNombre(nombrePeriodo);
+                selectedPeriodo.setPeriDescripcion(descripcion);
                 //Modificar
-                programaAcademicoFacade.edit(selectedPrograma);
+                periodoFacade.edit(selectedPeriodo);
                 this.cargarTabla();
                 this.limpiarValores();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro modificado", ""));
-                _logger.info("Programa modificado");
+                _logger.info("Periodo modificado");
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error modificarPrograma() "+ex.getMessage(), ex);
+            _logger.error("Error modificarPeriodo() "+ex.getMessage(), ex);
         }
     }
     
@@ -100,18 +101,18 @@ public class AdminGestionarProgramasMB {
      */
     public void eliminarItem() {
         try {
-            selectedPrograma = (ProgramaAcademico) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("selectedPrograma");
-            if (selectedPrograma != null) {
+            selectedPeriodo = (Periodo) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("selectedPeriodo");
+            if (selectedPeriodo != null) {
                 //Eliminar
-                programaAcademicoFacade.remove(selectedPrograma);
+                periodoFacade.remove(selectedPeriodo);
                 this.cargarTabla();
                 this.limpiarValores();
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro eliminado", ""));
-                _logger.info("Programa eliminado");
+                _logger.info("Periodo eliminado");
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error eliminarPrograma() "+ex.getMessage(), ex);
+            _logger.error("Error eliminarPeriodo() "+ex.getMessage(), ex);
         }
     }
     
@@ -119,32 +120,32 @@ public class AdminGestionarProgramasMB {
      * Carga la tabla de programas
      */
     private void cargarTabla() {
-        programas = new ArrayList<ProgramaAcademico>();
+        periodos = new ArrayList<Periodo>();
         // Consulta todos los programas
-        programas = programaAcademicoFacade.findAll();
+        periodos = periodoFacade.findAll();
         // Adiciona al data model para selección por pantalla
-        mediumProgramaModel = new ProgramaDataModel(programas);
+        mediumPeriodoModel = new PeriodoDataModel(periodos);
     }
     
     /**
      * Limpia valores de ventana emergente
      */
     public void limpiarValores() {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("selectedPrograma");
-        this.codigoPrograma = null;
-        this.nombrePrograma = null;
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("selectedPeriodo");
+        this.nombrePeriodo = null;
+        this.descripcion = null;
     }
     
     /**
      * Carga objeto a modificar
      */
     public void cargarValoresModificar() {
-        if (null == selectedPrograma) {
+        if (null == selectedPeriodo) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, no fue posible recuperar los datos del registro", ""));
         } else {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedPrograma", selectedPrograma);
-            codigoPrograma = selectedPrograma.getProgCodigo();
-            nombrePrograma = selectedPrograma.getProgNombre();
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedPeriodo", selectedPeriodo);
+            nombrePeriodo = selectedPeriodo.getPeriNombre();
+            descripcion = selectedPeriodo.getPeriDescripcion();
         }
     }
 
@@ -152,43 +153,43 @@ public class AdminGestionarProgramasMB {
      * Carga el objeto a eliminar en sesión
      */
     public void cargarObjetoSeleccionado() {
-        if (null == selectedPrograma) {
+        if (null == selectedPeriodo) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, no pudo ser eliminado el registro", ""));
         } else {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedPrograma", selectedPrograma);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("selectedPeriodo", selectedPeriodo);
         }
     }
 
-    public String getCodigoPrograma() {
-        return codigoPrograma;
+    public String getNombrePeriodo() {
+        return nombrePeriodo;
     }
 
-    public void setCodigoPrograma(String codigoPrograma) {
-        this.codigoPrograma = codigoPrograma;
+    public void setNombrePeriodo(String nombrePeriodo) {
+        this.nombrePeriodo = nombrePeriodo;
     }
 
-    public String getNombrePrograma() {
-        return nombrePrograma;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombrePrograma(String nombrePrograma) {
-        this.nombrePrograma = nombrePrograma;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public ProgramaDataModel getMediumProgramaModel() {
-        return mediumProgramaModel;
+    public Periodo getSelectedPeriodo() {
+        return selectedPeriodo;
     }
 
-    public void setMediumProgramaModel(ProgramaDataModel mediumProgramaModel) {
-        this.mediumProgramaModel = mediumProgramaModel;
+    public void setSelectedPeriodo(Periodo selectedPeriodo) {
+        this.selectedPeriodo = selectedPeriodo;
     }
 
-    public ProgramaAcademico getSelectedPrograma() {
-        return selectedPrograma;
+    public PeriodoDataModel getMediumPeriodoModel() {
+        return mediumPeriodoModel;
     }
 
-    public void setSelectedPrograma(ProgramaAcademico selectedPrograma) {
-        this.selectedPrograma = selectedPrograma;
+    public void setMediumPeriodoModel(PeriodoDataModel mediumPeriodoModel) {
+        this.mediumPeriodoModel = mediumPeriodoModel;
     }
 
     
