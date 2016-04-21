@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "grupo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g"),
+    @NamedQuery(name = "Grupo.findAll", query = "SELECT g FROM Grupo g order by g.grupNombre"),
     @NamedQuery(name = "Grupo.findByGrupId", query = "SELECT g FROM Grupo g WHERE g.grupId = :grupId"),
     @NamedQuery(name = "Grupo.findByGrupNombre", query = "SELECT g FROM Grupo g WHERE g.grupNombre = :grupNombre")})
 public class Grupo implements Serializable {

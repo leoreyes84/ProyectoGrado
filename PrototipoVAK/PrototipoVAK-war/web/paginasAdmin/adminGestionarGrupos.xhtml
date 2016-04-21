@@ -42,15 +42,17 @@ and open the template in the editor.
                                     <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.nombre']}"
                                               filterBy="#{item.grupNombre}" sortBy="#{item.grupNombre}" 
                                               filterMatchMode="contains">  
-                                        #{item.periNombre}
+                                        #{item.grupNombre}
                                     </p:column>
                                     <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.programa']}"
+                                              filterBy="#{item.progId.progNombre}" sortBy="#{item.progId.progNombre}"
                                               filterMatchMode="contains">  
-                                        
+                                        #{item.progId.progNombre}
                                     </p:column>
                                      <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.periodo']}"
+                                               filterBy="#{item.periId.periNombre}" sortBy="#{item.periId.periNombre}"
                                               filterMatchMode="contains">  
-                                        
+                                        #{item.periId.periNombre}
                                     </p:column>
                                     <f:facet name="footer"> 
                                         <p:commandButton value="#{msg['button.modificar']}" icon="ui-icon-pencil"
@@ -89,7 +91,7 @@ and open the template in the editor.
                                     <p:selectOneMenu id="prog" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}"
                                                      value="#{adminGestionarGruposMB.idPrograma}" required="true">
 						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						
+                                                <f:selectItems value="#{comboMB.comboProgramaAcademico}" />
 					</p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -101,7 +103,7 @@ and open the template in the editor.
                                     <p:selectOneMenu id="peri" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}"
                                                      value="#{adminGestionarGruposMB.idPeriodo}" required="true">
 						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						
+                                                <f:selectItems value="#{comboMB.comboPeriodo}" />
 					</p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -143,7 +145,7 @@ and open the template in the editor.
                                     <p:selectOneMenu id="prog" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}"
                                                      value="#{adminGestionarGruposMB.idPrograma}" required="true">
 						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						
+						<f:selectItems value="#{comboMB.comboProgramaAcademico}" />
 					</p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -155,7 +157,7 @@ and open the template in the editor.
                                     <p:selectOneMenu id="peri" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}"
                                                      value="#{adminGestionarGruposMB.idPeriodo}" required="true">
 						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						
+						<f:selectItems value="#{comboMB.comboPeriodo}" />
 					</p:selectOneMenu>
                                 </p:column>
                             </p:row>
