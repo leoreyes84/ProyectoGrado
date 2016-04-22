@@ -19,18 +19,22 @@
                     <p:panel id="basic" header="#{msg['login.label.inicio.sesion']}" style="margin-bottom:20px">
                         <h:panelGrid columns="2" cellpadding="10">
                             <h:outputText value="#{msg['login.label.usuario']}" />
-                            <p:inputText   required="false" label="#{msg['login.label.usuario']}" maxlength="50"/>
+                            <p:inputText value="#{indexMB.codigoUsuario}" required="false" label="#{msg['login.label.usuario']}" maxlength="50"/>
                             <h:outputText value="#{msg['login.label.contrasenia']}" />
-                            <p:password  required="false" label="#{msg['login.label.contrasenia']}" maxlength="50"/>
+                            <p:password value="#{indexMB.contrasenia}" required="false" label="#{msg['login.label.contrasenia']}" maxlength="50"/>
                         </h:panelGrid>
                         <div align="center">
-                            <p:commandButton  value="#{msg['login.button.ingresar']}" 
+                           <!-- <p:commandButton  value="#{msg['login.button.ingresar']}" 
                                               update="login" process="@all" action="estudiante"/>
                             <p:commandButton  value="TmpProfesor" 
                                               update="login" process="@all" action="profesor"/>
                              <p:commandButton  value="TmpAdmin" 
-                                              update="login" process="@all" action="administrador"/>
-                        </div>
+                                              update="login" process="@all" action="administrador"/> -->
+                             
+                              <p:commandButton action="#{indexMB.iniciarSesion()}" value="#{msg['login.button.ingresar']}" 
+                                              
+                                             update="login" process="@all"/>
+                        </div>                        
                         <div align="right ">
                             <h:commandLink action="registrarUsuario" value="Registrar Usuario"/>
                         </div>
