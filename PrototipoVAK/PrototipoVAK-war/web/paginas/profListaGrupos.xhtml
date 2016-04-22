@@ -41,7 +41,7 @@ and open the template in the editor.
                                 </p:selectOneMenu>
                                 <p:spacer />
                                 <p:commandButton style="width:223px" value="#{msg['profesor.lista.grupos.button.consultar']}" 
-                                                  actionListener="#{profListaGruposMB.obtenerResultados()}"/>
+                                                 update="tablaListaResults" actionListener="#{profListaGruposMB.obtenerResultados()}"/>
                                 <p:spacer />
                             </h:panelGrid>                           
                         </p:fieldset>
@@ -60,7 +60,7 @@ and open the template in the editor.
 
                                 <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
                                     <div align="right">
-                                        <p:commandButton value="#{msg['profesor.lista.test.resultados']}" action="veResultados"/>
+                                        <p:commandButton value="#{msg['profesor.lista.test.resultados']}" action="veResultados" />
                                         
                                     </div>
                                 </p:column>                            
