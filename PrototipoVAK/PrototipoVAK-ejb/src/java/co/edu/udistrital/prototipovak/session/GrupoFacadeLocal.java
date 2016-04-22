@@ -30,4 +30,6 @@ public interface GrupoFacadeLocal {
 
     int count();
     
+    List<Grupo> filtrarBusqueda(Integer idPrograma, Integer idPeriodo, Integer idGrupo);
+    
 }

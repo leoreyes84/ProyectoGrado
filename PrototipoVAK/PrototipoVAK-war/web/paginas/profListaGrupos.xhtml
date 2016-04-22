@@ -14,6 +14,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        <f:event type="preRenderView" listener="#{profListaGruposMB.init}" />
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="title">
                 <h:outputText value="#{msg['profesor.lista.grupos.title']}" />
@@ -26,22 +27,44 @@ and open the template in the editor.
                                 <h:outputLabel value="#{msg['profesor.lista.grupos.label.programa']}" />
                                 <h:outputLabel value="#{msg['profesor.lista.grupos.label.periodo']}" />
                                 <h:outputLabel value="#{msg['profesor.lista.grupos.label.grupo']}" />
-                                <p:selectOneMenu id="patrocinador" >
-						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						
-					</p:selectOneMenu>
-					<p:selectOneMenu id="programa" >
-						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						
-					</p:selectOneMenu>
-					<p:selectOneMenu id="promocion" >
-						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						
-					</p:selectOneMenu>
-                            </h:panelGrid>
+                                <p:selectOneMenu id="programas" value="#{profListaGruposMB.idPrograma}" style="width:223px">
+                                    <f:selectItem itemLabel="Seleccione Programa" itemValue="" />
+                                    <f:selectItems value="#{profListaGruposMB.listNombreProg}" />                                
+                                </p:selectOneMenu>
+                                <p:selectOneMenu id="periodos" value="#{profListaGruposMB.idPeriodo}" style="width:223px">
+                                    <f:selectItem itemLabel="Seleccione Periodo" itemValue="" />
+                                    <f:selectItems value="#{profListaGruposMB.listNombrePeriodo}" />                                
+                                </p:selectOneMenu>
+                                <p:selectOneMenu id="grupos" value="#{profListaGruposMB.idGrupo}" style="width:223px">
+                                    <f:selectItem itemLabel="Seleccione Grupo" itemValue="" />
+                                    <f:selectItems value="#{profListaGruposMB.listNombreGrupo}" />                                
+                                </p:selectOneMenu>
+                                <p:spacer />
+                                <p:commandButton style="width:223px" value="#{msg['profesor.lista.grupos.button.consultar']}" 
+                                                  actionListener="#{profListaGruposMB.obtenerResultados()}"/>
+                                <p:spacer />
+                            </h:panelGrid>                           
                         </p:fieldset>
                         <p:fieldset id="fieldSetResultados" legend="#{msg['profesor.lista.grupos.fieldset.lista.grupos.resultados']}" style="margin-bottom:20px">
+                            <p:dataTable id="tablaListaResults" var="grupoFiltr" style="width: 90%;" value="#{profListaGruposMB.listaFiltrada}">
 
+                                <p:column headerText="#{msg['estudiante.seleccionar.test.programa']}">
+                                    <h:outputText value="#{grupoFiltr.progId.progNombre}" />
+                                </p:column>  
+                                <p:column headerText="Periodo">
+                                    <h:outputText value="#{grupoFiltr.periId.periNombre}" />
+                                </p:column>
+                                <p:column headerText="Grupo">
+                                    <h:outputText value="#{grupoFiltr.grupNombre}" />
+                                </p:column> 
+
+                                <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
+                                    <div align="right">
+                                        <p:commandButton value="#{msg['profesor.lista.test.resultados']}" action="veResultados"/>
+                                        
+                                    </div>
+                                </p:column>                            
+                            </p:dataTable>
                         </p:fieldset>
                         <p:commandButton  value="TmpVerResultados" action="veResultados"/>
                     </p:panel>
