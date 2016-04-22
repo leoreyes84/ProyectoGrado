@@ -36,7 +36,7 @@ public class GrupoFacade extends AbstractFacade<Grupo> implements GrupoFacadeLoc
         try {
             Query consulta;
             StringBuilder cadena_consulta = new StringBuilder();
-            cadena_consulta.append("SELECT * FROM grupo gr JOIN programa_academico pa ON pa.prog_id = gr.grup_id JOIN periodo p ON p.peri_id = gr.peri_id ");
+            cadena_consulta.append("SELECT * FROM grupo gr JOIN programa_academico pa ON pa.prog_id = gr.prog_id JOIN periodo p ON p.peri_id = gr.peri_id ");
             cadena_consulta.append(" WHERE 1 = 1");
 
             if (idPrograma != null && idPrograma > 0) {

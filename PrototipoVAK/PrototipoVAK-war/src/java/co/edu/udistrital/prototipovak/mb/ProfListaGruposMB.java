@@ -18,13 +18,14 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Gerson Cespedes
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ProfListaGruposMB {
 
     private List<ProgramaAcademico> listaProgramasAcademicos;
