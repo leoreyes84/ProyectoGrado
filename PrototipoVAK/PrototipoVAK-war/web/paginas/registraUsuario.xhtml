@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="Comprar" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form>
+                    <p:commandButton value="Volver" action="salir" icon="ui-icon-circle-triangle-w"/>
+                </h:form>
+                <h:form id="registroUsuario">
+                    <p:growl id="growl" showDetail="false" sticky="true" life="500"/>
+                    <p:panel id="basic" header="Crear Usuario" style="margin-bottom:20px">
+                        <p:panelGrid id="panelGridNuevo">
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="Nombres: *" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{registroUsuarioMB.nombres}" required="true" 
+                                                 label="Nombres" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="Apellidos: *" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{registroUsuarioMB.apellidos}" required="true" 
+                                                 label="Apellidos" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="Email: *" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{registroUsuarioMB.email}" required="true" 
+                                                 label="Email" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="Contraseña: *" />
+                                </p:column>
+                                <p:column>
+                                    <p:password value="#{registroUsuarioMB.contrasenia}" required="true" feedback="true"
+                                                label="Contraseña" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <div align="center">
+                                        <p:commandButton value="Guardar" actionListener="#{registroUsuarioMB.guardarUsuario()}"
+                                                         process="@all" update=":registroUsuario" action="guardar"/>
+                                    </div>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
