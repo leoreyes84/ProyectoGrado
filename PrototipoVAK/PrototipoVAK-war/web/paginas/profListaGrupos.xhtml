@@ -45,8 +45,11 @@ and open the template in the editor.
                                 <p:spacer />
                             </h:panelGrid>                           
                         </p:fieldset>
-                        <p:fieldset id="fieldSetResultados" legend="#{msg['profesor.lista.grupos.fieldset.lista.grupos.resultados']}" style="margin-bottom:20px">
-                            <p:dataTable id="tablaListaResults" var="grupoFiltr" style="width: 90%;" value="#{profListaGruposMB.listaFiltrada}">
+                        <p:fieldset id="fieldSetResultados" legend="#{msg['profesor.lista.grupos.fieldset.lista.grupos.resultados']}" 
+                                    style="margin-bottom:20px">
+                            <p:dataTable id="tablaListaResults" var="grupoFiltr" 
+                                         style="width: 90%;" value="#{profListaGruposMB.listaFiltrada}"
+                                         emptyMessage="#{msg['datatable.empty']}">
 
                                 <p:column headerText="#{msg['estudiante.seleccionar.test.programa']}">
                                     <h:outputText value="#{grupoFiltr.progId.progNombre}" />
@@ -61,12 +64,10 @@ and open the template in the editor.
                                 <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
                                     <div align="right">
                                         <p:commandButton value="#{msg['profesor.lista.test.resultados']}" action="veResultados" />
-                                        
                                     </div>
                                 </p:column>                            
                             </p:dataTable>
                         </p:fieldset>
-                        <p:commandButton  value="TmpVerResultados" action="veResultados"/>
                     </p:panel>
                 </h:form>
             </ui:define>

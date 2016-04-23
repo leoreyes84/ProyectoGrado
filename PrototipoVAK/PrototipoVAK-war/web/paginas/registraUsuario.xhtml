@@ -16,11 +16,11 @@ and open the template in the editor.
     <body>
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="title">
-                <h:outputText value="Comprar" />
+                <h:outputText value="#{msg['regisro.usuario.title']}" />
             </ui:define>
             <ui:define name="body">
                 <h:form>
-                    <p:commandButton value="Volver" action="salir" icon="ui-icon-circle-triangle-w"/>
+                    <p:commandButton value="#{msg['button.volver']}" action="salir" icon="ui-icon-circle-triangle-w"/>
                 </h:form>
                 <h:form id="registroUsuario">
                     <p:growl id="growl" showDetail="false" sticky="true" life="500"/>
@@ -28,45 +28,80 @@ and open the template in the editor.
                         <p:panelGrid id="panelGridNuevo">
                             <p:row>
                                 <p:column>
-                                    <h:outputLabel value="Nombres: *" />
+                                    <h:outputLabel value="#{msg['registro.usuario.programa.label']}" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{registroUsuarioMB.nombres}" required="true" 
-                                                 label="Nombres" maxlength="45"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column>
-                                    <h:outputLabel value="Apellidos: *" />
-                                </p:column>
-                                <p:column>
-                                    <p:inputText value="#{registroUsuarioMB.apellidos}" required="true" 
-                                                 label="Apellidos" maxlength="45"/>
+                                    <p:selectOneMenu id="programa" label="#{msg['registro.usuario.programa.label']}"
+                                                     value="#{registraUsuarioMB.idPrograma}" required="true">
+                                        <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+                                        <f:selectItems value="#{comboMB.comboProgramaAcademico}" />
+                                        <p:ajax listener="#{registraUsuarioMB.obtenerComboGrupo}" update=":registroUsuario:grupo" />
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <h:outputLabel value="Email: *" />
+                                    <h:outputLabel value="#{msg['registro.usuario.grupo.label']}" />
                                 </p:column>
                                 <p:column>
-                                    <p:inputText value="#{registroUsuarioMB.email}" required="true" 
-                                                 label="Email" maxlength="45"/>
+                                     <p:selectOneMenu id="grupo" label="#{msg['registro.usuario.grupo.label']}"
+                                                      value="#{registraUsuarioMB.idGrupo}" required="false">
+                                        <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+                                        <!--<f:selectItems value="#{registraUsuarioMB.listGrupos}" />-->
+                                        <f:selectItems value="#{comboMB.comboGrupo}" />
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <h:outputLabel value="Contraseña: *" />
+                                    <h:outputLabel value="#{msg['registro.usuario.codigo.label']}" />
                                 </p:column>
                                 <p:column>
-                                    <p:password value="#{registroUsuarioMB.contrasenia}" required="true" feedback="true"
-                                                label="Contraseña" maxlength="45"/>
+                                    <p:inputText value="#{registraUsuarioMB.codigo}" required="true" 
+                                                 label="#{msg['registro.usuario.codigo.label']}" maxlength="20"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['registro.usuario.nombre.label']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{registraUsuarioMB.nombres}" required="true" 
+                                                 label="#{msg['registro.usuario.nombre.label']}" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['registro.usuario.apelllidos.label']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{registraUsuarioMB.apellidos}" required="true" 
+                                                 label="#{msg['registro.usuario.apelllidos.label']}" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['registro.usuario.email.label']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{registraUsuarioMB.email}" required="true" 
+                                                 label="#{msg['registro.usuario.email.label']}" maxlength="45"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputLabel value="#{msg['registro.usuario.contrasenia.label']}" />
+                                </p:column>
+                                <p:column>
+                                    <p:password value="#{registraUsuarioMB.contrasenia}" required="true" feedback="true"
+                                                label="#{msg['registro.usuario.contrasenia.label']}" maxlength="45"/>
                                 </p:column>
                             </p:row>
                             <p:row>
                                 <p:column colspan="2">
                                     <div align="center">
-                                        <p:commandButton value="Guardar" actionListener="#{registroUsuarioMB.guardarUsuario()}"
-                                                         process="@all" update=":registroUsuario" action="guardar"/>
+                                        <p:commandButton value="#{msg['button.aceptar']}" process="@all" 
+                                                         update=":registroUsuario" action="#{registraUsuarioMB.guardarUsuario()}"/>
                                     </div>
                                 </p:column>
                             </p:row>

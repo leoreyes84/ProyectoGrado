@@ -35,7 +35,7 @@ and open the template in the editor.
                                              selection="#{adminGestionarGruposMB.selectedGrupo}"
                                              emptyMessage="#{msg['datatable.empty']}"
                                              rowKey="#{item.grupId}">
-                                    
+
                                     <f:facet name="header">  
                                         Grupos en programas académicos
                                     </f:facet>
@@ -49,8 +49,8 @@ and open the template in the editor.
                                               filterMatchMode="contains">  
                                         #{item.progId.progNombre}
                                     </p:column>
-                                     <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.periodo']}"
-                                               filterBy="#{item.periId.periNombre}" sortBy="#{item.periId.periNombre}"
+                                    <p:column headerText="#{msg['admin.gestionar.grupo.datatable.columna.periodo']}"
+                                              filterBy="#{item.periId.periNombre}" sortBy="#{item.periId.periNombre}"
                                               filterMatchMode="contains">  
                                         #{item.periId.periNombre}
                                     </p:column>
@@ -74,13 +74,13 @@ and open the template in the editor.
                     <p:dialog id="dialogNuevo" header="#{msg['admin.gestionar.grupo.agregar.grupo']}" widgetVar="nuevoItem"
                               visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true">  
                         <p:panelGrid id="panelGridNuevo">
-                             <p:row>
+                            <p:row>
                                 <p:column>
                                     <h:outputLabel value="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" />
                                 </p:column>
                                 <p:column>
                                     <p:inputText  required="true" value="#{adminGestionarGruposMB.nombreGrupo}"
-                                                 label="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" maxlength="45"/>
+                                                  label="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" maxlength="45"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -90,9 +90,9 @@ and open the template in the editor.
                                 <p:column>
                                     <p:selectOneMenu id="prog" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}"
                                                      value="#{adminGestionarGruposMB.idPrograma}" required="true">
-						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-                                                <f:selectItems value="#{comboMB.comboProgramaAcademico}" />
-					</p:selectOneMenu>
+                                        <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+                                        <f:selectItems value="#{comboMB.comboProgramaAcademico}" />
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -102,9 +102,9 @@ and open the template in the editor.
                                 <p:column>
                                     <p:selectOneMenu id="peri" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}"
                                                      value="#{adminGestionarGruposMB.idPeriodo}" required="true">
-						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-                                                <f:selectItems value="#{comboMB.comboPeriodo}" />
-					</p:selectOneMenu>
+                                        <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+                                        <f:selectItems value="#{comboMB.comboPeriodo}" />
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -134,7 +134,7 @@ and open the template in the editor.
                                 </p:column>
                                 <p:column>
                                     <p:inputText  required="true" value="#{adminGestionarGruposMB.nombreGrupo}"
-                                                 label="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" maxlength="45"/>
+                                                  label="#{msg['admin.gestionar.grupo.agregar.grupo.label.nombre']}" maxlength="45"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -144,9 +144,9 @@ and open the template in the editor.
                                 <p:column>
                                     <p:selectOneMenu id="prog" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.programa']}"
                                                      value="#{adminGestionarGruposMB.idPrograma}" required="true">
-						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						<f:selectItems value="#{comboMB.comboProgramaAcademico}" />
-					</p:selectOneMenu>
+                                        <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+                                        <f:selectItems value="#{comboMB.comboProgramaAcademico}" />
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -156,9 +156,9 @@ and open the template in the editor.
                                 <p:column>
                                     <p:selectOneMenu id="peri" label="#{msg['admin.gestionar.grupo.agregar.grupo.label.periodo']}"
                                                      value="#{adminGestionarGruposMB.idPeriodo}" required="true">
-						<f:selectItem itemLabel="- Seleccione -" itemValue="" />
-						<f:selectItems value="#{comboMB.comboPeriodo}" />
-					</p:selectOneMenu>
+                                        <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+                                        <f:selectItems value="#{comboMB.comboPeriodo}" />
+                                    </p:selectOneMenu>
                                 </p:column>
                             </p:row>
                             <p:row>

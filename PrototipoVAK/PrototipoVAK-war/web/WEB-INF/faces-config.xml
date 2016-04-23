@@ -16,6 +16,10 @@
     <navigation-rule>
         <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
+            <from-outcome>bienvenida</from-outcome>
+            <to-view-id>/paginas/bienvenida.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>profesor</from-outcome>
             <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
         </navigation-case>
@@ -25,26 +29,30 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>registroUsuario</from-outcome>
-            <to-view-id>/paginas/registrarUsuario.xhtml</to-view-id>
-        </navigation-case>
-         <navigation-case>
-            <from-outcome>administrador</from-outcome>
-            <to-view-id>/paginasAdmin/adminBienvenida.xhtml</to-view-id>
+            <to-view-id>/paginas/registraUsuario.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/paginasAdmin/*</from-view-id>
-         <navigation-case>
+        <from-view-id>/paginas/*</from-view-id>
+        <navigation-case>
             <from-outcome>gestionarProgramas</from-outcome>
-            <to-view-id>/paginasAdmin/adminGestionarProgramas.xhtml</to-view-id>
+            <to-view-id>/paginas/adminGestionarProgramas.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>gestionarPeridos</from-outcome>
-            <to-view-id>/paginasAdmin/adminGestionarPeridos.xhtml</to-view-id>
+            <to-view-id>/paginas/adminGestionarPeridos.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>gestionarGrupos</from-outcome>
-            <to-view-id>/paginasAdmin/adminGestionarGrupos.xhtml</to-view-id>
+            <to-view-id>/paginas/adminGestionarGrupos.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>profesor</from-outcome>
+            <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>estudiante</from-outcome>
+            <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -66,7 +74,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/paginas/registrarUsuario.xhtml</from-view-id>
+        <from-view-id>/paginas/registraUsuario.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>registroExitoso</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>

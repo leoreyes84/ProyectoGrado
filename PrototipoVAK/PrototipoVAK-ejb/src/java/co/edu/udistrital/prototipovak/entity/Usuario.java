@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -66,12 +68,16 @@ public class Usuario implements Serializable {
     private String usrEmail;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 250)
     @Column(name = "usr_contrasenia")
     private String usrContrasenia;
-    @ManyToMany(mappedBy = "usuarioList")
+    @ManyToMany
+    @JoinTable(name = "usuario_grupo", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "grup_id") })
     private List<Grupo> grupoList;
-    @ManyToMany(mappedBy = "usuarioList")
+    @ManyToMany
+    @JoinTable(name = "rol_usuario", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "rol_id") })
     private List<Rol> rolList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<UsuarioRespuesta> usuarioRespuestaList;

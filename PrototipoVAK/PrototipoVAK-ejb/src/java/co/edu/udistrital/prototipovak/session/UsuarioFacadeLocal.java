@@ -32,4 +32,6 @@ public interface UsuarioFacadeLocal {
     
     Usuario usuarioByEmailYPass(String codigoUsuario, String password);
     
+    List<Usuario> findUsuarioByCodigo(String codigoUsuario);
+    
 }

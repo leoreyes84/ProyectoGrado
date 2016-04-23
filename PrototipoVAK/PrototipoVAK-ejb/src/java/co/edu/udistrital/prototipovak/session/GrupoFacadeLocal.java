@@ -32,4 +32,6 @@ public interface GrupoFacadeLocal {
     
     List<Grupo> filtrarBusqueda(Integer idPrograma, Integer idPeriodo, Integer idGrupo);
     
+    Grupo findGrupoByID(Integer idGrupo);
+    
 }

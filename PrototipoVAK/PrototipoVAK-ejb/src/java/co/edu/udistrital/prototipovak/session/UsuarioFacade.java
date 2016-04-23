@@ -5,7 +5,9 @@
  */
 package co.edu.udistrital.prototipovak.session;
 
+import co.edu.udistrital.prototipovak.entity.Rol;
 import co.edu.udistrital.prototipovak.entity.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,6 +40,19 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             // Asigna crea el query de cadena_consulta
             consulta = getEntityManager().createNativeQuery(cadena_consulta, Usuario.class);
             Usuario consultada = (Usuario) consulta.getSingleResult();
+            return consultada;
+        } catch (Exception e) {
+            e.getCause();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Usuario> findUsuarioByCodigo(String codigoUsuario) {
+        try {
+            List<Usuario> consultada = getEntityManager().createNamedQuery("Usuario.findByUsrCodigo")
+                    .setParameter("usrCodigo", codigoUsuario)
+                    .getResultList();
             return consultada;
         } catch (Exception e) {
             e.getCause();

@@ -16,11 +16,11 @@ and open the template in the editor.
     <body>
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="title">
-                <h:outputText value="Bienvenida" />
+                <h:outputText value="#{msg['bienvenida.title']}" />
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">
-                    <p:panel id="basic" header="Bienvenida" style="margin-bottom:20px">
+                    <p:panel id="basic" header="#{msg['bienvenida.title']}" style="margin-bottom:20px">
                         <h:panelGroup layout="block">
                             <p:outputLabel value="Seleccione alguna de las opciones del menu superior"/><br/><br/>
                         </h:panelGroup>

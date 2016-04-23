@@ -35,13 +35,12 @@ public class ComboMB {
 
     /**
      * Consulta los programas académicos
-     *
      * @return Lista tipo selectItem con los programas académicos
      */
     public List<SelectItem> getComboProgramaAcademico() {
         //Consutar Programas académicos
         List<ProgramaAcademico> list = programaAcademicoFacade.findAll();
-        List<SelectItem> res = new ArrayList<SelectItem>();
+        List<SelectItem> res = new ArrayList<>();
         if (list != null) {
             for (ProgramaAcademico progAcad : list) {
                 res.add(new SelectItem(progAcad.getProgId(), progAcad.getProgNombre()));
@@ -52,13 +51,12 @@ public class ComboMB {
 
     /**
      * Consulta los períodos
-     *
      * @return Lista tipo selectItem con los períodos
      */
     public List<SelectItem> getComboPeriodo() {
         //Consultar períodos
         List<Periodo> list = periodoFacade.findAll();
-        List<SelectItem> res = new ArrayList<SelectItem>();
+        List<SelectItem> res = new ArrayList<>();
         if (list != null) {
             for (Periodo periodo : list) {
                 res.add(new SelectItem(periodo.getPeriId(), periodo.getPeriNombre()));
@@ -69,13 +67,12 @@ public class ComboMB {
 
     /**
      * Consulta los grupos
-     *
      * @return Lista tipo selectItem con los grupos
      */
     public List<SelectItem> getComboGrupo() {
         //Consultar períodos
         List<Grupo> list = grupoFacade.findAll();
-        List<SelectItem> res = new ArrayList<SelectItem>();
+        List<SelectItem> res = new ArrayList<>();
         if (list != null) {
             for (Grupo grupo : list) {
                 res.add(new SelectItem(grupo.getGrupId(), grupo.getGrupNombre()));
@@ -83,5 +80,6 @@ public class ComboMB {
         }
         return res;
     }
+    
 
 }

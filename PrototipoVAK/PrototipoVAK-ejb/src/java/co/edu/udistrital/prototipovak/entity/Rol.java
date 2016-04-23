@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
     @NamedQuery(name = "Rol.findByRolId", query = "SELECT r FROM Rol r WHERE r.rolId = :rolId"),
+    @NamedQuery(name = "Rol.findByRolCodigo", query = "SELECT r FROM Rol r WHERE r.rolCodigo = :rolCodigo"),
     @NamedQuery(name = "Rol.findByRolNombre", query = "SELECT r FROM Rol r WHERE r.rolNombre = :rolNombre")})
 public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -44,7 +45,12 @@ public class Rol implements Serializable {
     private Integer rolId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 10)
+    @Column(name = "rol_codigo")
+    private String rolCodigo;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "rol_nombre")
     private String rolNombre;
     @JoinTable(name = "rol_usuario", joinColumns = {
@@ -60,8 +66,9 @@ public class Rol implements Serializable {
         this.rolId = rolId;
     }
 
-    public Rol(Integer rolId, String rolNombre) {
+    public Rol(Integer rolId, String rolCodigo, String rolNombre) {
         this.rolId = rolId;
+        this.rolCodigo = rolCodigo;
         this.rolNombre = rolNombre;
     }
 
@@ -71,6 +78,14 @@ public class Rol implements Serializable {
 
     public void setRolId(Integer rolId) {
         this.rolId = rolId;
+    }
+
+    public String getRolCodigo() {
+        return rolCodigo;
+    }
+
+    public void setRolCodigo(String rolCodigo) {
+        this.rolCodigo = rolCodigo;
     }
 
     public String getRolNombre() {

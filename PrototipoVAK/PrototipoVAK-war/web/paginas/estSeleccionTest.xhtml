@@ -22,13 +22,12 @@ and open the template in the editor.
             <ui:define name="body">
                 <h:form id="formPrincipal">                      
                     <p:panel id="basic" header="#{msg['estudiante.seleccionar.test.header']}" style="width: 70%; margin-bottom:20px">
-                        
-                        <p:dataTable id="tablaSeleccionarTest" var="programaAcademico" style="width: 90%;" value="#{estSeleccionTestMB.listaPrograma}">
-                            
+                        <p:dataTable id="tablaSeleccionarTest" var="programaAcademico" style="width: 90%;" 
+                                     emptyMessage="#{msg['datatable.empty']}"
+                                     value="#{estSeleccionTestMB.listaPrograma}">
                             <p:column headerText="#{msg['estudiante.seleccionar.test.programa']}">
                                 <h:outputText value="#{programaAcademico.progNombre}" />
                             </p:column>                           
-
                             <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
                                 <div align="right">
                                    <p:commandButton value="#{msg['estudiante.seleccionar.test.presentar']}" rendered="#{!estSeleccionTestMB.presentarVerTestResultados}" action="presentaTest"/>
@@ -36,7 +35,6 @@ and open the template in the editor.
                                 </div>
                             </p:column>                            
                         </p:dataTable>
-                        
                     </p:panel>
                 </h:form>
             </ui:define>

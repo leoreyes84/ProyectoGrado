@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class RolFacade extends AbstractFacade<Rol> implements RolFacadeLocal {
+
     @PersistenceContext(unitName = "PrototipoVAK-ejbPU")
     private EntityManager em;
 
@@ -27,5 +28,18 @@ public class RolFacade extends AbstractFacade<Rol> implements RolFacadeLocal {
     public RolFacade() {
         super(Rol.class);
     }
-    
+
+    @Override
+    public Rol findRolByCodigo(String rolCodigo) {
+        try {
+            Rol consultada = (Rol) getEntityManager().createNamedQuery("Rol.findByRolCodigo")
+                    .setParameter("rolCodigo", rolCodigo)
+                    .getSingleResult();
+            return consultada;
+        } catch (Exception e) {
+            e.getCause();
+            return null;
+        }
+    }
+
 }

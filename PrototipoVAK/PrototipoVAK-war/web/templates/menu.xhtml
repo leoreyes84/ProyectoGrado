@@ -11,18 +11,34 @@
     </h:head>
     <h:body>
         <h:form id="formMenu">
-            <p:menubar>
-                <p:submenu label="#{msg['menu.label.gestionar']}" icon="ui-icon-document">
-                    <p:menuitem value="#{msg['menu.label.gestionar.probramas']}" action="gestionarProgramas" />
-                    <p:menuitem value="#{msg['menu.label.gestionar.peridos']}" action="gestionarPeridos" />
-                    <p:menuitem value="#{msg['menu.label.gestionar.grupos']}" action="gestionarGrupos" />
-                </p:submenu>
-
-                <f:facet name="options">
-                    <p:commandButton value="#{msg['menu.label.salir']}" action="salir"  ajax="false" 
-                                     icon="ui-icon-close" style="font-size: small"/>
-                </f:facet>
-            </p:menubar>
+            <c:if test="#{indexMB.menuVisible}">
+                <p:menubar>
+                    <c:if test="#{indexMB.administrador}">
+                        <p:submenu label="#{msg['menu.label.gestionar']}" icon="ui-icon-document">
+                            <p:menuitem value="#{msg['menu.label.gestionar.probramas']}" action="gestionarProgramas" />
+                            <p:menuitem value="#{msg['menu.label.gestionar.peridos']}" action="gestionarPeridos" />
+                            <p:menuitem value="#{msg['menu.label.gestionar.grupos']}" action="gestionarGrupos" />
+                        </p:submenu>
+                    </c:if>
+                    <c:if test="#{indexMB.variosRoles}">
+                        <c:if test="#{indexMB.profesor}">
+                            <p:submenu label="#{msg['menu.label.profesor']}" icon="ui-icon-document">
+                                <p:menuitem value="#{msg['menu.label.profesor.ver.grupos']}" action="profesor" />
+                            </p:submenu>
+                        </c:if>
+                        <c:if test="#{indexMB.estudiante}">
+                            <p:submenu label="#{msg['menu.label.estudiante']}" icon="ui-icon-document">
+                                <p:menuitem value="#{msg['menu.label.estudiante.ver.test']}" action="estudiante" />
+                            </p:submenu>
+                        </c:if>
+                    </c:if>
+                    <f:facet name="options">
+                        <p:commandButton value="#{msg['menu.label.salir']}" action="salir" 
+                                         actionListener="#{indexMB.limpiarValores()}" ajax="false" 
+                                         icon="ui-icon-close" style="font-size: small"/>
+                    </f:facet>
+                </p:menubar>
+            </c:if>
         </h:form>
     </h:body>
 </html>

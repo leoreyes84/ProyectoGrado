@@ -5,10 +5,22 @@
  */
 package co.edu.udistrital.prototipovak.mb;
 
+import co.edu.udistrital.prototipovak.entity.Grupo;
+import co.edu.udistrital.prototipovak.entity.Rol;
+import co.edu.udistrital.prototipovak.entity.Usuario;
+import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
+import co.edu.udistrital.prototipovak.session.RolFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioFacadeLocal;
+import co.edu.udistrital.prototipovak.util.Constantes;
+import co.edu.udistrital.prototipovak.util.Seguridad;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import org.jboss.logging.Logger;
 
 /**
@@ -18,14 +30,20 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @RequestScoped
 public class RegistraUsuarioMB {
+
+    @EJB
+    private GrupoFacadeLocal grupoFacade;
+
+    @EJB
+    private RolFacadeLocal rolFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
-    
+
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
     private static Logger _logger = Logger.getLogger(RegistraUsuarioMB.class);
-    
+
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
     // /////////////////////////////////////////////////////////////////////////
@@ -35,15 +53,78 @@ public class RegistraUsuarioMB {
     private String email;
     private String contrasenia;
     private Integer idPrograma;
-    
-    
+    private Integer idGrupo;
+    private List<SelectItem> listGrupos;
 
-    /**
-     * Creates a new instance of RegistroUsuarioMB
-     */
-    public RegistraUsuarioMB() {
+    // /////////////////////////////////////////////////////////////////////////
+    // Metodos de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    public String guardarUsuario() {
+        try {
+            if (validar()) {
+                Usuario nuevoUsuario = new Usuario();
+                nuevoUsuario.setUsrCodigo(codigo);
+                nuevoUsuario.setUsrNombres(nombres);
+                nuevoUsuario.setUsrApellidos(apellidos);
+                nuevoUsuario.setUsrEmail(email);
+                nuevoUsuario.setUsrContrasenia(Seguridad.Sha(contrasenia));
+                //Asociar rol
+                Rol rol = rolFacade.findRolByCodigo(Constantes.ROL_CODIGO_ESTUDIANTE);
+                List<Rol> listRol = new ArrayList<>();
+                listRol.add(rol);
+                nuevoUsuario.setRolList(listRol);
+                //Asociar grupo (programa)
+                Grupo grupo = grupoFacade.findGrupoByID(idGrupo);
+                List<Grupo> listGrupo = new ArrayList<>();
+                listGrupo.add(grupo);
+                nuevoUsuario.setGrupoList(listGrupo);
+                //Crear registro
+                usuarioFacade.create(nuevoUsuario);
+                _logger.info("Usuario creado");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", ""));
+                return "registroExitoso";
+            }else{
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El código ya exixte", ""));
+                return null;
+            }
+        } catch (Exception ex) {
+            _logger.error(ex.getMessage(), ex);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR, no pudo ser guardado el registro", ""));
+            return null;
+        }
     }
 
+    /**
+     * Valida antes de guardar
+     *
+     * @return true si es valido guardar
+     */
+    private boolean validar() {
+        //Validar que no exista el código
+        List<Usuario> lstUsuario = usuarioFacade.findUsuarioByCodigo(codigo);
+        return !(lstUsuario != null && lstUsuario.size() > 0);
+    }
+
+    /**
+     * Consulta los grupos pertenecientes a un programa
+     *
+     * @return lista de
+     */
+    public List<SelectItem> obtenerComboGrupo() {
+        listGrupos = new ArrayList<>();
+        if (idPrograma != null) {
+            //Consultar períodos
+            List<Grupo> list = grupoFacade.filtrarBusqueda(idPrograma, null, null);
+            if (list != null) {
+                for (Grupo grupo : list) {
+                    listGrupos.add(new SelectItem(grupo.getGrupId(), grupo.getPeriId().getPeriNombre() + "/" + grupo.getGrupNombre()));
+                }
+            }
+        }
+        return listGrupos;
+    }
+
+    
     public String getCodigo() {
         return codigo;
     }
@@ -91,6 +172,21 @@ public class RegistraUsuarioMB {
     public void setIdPrograma(Integer idPrograma) {
         this.idPrograma = idPrograma;
     }
-    
-    
+
+    public Integer getIdGrupo() {
+        return idGrupo;
+    }
+
+    public void setIdGrupo(Integer idGrupo) {
+        this.idGrupo = idGrupo;
+    }
+
+    public List<SelectItem> getListGrupos() {
+        return listGrupos;
+    }
+
+    public void setListGrupos(List<SelectItem> listGrupos) {
+        this.listGrupos = listGrupos;
+    }
+
 }

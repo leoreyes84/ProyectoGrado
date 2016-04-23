@@ -62,4 +62,17 @@ public class GrupoFacade extends AbstractFacade<Grupo> implements GrupoFacadeLoc
         }
     }
 
+    @Override
+    public Grupo findGrupoByID(Integer idGrupo) {
+        try {
+            Grupo consultada = (Grupo) getEntityManager().createNamedQuery("Grupo.findByGrupId")
+                    .setParameter("grupId", idGrupo)
+                    .getSingleResult();
+            return consultada;
+        } catch (Exception e) {
+            e.getCause();
+            return null;
+        }
+    }
+
 }

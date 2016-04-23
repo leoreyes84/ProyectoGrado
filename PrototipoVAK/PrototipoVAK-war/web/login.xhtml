@@ -27,16 +27,15 @@
                            <!-- <p:commandButton  value="#{msg['login.button.ingresar']}" 
                                               update="login" process="@all" action="estudiante"/>
                             <p:commandButton  value="TmpProfesor" 
-                                              update="login" process="@all" action="profesor"/>
+                                              update="login" process="@all" action="profesor"/> 
                              <p:commandButton  value="TmpAdmin" 
-                                              update="login" process="@all" action="administrador"/> -->
+                                              update="login" process="@all" action="administrador"/>-->
                              
                               <p:commandButton action="#{indexMB.iniciarSesion()}" value="#{msg['login.button.ingresar']}" 
-                                              
                                              update="login" process="@all"/>
                         </div>                        
                         <div align="right ">
-                            <h:commandLink action="registrarUsuario" value="Registrar Usuario"/>
+                            <h:commandLink action="registroUsuario" value="#{msg['login.button.registro']}"/>
                         </div>
                     </p:panel>
                 </h:form>
