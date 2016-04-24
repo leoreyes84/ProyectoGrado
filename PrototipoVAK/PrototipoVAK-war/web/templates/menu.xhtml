@@ -23,20 +23,20 @@
                     </c:if>
                     <c:if test="#{indexMB.variosRoles}">
                         <c:if test="#{indexMB.profesor}">
-                            <p:submenu label="#{msg['menu.label.profesor']}" icon="ui-icon-document">
+                            <p:submenu label="#{msg['menu.label.profesor']}" icon="ui-icon-person">
                                 <p:menuitem value="#{msg['menu.label.profesor.ver.grupos']}" action="profesor" />
                             </p:submenu>
                         </c:if>
                         <c:if test="#{indexMB.estudiante}">
-                            <p:submenu label="#{msg['menu.label.estudiante']}" icon="ui-icon-document">
+                            <p:submenu label="#{msg['menu.label.estudiante']}" icon="ui-icon-script">
                                 <p:menuitem value="#{msg['menu.label.estudiante.ver.test']}" action="estudiante" />
                             </p:submenu>
                         </c:if>
                     </c:if>
+                    <p:menuitem value="#{msg['menu.label.salir']}" action="salir" 
+                                         actionListener="#{indexMB.limpiarValores()}" icon="ui-icon-close"/>
                     <f:facet name="options">
-                        <p:commandButton value="#{msg['menu.label.salir']}" action="salir" 
-                                         actionListener="#{indexMB.limpiarValores()}" ajax="false" 
-                                         icon="ui-icon-close" style="font-size: small"/>
+                        <p:outputLabel value="login: #{indexMB.codigoUsuario}" style="font-size: small"/>
                     </f:facet>
                 </p:menubar>
             </c:if>
