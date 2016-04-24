@@ -46,7 +46,7 @@ public class Respuesta implements Serializable {
     private Integer rtaId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 250)
     @Column(name = "rta_respuesta")
     private String rtaRespuesta;
     @Basic(optional = false)

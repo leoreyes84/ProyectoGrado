@@ -33,12 +33,15 @@ and open the template in the editor.
                                              selectionMode="single"
                                              selection="#{adminGestionarPreguntasMB.selectedPregunta}"
                                              emptyMessage="#{msg['datatable.empty']}"
-                                             rowKey="#{item.pregId}">
+                                             rowKey="#{item.pregId}" rowIndexVar="rowIndex">
 
 
                                     <f:facet name="header">  
                                         Preguntas Test VAK
                                     </f:facet>
+                                    <p:column headerText="#" style="width: 20px">
+                                        #{rowIndex+1}
+                                    </p:column>
                                     <p:column headerText="#{msg['admin.gestionar.pregunta.datatable.columna.pregunta']}"
                                               filterBy="#{item.pregunta}" sortBy="#{item.pregunta}" 
                                               filterMatchMode="contains">  
