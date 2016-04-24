@@ -11,8 +11,18 @@ package co.edu.udistrital.prototipovak.util;
  */
 public final class Constantes {
     
+    /**
+     * ROLES
+     */
     public static final String ROL_CODIGO_ADMINISTRADOR = "ADM";
     public static final String ROL_CODIGO_PROFESOR = "PRF";
     public static final String ROL_CODIGO_ESTUDIANTE = "EST";
+    
+    /**
+     * TIPOS DE APRENDIZAJE
+     */
+    public static final Character TIPO_APRENDIZAJE_VISUAL = 'V';
+    public static final Character TIPO_APRENDIZAJE_AUDITIVO = 'A';
+    public static final Character TIPO_APRENDIZAJE_KINESTESICO = 'K';
     
 }

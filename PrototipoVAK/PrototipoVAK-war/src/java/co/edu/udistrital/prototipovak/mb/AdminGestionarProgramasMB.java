@@ -30,10 +30,16 @@ public class AdminGestionarProgramasMB {
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
     private static Logger _logger = Logger.getLogger(AdminGestionarProgramasMB.class);
-
+    
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
     @EJB
     private ProgramaAcademicoFacadeLocal programaAcademicoFacade;
-
+    
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
     private String codigoPrograma;
     private String nombrePrograma;
     private List<ProgramaAcademico> programas;
@@ -68,7 +74,7 @@ public class AdminGestionarProgramasMB {
             _logger.info("Programa creado");
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error guardarPrograma() "+ex.getMessage(), ex);
+            _logger.error("Error guardar Programa) "+ex.getMessage(), ex);
         }
     }
     
@@ -91,7 +97,7 @@ public class AdminGestionarProgramasMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error modificarPrograma() "+ex.getMessage(), ex);
+            _logger.error("Error modificar Programa "+ex.getMessage(), ex);
         }
     }
     
@@ -111,7 +117,7 @@ public class AdminGestionarProgramasMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error eliminarPrograma() "+ex.getMessage(), ex);
+            _logger.error("Error eliminar Programa "+ex.getMessage(), ex);
         }
     }
     

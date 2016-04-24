@@ -33,7 +33,7 @@ public class Seguridad {
         for (int i = 0; i < byteData.length; i++) {
             sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
         }
-        System.out.println("Hex format : " + sb.toString());
+//        System.out.println("Hex format : " + sb.toString());
         return sb.toString();
     }
 

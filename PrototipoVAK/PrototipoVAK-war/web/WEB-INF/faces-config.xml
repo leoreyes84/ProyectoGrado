@@ -47,6 +47,10 @@
             <to-view-id>/paginas/adminGestionarGrupos.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>gestionarPreguntas</from-outcome>
+            <to-view-id>/paginas/adminGestionarPreguntas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>profesor</from-outcome>
             <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
         </navigation-case>
