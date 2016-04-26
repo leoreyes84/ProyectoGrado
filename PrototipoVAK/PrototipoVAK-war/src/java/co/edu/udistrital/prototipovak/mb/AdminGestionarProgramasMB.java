@@ -38,7 +38,7 @@ public class AdminGestionarProgramasMB {
     private ProgramaAcademicoFacadeLocal programaAcademicoFacade;
     
     // /////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
+    // Atributos de la clase
     // /////////////////////////////////////////////////////////////////////////
     private String codigoPrograma;
     private String nombrePrograma;

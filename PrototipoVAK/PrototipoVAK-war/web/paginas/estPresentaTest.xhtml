@@ -22,12 +22,11 @@ and open the template in the editor.
             <ui:define name="body">
                 <h:form id="formPrincipal">
                     <p:panel id="basic" header="#{msg['estudiante.presentar.test.title']}" style="margin-bottom:20px">
-                        <c:forEach items="#{estPresentaTestMB.lstPreguntas}" var="pregunta">
+                        <c:forEach items="#{estPresentaTestMB.itemTestTO}" var="itemPregunta">
                             <h:panelGrid columns="1" style="width:100%">
-                                <p:outputLabel value="#{pregunta.pregPregunta}"/>
-                                <p:selectOneRadio id="rta" value="#{estPresentaTestMB.idprueba}" layout="grid" columns="1">
-                                    <f:selectItems value="#{pregunta.respuestaList}" var="respuesta" 
-                                                   itemLabel="#{respuesta.rtaRespuesta}" itemValue="#{respuesta.rtaId}"/><b/>
+                                <p:outputLabel value="#{itemPregunta.pregunta}"/>
+                                <p:selectOneRadio id="radioRespuesta" value="#{itemPregunta.idRadioRespuesta}" layout="grid" columns="1">
+                                    <f:selectItems value="#{itemPregunta.itemsRespuestas}" /><b/>
                                 </p:selectOneRadio>
                             </h:panelGrid>
                             <p:spacer/>
@@ -36,18 +35,10 @@ and open the template in the editor.
                         
                        
                         <p:spacer/>
-                        <p:commandButton value="Enviar Respuestas" update="display" icon="ui-icon-check" oncomplete="PF('dlg').show()" process="@all" actionListener="#{estPresentaTestMB.guardarRespuestas()}"/>
+                        <p:commandButton value="Enviar Respuestas" icon="ui-icon-check" oncomplete="PF('dlg').show()" process="@all" actionListener="#{estPresentaTestMB.guardarRespuestas()}"/>
 <!--                        <p:commandButton  value="TmpVerResultados2" ajax="false" action="#{estPresentaTestMB.guardarRespuestas()}"/>
                         <p:commandButton  value="TmpVerResultados" action="verResultados"/>-->
                     </p:panel>
-
-                    <p:dialog modal="true" resizable="false" widgetVar="dlg" header="Values" showEffect="clip">
-                        <p:panelGrid columns="2" id="display" columnClasses="label,value">
-                            <h:outputText value="Console:" />
-                            <h:outputText value="#{estPresentaTestMB.idprueba}" />
-
-                        </p:panelGrid>
-                    </p:dialog>
                 </h:form>
             </ui:define>
         </ui:composition>

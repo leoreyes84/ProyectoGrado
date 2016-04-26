@@ -6,12 +6,15 @@
 package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Pregunta;
+import co.edu.udistrital.prototipovak.entity.Respuesta;
 import co.edu.udistrital.prototipovak.session.PreguntaFacadeLocal;
+import co.edu.udistrital.prototipovak.util.ItemTestTO;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.model.SelectItem;
 import org.jboss.logging.Logger;
 
 /**
@@ -21,6 +24,7 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @RequestScoped
 public class EstPresentaTestMB {
+
     @EJB
     private PreguntaFacadeLocal preguntaFacade;
 
@@ -28,29 +32,51 @@ public class EstPresentaTestMB {
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
     private static Logger _logger = Logger.getLogger(EstPresentaTestMB.class);
-    
+
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
     // /////////////////////////////////////////////////////////////////////////
     private List<Pregunta> lstPreguntas;
-    private String[] idsRespuesta;
-    private String idprueba;
-    
+    private ItemTestTO[] itemTestTO;
+
+    //////////////////////////////////////
+    ////Métodos de la clase
+    //////////////////////////////////////
     @PostConstruct
-    public void inti(){
+    public void inti() {
         obtenerPreguntasTest();
     }
-    
+
     /**
      * Obtiene la lista de preguntas
      */
-    public void obtenerPreguntasTest(){
+    public void obtenerPreguntasTest() {
+        //Busca las preguntas junto con sus respuestas
         lstPreguntas = preguntaFacade.findAll();
+        if (lstPreguntas != null && lstPreguntas.size() > 0) {
+            //Tamaño del arreglo de preguntas
+            this.itemTestTO = new ItemTestTO[lstPreguntas.size()];
+            int i = 0;
+            for (Pregunta pregunta : lstPreguntas) {
+                itemTestTO[i] = new ItemTestTO();
+                itemTestTO[i].setIdPregunta(pregunta.getPregId());
+                itemTestTO[i].setPregunta(pregunta.getPregPregunta());
+                //Tamaño del arreglo de las respuestas
+                SelectItem[] itemsRespuestas = new SelectItem[pregunta.getRespuestaList().size()];
+                int j = 0;
+                for (Respuesta respuesta : pregunta.getRespuestaList()) {
+                    SelectItem item = new SelectItem(respuesta.getRtaId(), respuesta.getRtaRespuesta());
+                    itemsRespuestas[j] = item;
+                    j++;
+                }
+                this.itemTestTO[i].setItemsRespuestas(itemsRespuestas);
+                i++;
+            }
+        }
     }
-    
-    public void guardarRespuestas(){
-        String a="";
-        System.out.println("idprueba: "+idprueba);
+
+    public void guardarRespuestas() {
+        String a = "";
     }
 
     public List<Pregunta> getLstPreguntas() {
@@ -61,21 +87,12 @@ public class EstPresentaTestMB {
         this.lstPreguntas = lstPreguntas;
     }
 
-    public String[] getIdsRespuesta() {
-        return idsRespuesta;
+    public ItemTestTO[] getItemTestTO() {
+        return itemTestTO;
     }
 
-    public void setIdsRespuesta(String[] idsRespuesta) {
-        this.idsRespuesta = idsRespuesta;
+    public void setItemTestTO(ItemTestTO[] itemTestTO) {
+        this.itemTestTO = itemTestTO;
     }
-
-    public String getIdprueba() {
-        return idprueba;
-    }
-
-    public void setIdprueba(String idprueba) {
-        this.idprueba = idprueba;
-    }
-
-
+    
 }
