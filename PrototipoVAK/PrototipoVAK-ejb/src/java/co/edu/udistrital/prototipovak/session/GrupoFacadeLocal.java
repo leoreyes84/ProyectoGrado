@@ -30,8 +30,10 @@ public interface GrupoFacadeLocal {
 
     int count();
     
-    List<Grupo> filtrarBusqueda(Integer idPrograma, Integer idPeriodo, Integer idGrupo);
+    List<Grupo> filtrarBusqueda(Integer idPrograma, Integer idPeriodo, Integer idGrupo) throws Exception;
     
-    Grupo findGrupoByID(Integer idGrupo);
+    Grupo findGrupoByID(Integer idGrupo) throws Exception;
+    
+    List<Grupo> findGrupoByIdUsuario(Integer idUsuario) throws Exception;
     
 }

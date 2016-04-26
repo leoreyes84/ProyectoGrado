@@ -6,10 +6,8 @@
 package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Periodo;
-import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
 import co.edu.udistrital.prototipovak.session.PeriodoFacadeLocal;
 import co.edu.udistrital.prototipovak.util.PeriodoDataModel;
-import co.edu.udistrital.prototipovak.util.ProgramaDataModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -33,9 +31,15 @@ public class AdminGestionarPeriodosMB {
     // /////////////////////////////////////////////////////////////////////////
     private static Logger _logger = Logger.getLogger(AdminGestionarPeriodosMB.class);
 
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
     @EJB
     private PeriodoFacadeLocal periodoFacade;
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Atributos de la clase
+    // /////////////////////////////////////////////////////////////////////////
     private String nombrePeriodo;
     private String descripcion;
     private List<Periodo> periodos;

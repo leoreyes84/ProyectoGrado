@@ -22,12 +22,18 @@ and open the template in the editor.
             <ui:define name="body">
                 <h:form id="formPrincipal">                      
                     <p:panel id="basic" header="#{msg['estudiante.seleccionar.test.header']}" style="width: 70%; margin-bottom:20px">
-                        <p:dataTable id="tablaSeleccionarTest" var="programaAcademico" style="width: 90%;" 
+                        <p:dataTable id="tablaSeleccionarTest" var="testGrupo" style="width: 90%;" 
                                      emptyMessage="#{msg['datatable.empty']}"
-                                     value="#{estSeleccionTestMB.listaPrograma}">
+                                     value="#{estSeleccionTestMB.lstGrupos}">
                             <p:column headerText="#{msg['estudiante.seleccionar.test.programa']}">
-                                <h:outputText value="#{programaAcademico.progNombre}" />
-                            </p:column>                           
+                                <h:outputText value="#{testGrupo.progId.progNombre}" />
+                            </p:column>
+                            <p:column headerText="#{msg['estudiante.seleccionar.test.grupo']}">
+                                <h:outputText value="#{testGrupo.grupNombre}" />
+                            </p:column> 
+                            <p:column headerText="#{msg['estudiante.seleccionar.test.periodo']}">
+                                <h:outputText value="#{testGrupo.periId.periNombre}" />
+                            </p:column> 
                             <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
                                 <div align="right">
                                    <p:commandButton value="#{msg['estudiante.seleccionar.test.presentar']}" rendered="#{!estSeleccionTestMB.presentarVerTestResultados}" action="presentaTest"/>

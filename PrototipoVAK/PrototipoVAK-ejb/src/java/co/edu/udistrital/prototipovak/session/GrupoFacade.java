@@ -32,7 +32,7 @@ public class GrupoFacade extends AbstractFacade<Grupo> implements GrupoFacadeLoc
     }
 
     @Override
-    public List<Grupo> filtrarBusqueda(Integer idPrograma, Integer idPeriodo, Integer idGrupo) {
+    public List<Grupo> filtrarBusqueda(Integer idPrograma, Integer idPeriodo, Integer idGrupo) throws Exception {
         try {
             Query consulta;
             StringBuilder cadena_consulta = new StringBuilder();
@@ -41,37 +41,51 @@ public class GrupoFacade extends AbstractFacade<Grupo> implements GrupoFacadeLoc
 
             if (idPrograma != null && idPrograma > 0) {
                 cadena_consulta.append(" AND pa.prog_id=").append(idPrograma);
-
             }
             if (idPeriodo != null && idPeriodo > 0) {
                 cadena_consulta.append(" AND p.peri_id=").append(idPeriodo);
-
             }
             if (idGrupo != null && idGrupo > 0) {
                 cadena_consulta.append(" AND gr.grup_id=").append(idGrupo);
-
             }
-
             // Asigna crea el query de cadena_consulta
             consulta = getEntityManager().createNativeQuery(cadena_consulta.toString(), Grupo.class);
             List<Grupo> consultada = (List<Grupo>) consulta.getResultList();
             return consultada;
         } catch (Exception e) {
-            e.getCause();
-            return null;
+            throw new Exception();
         }
     }
 
     @Override
-    public Grupo findGrupoByID(Integer idGrupo) {
+    public Grupo findGrupoByID(Integer idGrupo) throws Exception{
         try {
             Grupo consultada = (Grupo) getEntityManager().createNamedQuery("Grupo.findByGrupId")
                     .setParameter("grupId", idGrupo)
                     .getSingleResult();
             return consultada;
         } catch (Exception e) {
-            e.getCause();
-            return null;
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public List<Grupo> findGrupoByIdUsuario(Integer idUsuario) throws Exception {
+        try {
+            Query consulta;
+            StringBuilder cadena_consulta = new StringBuilder();
+            cadena_consulta.append("SELECT * FROM grupo gru ");
+            cadena_consulta.append("JOIN programa_academico prog ON prog.prog_id = gru.prog_id ");
+            cadena_consulta.append("JOIN periodo per ON per.peri_id = gru.peri_id ");
+            cadena_consulta.append("JOIN usuario_grupo usrg on usrg.grup_id = gru.grup_id ");
+            cadena_consulta.append("JOIN usuario usu on usu.usr_id = usrg.usr_id ");
+            cadena_consulta.append("WHERE usu.usr_id =").append(idUsuario);
+            // Asigna crea el query de cadena_consulta
+            consulta = getEntityManager().createNativeQuery(cadena_consulta.toString(), Grupo.class);
+            List<Grupo> consultada = (List<Grupo>) consulta.getResultList();
+            return consultada;
+        } catch (Exception e) {
+            throw new Exception();
         }
     }
 

@@ -30,19 +30,22 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @RequestScoped
 public class RegistraUsuarioMB {
-
-    @EJB
-    private GrupoFacadeLocal grupoFacade;
-
-    @EJB
-    private RolFacadeLocal rolFacade;
-    @EJB
-    private UsuarioFacadeLocal usuarioFacade;
-
+    
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
     private static Logger _logger = Logger.getLogger(RegistraUsuarioMB.class);
+
+    
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    @EJB
+    private GrupoFacadeLocal grupoFacade;
+    @EJB
+    private RolFacadeLocal rolFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
@@ -83,7 +86,7 @@ public class RegistraUsuarioMB {
                 _logger.info("Usuario creado");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", ""));
                 return "registroExitoso";
-            }else{
+            } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El código ya exixte", ""));
                 return null;
             }
@@ -111,20 +114,24 @@ public class RegistraUsuarioMB {
      * @return lista de
      */
     public List<SelectItem> obtenerComboGrupo() {
-        listGrupos = new ArrayList<>();
-        if (idPrograma != null) {
-            //Consultar períodos
-            List<Grupo> list = grupoFacade.filtrarBusqueda(idPrograma, null, null);
-            if (list != null) {
-                for (Grupo grupo : list) {
-                    listGrupos.add(new SelectItem(grupo.getGrupId(), grupo.getPeriId().getPeriNombre() + "/" + grupo.getGrupNombre()));
+        try {
+            listGrupos = new ArrayList<>();
+            if (idPrograma != null) {
+                //Consultar períodos
+                List<Grupo> list = grupoFacade.filtrarBusqueda(idPrograma, null, null);
+                if (list != null) {
+                    for (Grupo grupo : list) {
+                        listGrupos.add(new SelectItem(grupo.getGrupId(), grupo.getPeriId().getPeriNombre() + "/" + grupo.getGrupNombre()));
+                    }
                 }
             }
+            return listGrupos;
+        } catch (Exception e) {
+            _logger.error("Error al botener combo: " + e.getMessage());
+            return null;
         }
-        return listGrupos;
     }
 
-    
     public String getCodigo() {
         return codigo;
     }

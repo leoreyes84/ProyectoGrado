@@ -5,8 +5,10 @@
  */
 package co.edu.udistrital.prototipovak.mb;
 
+import co.edu.udistrital.prototipovak.entity.Grupo;
 import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
+import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.ProgramaAcademicoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import java.util.List;
@@ -14,6 +16,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.jboss.logging.Logger;
 
 /**
  *
@@ -23,66 +27,55 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class EstSeleccionTestMB {
 
-    private List<ProgramaAcademico> listaPrograma;
-    private List<UsuarioRespuesta> listaUsuarioRespuesta;
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(EstSeleccionTestMB.class);
 
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    @EJB
+    private GrupoFacadeLocal grupoFacade;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Atributos de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private List<Grupo> lstGrupos;
     private boolean presentarVerTestResultados;
 
-    @EJB
-    private ProgramaAcademicoFacadeLocal programaAcademicoFacade;
-    @EJB
-    private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
-
-    /**
-     * Creates a new instance of EstSeleccionTestMB
-     */
-    public EstSeleccionTestMB() {
-    }
-
+    //////////////////////////////////////
+    ////Métodos de la clase
+    //////////////////////////////////////
     /**
      * Metodo que inicializa el backing bean
      */
     @PostConstruct
     public void init() {
-        listarProgramaEstudiante();
+        listarTestEstudiante();
     }
 
-    private void listarProgramaEstudiante() {
-
-        //Integer idUsuario = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
-        //Cambiar el codigo por el id del estudiante, y cambiar la consulta.
-        String codigoEst = "20152099036";
-        presentarVerTestResultados = false;
-
-        listaPrograma = programaAcademicoFacade.programaAcadPorEstudiante(codigoEst);
-        listaUsuarioRespuesta = usuarioRespuestaFacade.obtenerRespuestaUsuario(1);
-        if (listaUsuarioRespuesta != null && listaUsuarioRespuesta.size() > 0) {
-            presentarVerTestResultados = true;
-        }
-
-        if (listaPrograma != null && listaPrograma.size() > 0) {
-
-            for (ProgramaAcademico listaPrograma1 : listaPrograma) {
-
-                System.out.println("**********Nombre del programa academico: " + listaPrograma1.getProgNombre());
-
-            }
-
-        } else {
-
-            System.out.println("**********La lista está vacía************");
+    /**
+     * Obtiene la lista de test (test por grupo) disponibles para el estudiante
+     */
+    private void listarTestEstudiante() {
+        try {
+            Integer idUsuario = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
+            lstGrupos = grupoFacade.findGrupoByIdUsuario(idUsuario);
+        } catch (Exception e) {
+            _logger.error("Error consultando lista: "+e.getMessage());
         }
 
     }
 
-    public List<ProgramaAcademico> getListaPrograma() {
-        return listaPrograma;
+    public List<Grupo> getLstGrupos() {
+        return lstGrupos;
     }
 
-    public void setListaPrograma(List<ProgramaAcademico> listaPrograma) {
-        this.listaPrograma = listaPrograma;
+    public void setLstGrupos(List<Grupo> lstGrupos) {
+        this.lstGrupos = lstGrupos;
     }
-
+    
     public boolean isPresentarVerTestResultados() {
         return presentarVerTestResultados;
     }

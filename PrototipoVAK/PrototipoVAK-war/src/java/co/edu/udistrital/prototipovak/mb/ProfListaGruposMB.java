@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import org.jboss.logging.Logger;
 
 /**
  *
@@ -27,12 +28,17 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class ProfListaGruposMB {
+    
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(AdminGestionarGruposMB.class);
 
     private List<ProgramaAcademico> listaProgramasAcademicos;
     private List<Periodo> listaPeriodos;
     private List<Grupo> listaGrupos;
     private List<Grupo> listaFiltrada;
-   
+
     private Map<String, Integer> listNombreProg = new HashMap<String, Integer>();
     private Map<String, Integer> listNombrePeriodo = new HashMap<String, Integer>();
     private Map<String, Integer> listNombreGrupo = new HashMap<String, Integer>();
@@ -110,13 +116,13 @@ public class ProfListaGruposMB {
     }
 
     public void obtenerResultados() {
-
-        listaFiltrada = grupoFacade.filtrarBusqueda(idPrograma, idPeriodo, idGrupo);
-        
-          for (Grupo grupoTemp : listaFiltrada) {
-
-            
-            System.out.println(grupoTemp.getProgId().getProgNombre());
+        try {
+            listaFiltrada = grupoFacade.filtrarBusqueda(idPrograma, idPeriodo, idGrupo);
+            for (Grupo grupoTemp : listaFiltrada) {
+                System.out.println(grupoTemp.getProgId().getProgNombre());
+            }
+        } catch (Exception e) {
+            _logger.error("Error obteniendo resultados: " + e.getMessage());
         }
 
     }
@@ -176,6 +182,5 @@ public class ProfListaGruposMB {
     public void setListaFiltrada(List<Grupo> listaFiltrada) {
         this.listaFiltrada = listaFiltrada;
     }
-
 
 }

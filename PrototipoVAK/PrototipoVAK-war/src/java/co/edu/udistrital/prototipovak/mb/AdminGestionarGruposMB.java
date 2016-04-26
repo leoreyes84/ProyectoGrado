@@ -10,7 +10,6 @@ import co.edu.udistrital.prototipovak.entity.Periodo;
 import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
 import co.edu.udistrital.prototipovak.util.GrupoDataModel;
-import co.edu.udistrital.prototipovak.util.PeriodoDataModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -34,16 +33,21 @@ public class AdminGestionarGruposMB {
     // /////////////////////////////////////////////////////////////////////////
     private static Logger _logger = Logger.getLogger(AdminGestionarGruposMB.class);
     
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
     @EJB
     private GrupoFacadeLocal grupoFacade;
     
+    // /////////////////////////////////////////////////////////////////////////
+    // Atributos de la clase
+    // /////////////////////////////////////////////////////////////////////////
     private String nombreGrupo;
     private Integer idPrograma;
     private Integer idPeriodo;
     private List<Grupo> grupos;
     private Grupo selectedGrupo;
     private GrupoDataModel mediumGrupoModel;
-    
     
     //////////////////////////////////////
     ////Métodos de la clase
