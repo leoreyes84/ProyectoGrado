@@ -5,7 +5,6 @@
  */
 package co.edu.udistrital.prototipovak.session;
 
-import co.edu.udistrital.prototipovak.entity.Rol;
 import co.edu.udistrital.prototipovak.entity.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -33,7 +32,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     }
 
     @Override
-    public Usuario usuarioByEmailYPass(String codigoUsuario, String password) {
+    public Usuario usuarioByEmailYPass(String codigoUsuario, String password) throws Exception{
         try {
             Query consulta;
             String cadena_consulta = "select * from usuario where usr_codigo= '" + codigoUsuario + "'and usr_contrasenia = '" + password + "'";
@@ -42,21 +41,31 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             Usuario consultada = (Usuario) consulta.getSingleResult();
             return consultada;
         } catch (Exception e) {
-            e.getCause();
-            return null;
+            throw new Exception();
         }
     }
 
     @Override
-    public List<Usuario> findUsuarioByCodigo(String codigoUsuario) {
+    public List<Usuario> findUsuarioByCodigo(String codigoUsuario) throws Exception{
         try {
             List<Usuario> consultada = getEntityManager().createNamedQuery("Usuario.findByUsrCodigo")
                     .setParameter("usrCodigo", codigoUsuario)
                     .getResultList();
             return consultada;
         } catch (Exception e) {
-            e.getCause();
-            return null;
+           throw new Exception();
+        }
+    }
+
+    @Override
+    public Usuario findUsuarioById(Integer idUsuario) throws Exception{
+        try {
+            Usuario consultada = (Usuario) getEntityManager().createNamedQuery("Usuario.findByUsrId")
+                    .setParameter("usrId", idUsuario)
+                    .getSingleResult();
+            return consultada;
+        } catch (Exception e) {
+            throw new Exception();
         }
     }
 }

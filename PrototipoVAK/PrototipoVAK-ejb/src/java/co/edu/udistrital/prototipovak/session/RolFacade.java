@@ -30,15 +30,14 @@ public class RolFacade extends AbstractFacade<Rol> implements RolFacadeLocal {
     }
 
     @Override
-    public Rol findRolByCodigo(String rolCodigo) {
+    public Rol findRolByCodigo(String rolCodigo) throws Exception{
         try {
             Rol consultada = (Rol) getEntityManager().createNamedQuery("Rol.findByRolCodigo")
                     .setParameter("rolCodigo", rolCodigo)
                     .getSingleResult();
             return consultada;
         } catch (Exception e) {
-            e.getCause();
-            return null;
+            throw new Exception();
         }
     }
 

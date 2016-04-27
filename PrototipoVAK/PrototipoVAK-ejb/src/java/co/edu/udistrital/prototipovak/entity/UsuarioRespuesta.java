@@ -31,12 +31,13 @@ public class UsuarioRespuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UsuarioRespuestaPK usuarioRespuestaPK;
-    @JoinColumn(name = "peri_id", referencedColumnName = "peri_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Periodo periodo;
+    
     @JoinColumn(name = "rta_id", referencedColumnName = "rta_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Respuesta respuesta;
+    @JoinColumn(name = "peri_id", referencedColumnName = "peri_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Periodo periodo;
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Usuario usuario;

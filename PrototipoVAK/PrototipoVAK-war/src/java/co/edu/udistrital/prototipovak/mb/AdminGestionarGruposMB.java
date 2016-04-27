@@ -79,7 +79,7 @@ public class AdminGestionarGruposMB {
             _logger.info("Grupo creado");
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error guardarGrupo() "+ex.getMessage(), ex);
+            _logger.error("Error guardar Grupo "+ex.getMessage(), ex);
         }
     }
     
@@ -105,7 +105,7 @@ public class AdminGestionarGruposMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error modificarGrupo() "+ex.getMessage(), ex);
+            _logger.error("Error modificar Grupo "+ex.getMessage(), ex);
         }
     }
     
@@ -125,7 +125,7 @@ public class AdminGestionarGruposMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error eliminarGrupo() "+ex.getMessage(), ex);
+            _logger.error("Error eliminar Grupo "+ex.getMessage(), ex);
         }
     }
     

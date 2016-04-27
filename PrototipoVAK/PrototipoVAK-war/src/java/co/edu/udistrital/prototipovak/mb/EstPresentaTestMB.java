@@ -5,15 +5,26 @@
  */
 package co.edu.udistrital.prototipovak.mb;
 
+import co.edu.udistrital.prototipovak.entity.Periodo;
 import co.edu.udistrital.prototipovak.entity.Pregunta;
 import co.edu.udistrital.prototipovak.entity.Respuesta;
+import co.edu.udistrital.prototipovak.entity.Usuario;
+import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
+import co.edu.udistrital.prototipovak.entity.UsuarioRespuestaPK;
+import co.edu.udistrital.prototipovak.session.PeriodoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.PreguntaFacadeLocal;
+import co.edu.udistrital.prototipovak.session.UsuarioFacadeLocal;
+import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import co.edu.udistrital.prototipovak.util.ItemTestTO;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.jboss.logging.Logger;
 
@@ -24,6 +35,13 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @RequestScoped
 public class EstPresentaTestMB {
+    @EJB
+    private PeriodoFacadeLocal periodoFacade;
+    @EJB
+    private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
+
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
     @EJB
     private PreguntaFacadeLocal preguntaFacade;
@@ -38,12 +56,16 @@ public class EstPresentaTestMB {
     // /////////////////////////////////////////////////////////////////////////
     private List<Pregunta> lstPreguntas;
     private ItemTestTO[] itemTestTO;
+    private Integer idUsuario;
+    private Integer idPeriodo;
 
     //////////////////////////////////////
     ////Métodos de la clase
     //////////////////////////////////////
     @PostConstruct
     public void inti() {
+        idUsuario = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
+        idPeriodo = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idPeriodo");
         obtenerPreguntasTest();
     }
 
@@ -75,8 +97,35 @@ public class EstPresentaTestMB {
         }
     }
 
-    public void guardarRespuestas() {
-        String a = "";
+    /**
+     * Guarda en BD las respuestas seleccionadas por el usuario
+     *
+     * @return regla de navegación
+     */
+    public String guardarRespuestas() {
+        try {
+            if (itemTestTO != null && itemTestTO.length > 0) {
+                Periodo periodo = periodoFacade.findPeriodoById(idPeriodo);
+                //Recorrer el arreglo para guardar las respuestas
+                for (ItemTestTO itemRespuestas : itemTestTO) {
+                    UsuarioRespuesta respuesta = new UsuarioRespuesta();
+                    UsuarioRespuestaPK respuestaPK = new UsuarioRespuestaPK();
+                    respuestaPK.setPeriId(idPeriodo);
+                    respuestaPK.setUsrId(idUsuario);
+                    respuestaPK.setRtaId(itemRespuestas.getIdRadioRespuesta());
+                    respuesta.setUsuarioRespuestaPK(respuestaPK);
+                    usuarioRespuestaFacade.create(respuesta);
+                }
+                _logger.info("Test guardado");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Test guardado con éxito.", ""));
+                return "verResultados";
+            }
+            return null;
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error guardando los datos.", ""));
+            _logger.error("Error guardando respuestas " + Arrays.toString(ex.getStackTrace()));
+            return null;
+        }
     }
 
     public List<Pregunta> getLstPreguntas() {
@@ -94,5 +143,5 @@ public class EstPresentaTestMB {
     public void setItemTestTO(ItemTestTO[] itemTestTO) {
         this.itemTestTO = itemTestTO;
     }
-    
+
 }

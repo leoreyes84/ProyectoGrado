@@ -30,4 +30,6 @@ public interface PeriodoFacadeLocal {
 
     int count();
     
+    Periodo findPeriodoById(Integer idPeriodo) throws Exception;
+    
 }

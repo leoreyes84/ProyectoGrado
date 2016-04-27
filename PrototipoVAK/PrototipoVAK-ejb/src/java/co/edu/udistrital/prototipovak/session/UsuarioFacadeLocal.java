@@ -30,8 +30,10 @@ public interface UsuarioFacadeLocal {
 
     int count();
     
-    Usuario usuarioByEmailYPass(String codigoUsuario, String password);
+    Usuario usuarioByEmailYPass(String codigoUsuario, String password) throws Exception;
     
-    List<Usuario> findUsuarioByCodigo(String codigoUsuario);
+    List<Usuario> findUsuarioByCodigo(String codigoUsuario) throws Exception;
+    
+    Usuario findUsuarioById(Integer idUsuario) throws Exception;
     
 }

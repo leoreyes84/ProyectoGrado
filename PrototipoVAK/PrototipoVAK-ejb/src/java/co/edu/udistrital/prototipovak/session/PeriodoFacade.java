@@ -27,5 +27,17 @@ public class PeriodoFacade extends AbstractFacade<Periodo> implements PeriodoFac
     public PeriodoFacade() {
         super(Periodo.class);
     }
+
+    @Override
+    public Periodo findPeriodoById(Integer idPeriodo) throws Exception {
+        try {
+            Periodo consultada = (Periodo) getEntityManager().createNamedQuery("Periodo.findByPeriId")
+                    .setParameter("periId", idPeriodo)
+                    .getSingleResult();
+            return consultada;
+        } catch (Exception e) {
+            throw new Exception();
+        }
+    }
     
 }

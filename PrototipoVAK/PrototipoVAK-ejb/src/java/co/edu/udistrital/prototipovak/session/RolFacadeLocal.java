@@ -30,6 +30,6 @@ public interface RolFacadeLocal {
 
     int count();
     
-    Rol findRolByCodigo(String rolCodigo);
+    Rol findRolByCodigo(String rolCodigo) throws Exception;
     
 }

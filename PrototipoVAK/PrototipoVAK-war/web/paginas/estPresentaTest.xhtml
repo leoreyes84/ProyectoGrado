@@ -21,23 +21,22 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">
+                    <p:growl id="growl" showDetail="false" sticky="true" life="500"/>
                     <p:panel id="basic" header="#{msg['estudiante.presentar.test.title']}" style="margin-bottom:20px">
                         <c:forEach items="#{estPresentaTestMB.itemTestTO}" var="itemPregunta">
                             <h:panelGrid columns="1" style="width:100%">
                                 <p:outputLabel value="#{itemPregunta.pregunta}"/>
-                                <p:selectOneRadio id="radioRespuesta" value="#{itemPregunta.idRadioRespuesta}" layout="grid" columns="1">
+                                <p:selectOneRadio id="radioRespuesta" value="#{itemPregunta.idRadioRespuesta}" 
+                                                  layout="grid" columns="1">
                                     <f:selectItems value="#{itemPregunta.itemsRespuestas}" /><b/>
                                 </p:selectOneRadio>
                             </h:panelGrid>
                             <p:spacer/>
-                        
                         </c:forEach>
-                        
-                       
                         <p:spacer/>
-                        <p:commandButton value="Enviar Respuestas" icon="ui-icon-check" oncomplete="PF('dlg').show()" process="@all" actionListener="#{estPresentaTestMB.guardarRespuestas()}"/>
-<!--                        <p:commandButton  value="TmpVerResultados2" ajax="false" action="#{estPresentaTestMB.guardarRespuestas()}"/>
-                        <p:commandButton  value="TmpVerResultados" action="verResultados"/>-->
+                        <p:commandButton value="Enviar Respuestas" icon="ui-icon-check" 
+                                         oncomplete="PF('dlg').show()" process="@all" update="formPrincipal"
+                                         action="#{estPresentaTestMB.guardarRespuestas()}"/>
                     </p:panel>
                 </h:form>
             </ui:define>

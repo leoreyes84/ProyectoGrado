@@ -14,6 +14,7 @@ import co.edu.udistrital.prototipovak.session.UsuarioFacadeLocal;
 import co.edu.udistrital.prototipovak.util.Constantes;
 import co.edu.udistrital.prototipovak.util.Seguridad;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -30,13 +31,12 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @RequestScoped
 public class RegistraUsuarioMB {
-    
+
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
     private static Logger _logger = Logger.getLogger(RegistraUsuarioMB.class);
 
-    
     // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
@@ -103,9 +103,14 @@ public class RegistraUsuarioMB {
      * @return true si es valido guardar
      */
     private boolean validar() {
-        //Validar que no exista el código
-        List<Usuario> lstUsuario = usuarioFacade.findUsuarioByCodigo(codigo);
-        return !(lstUsuario != null && lstUsuario.size() > 0);
+        try {
+            //Validar que no exista el código
+            List<Usuario> lstUsuario = usuarioFacade.findUsuarioByCodigo(codigo);
+            return !(lstUsuario != null && lstUsuario.size() > 0);
+        } catch (Exception ex) {
+            _logger.error("Error validando "+Arrays.toString(ex.getStackTrace()));
+            return false;
+        }
     }
 
     /**

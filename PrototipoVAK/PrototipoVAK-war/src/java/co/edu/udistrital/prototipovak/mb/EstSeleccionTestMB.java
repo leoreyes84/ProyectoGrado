@@ -6,11 +6,7 @@
 package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Grupo;
-import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
-import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
-import co.edu.udistrital.prototipovak.session.ProgramaAcademicoFacadeLocal;
-import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -65,7 +61,11 @@ public class EstSeleccionTestMB {
         } catch (Exception e) {
             _logger.error("Error consultando lista: "+e.getMessage());
         }
-
+    }
+    
+    public String presentarTest(Integer idPeriodo){
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idPeriodo", idPeriodo);
+        return "presentaTest";
     }
 
     public List<Grupo> getLstGrupos() {
