@@ -6,7 +6,9 @@
 package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Grupo;
+import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
+import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -33,11 +35,14 @@ public class EstSeleccionTestMB {
     // /////////////////////////////////////////////////////////////////////////
     @EJB
     private GrupoFacadeLocal grupoFacade;
+    @EJB
+    private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
 
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
     // /////////////////////////////////////////////////////////////////////////
     private List<Grupo> lstGrupos;
+    private List<UsuarioRespuesta> listaUsuarioRespuesta;
     private boolean presentarVerTestResultados;
 
     //////////////////////////////////////
@@ -58,12 +63,16 @@ public class EstSeleccionTestMB {
         try {
             Integer idUsuario = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idUsuario");
             lstGrupos = grupoFacade.findGrupoByIdUsuario(idUsuario);
+            listaUsuarioRespuesta = usuarioRespuestaFacade.obtenerRespuestaUsuario(idUsuario);
+            if (listaUsuarioRespuesta != null && listaUsuarioRespuesta.size() > 0) {
+                presentarVerTestResultados = true;
+            }
         } catch (Exception e) {
-            _logger.error("Error consultando lista: "+e.getMessage());
+            _logger.error("Error consultando lista: " + e.getMessage());
         }
     }
-    
-    public String presentarTest(Integer idPeriodo){
+
+    public String presentarTest(Integer idPeriodo) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idPeriodo", idPeriodo);
         return "presentaTest";
     }
@@ -75,7 +84,7 @@ public class EstSeleccionTestMB {
     public void setLstGrupos(List<Grupo> lstGrupos) {
         this.lstGrupos = lstGrupos;
     }
-    
+
     public boolean isPresentarVerTestResultados() {
         return presentarVerTestResultados;
     }
