@@ -21,7 +21,7 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">
-                    <p:panel id="basic" header="Estudiante - Ver resultados VAK" style="margin-bottom:20px">
+                    <p:panel id="basic" header="#{msg['estudiante.ver.resultados.title']}" style="margin-bottom:20px">
                         <p:chart type="pie" model="#{estVeResultadosMB.resultadosTest}" 
                                  style="width:400px; height:300px;display: block; margin: 0 auto;" />
                         <div style="width:800px;">

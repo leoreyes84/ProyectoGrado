@@ -83,9 +83,9 @@ public class AdminGestionarPreguntasMB {
             preguntaTO.setRespuestaV(respuestaV);
             preguntaTO.setRespuestaA(respuestaA);
             preguntaTO.setRespuestaK(respuestaK);
-            preguntaTO.setTipoRtaV(Constantes.TIPO_APRENDIZAJE_VISUAL);
-            preguntaTO.setTipoRtaA(Constantes.TIPO_APRENDIZAJE_AUDITIVO);
-            preguntaTO.setTipoRtaK(Constantes.TIPO_APRENDIZAJE_KINESTESICO);
+            preguntaTO.setTipoRtaV(Constantes.COD_TIPO_APRENDIZAJE_VISUAL);
+            preguntaTO.setTipoRtaA(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO);
+            preguntaTO.setTipoRtaK(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO);
             //Entity pregunta
             Pregunta preguntaEntity = preguntaEntity = preguntaDelegate.toPreguntaEntity(preguntaTO);
             preguntaFacade.create(preguntaEntity);
@@ -111,9 +111,9 @@ public class AdminGestionarPreguntasMB {
                 selectedPregunta.setRespuestaV(respuestaV);
                 selectedPregunta.setRespuestaA(respuestaA);
                 selectedPregunta.setRespuestaK(respuestaK);
-                selectedPregunta.setTipoRtaV(Constantes.TIPO_APRENDIZAJE_VISUAL);
-                selectedPregunta.setTipoRtaA(Constantes.TIPO_APRENDIZAJE_AUDITIVO);
-                selectedPregunta.setTipoRtaK(Constantes.TIPO_APRENDIZAJE_KINESTESICO);
+                selectedPregunta.setTipoRtaV(Constantes.COD_TIPO_APRENDIZAJE_VISUAL);
+                selectedPregunta.setTipoRtaA(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO);
+                selectedPregunta.setTipoRtaK(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO);
                 //Entity
                 Pregunta preguntaEntity = preguntaEntity = preguntaDelegate.toPreguntaEntity(selectedPregunta);
                 preguntaFacade.edit(preguntaEntity);

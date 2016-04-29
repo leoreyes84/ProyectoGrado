@@ -63,7 +63,8 @@ and open the template in the editor.
 
                                 <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
                                     <div align="right">
-                                        <p:commandButton value="#{msg['profesor.lista.test.resultados']}" action="veResultados" />
+                                        <p:commandButton value="#{msg['profesor.lista.test.resultados']}" 
+                                                         action="#{profListaGruposMB.verResultadosGrupos(grupoFiltr.grupId)}" />
                                     </div>
                                 </p:column>                            
                             </p:dataTable>

@@ -21,8 +21,8 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">                      
-                    <p:panel id="basic" header="#{msg['estudiante.seleccionar.test.header']}" style="width: 70%; margin-bottom:20px">
-                        <p:dataTable id="tablaSeleccionarTest" var="testGrupo" style="width: 90%;" 
+                    <p:panel id="basic" header="#{msg['estudiante.seleccionar.test.header']}">
+                        <p:dataTable id="tablaSeleccionarTest" var="testGrupo" 
                                      emptyMessage="#{msg['datatable.empty']}"
                                      value="#{estSeleccionTestMB.lstGrupos}">
                             <p:column headerText="#{msg['estudiante.seleccionar.test.programa']}">

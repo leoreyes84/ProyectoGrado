@@ -31,15 +31,15 @@ public class PreguntaDelegate {
         List<Respuesta> lstRespuestas = pregunta.getRespuestaList();
         if (lstRespuestas != null && lstRespuestas.size() > 0) {
             for (Respuesta respuesta : lstRespuestas) {
-                if (respuesta.getRtaTipoRespuesta().equals(Constantes.TIPO_APRENDIZAJE_VISUAL)) {
+                if (respuesta.getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL)) {
                     preguntaTO.setIdRtaV(respuesta.getRtaId());
                     preguntaTO.setRespuestaV(respuesta.getRtaRespuesta());
                     preguntaTO.setTipoRtaV(respuesta.getRtaTipoRespuesta());
-                } else if (respuesta.getRtaTipoRespuesta().equals(Constantes.TIPO_APRENDIZAJE_AUDITIVO)) {
+                } else if (respuesta.getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO)) {
                     preguntaTO.setIdRtaA(respuesta.getRtaId());
                     preguntaTO.setRespuestaA(respuesta.getRtaRespuesta());
                     preguntaTO.setTipoRtaA(respuesta.getRtaTipoRespuesta());
-                } else if (respuesta.getRtaTipoRespuesta().equals(Constantes.TIPO_APRENDIZAJE_KINESTESICO)) {
+                } else if (respuesta.getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO)) {
                     preguntaTO.setIdRtaK(respuesta.getRtaId());
                     preguntaTO.setRespuestaK(respuesta.getRtaRespuesta());
                     preguntaTO.setTipoRtaK(respuesta.getRtaTipoRespuesta());

@@ -61,23 +61,23 @@ public class EstVeResultadosMB {
 
         for (UsuarioRespuesta usuarioRespuestaTemp : listaUsuRespuesta) {
             System.out.println(usuarioRespuestaTemp.getRespuesta().getRtaRespuesta());
-            if (usuarioRespuestaTemp.getRespuesta().getRtaTipoRespuesta().equals(Constantes.TIPO_APRENDIZAJE_VISUAL)) {
-                resultadosTest.set("Visual", contVisual++);
-            } else if (usuarioRespuestaTemp.getRespuesta().getRtaTipoRespuesta().equals(Constantes.TIPO_APRENDIZAJE_AUDITIVO)) {
-                resultadosTest.set("Auditivo", contAuditivo++);
-            } else if (usuarioRespuestaTemp.getRespuesta().getRtaTipoRespuesta().equals(Constantes.TIPO_APRENDIZAJE_KINESTESICO)) {
-                resultadosTest.set("Kinestésico", contKines++);
+            if (usuarioRespuestaTemp.getRespuesta().getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL)) {
+                resultadosTest.set(Constantes.TIPO_APRENDIZAJE_VISUAL, contVisual++);
+            } else if (usuarioRespuestaTemp.getRespuesta().getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO)) {
+                resultadosTest.set(Constantes.TIPO_APRENDIZAJE_AUDITIVO, contAuditivo++);
+            } else if (usuarioRespuestaTemp.getRespuesta().getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO)) {
+                resultadosTest.set(Constantes.TIPO_APRENDIZAJE_KINESTESICO, contKines++);
             }
         }
         System.out.println("visual: " + contVisual + " auditivo: " + contAuditivo + " kinestesico: " + contKines);
         //contVisual = 7;
         //contAuditivo = 7;
         //contKines = 2;
-        resultadosTest.setTitle("Resultados Test VAK");
-        resultadosTest.setLegendPosition("w");
+        resultadosTest.setTitle(Constantes.TITULO_RESULTADO_TEST);
+        resultadosTest.setLegendPosition(Constantes.ORIENTACION_W_RESULTADOS_TEST);
         resultadosTest.setShowDataLabels(true);
         resultadosTest.setShadow(true);
-        resultadosTest.setSeriesColors("4BB2C5, EAA228, 4BD08B");
+        resultadosTest.setSeriesColors(Constantes.COLORES_RESULTADOS_TEST);
 
         listaSugerenciaResultado = suegerenciaResultadoFacade.findAll();
         List<SugerenciaResultado> listaSugerenciaTemp = new ArrayList<SugerenciaResultado>();
@@ -86,19 +86,19 @@ public class EstVeResultadosMB {
 
             if ((contVisual > contAuditivo) && (contVisual > contKines)) {
 
-                if (!sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.TIPO_APRENDIZAJE_VISUAL.toString())) {
+                if (!sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL.toString())) {
                     listaSugerenciaTemp.add(sugerenciaResultadoTemp);
                 }
 
             }
             if ((contAuditivo > contVisual) && (contAuditivo > contKines)) {
-                if (!sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.TIPO_APRENDIZAJE_AUDITIVO.toString())) {
+                if (!sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO.toString())) {
                     listaSugerenciaTemp.add(sugerenciaResultadoTemp);
                 }
 
             }
             if ((contKines > contAuditivo) && (contKines > contVisual)) {
-                if (!sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.TIPO_APRENDIZAJE_KINESTESICO.toString())) {
+                if (!sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO.toString())) {
                     listaSugerenciaTemp.add(sugerenciaResultadoTemp);
                 }
 
@@ -107,21 +107,21 @@ public class EstVeResultadosMB {
                 break;
             }
             if ((contVisual == contAuditivo)) {
-                if (sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.TIPO_APRENDIZAJE_KINESTESICO.toString())) {
+                if (sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO.toString())) {
                     listaSugerenciaTemp.add(sugerenciaResultadoTemp);
                     break;
                 }
 
             }
             if ((contVisual == contKines)) {
-                if (sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.TIPO_APRENDIZAJE_AUDITIVO.toString())) {
+                if (sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO.toString())) {
                     listaSugerenciaTemp.add(sugerenciaResultadoTemp);
                     break;
                 }
 
             }
             if ((contAuditivo == contKines)) {
-                if (sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.TIPO_APRENDIZAJE_VISUAL.toString())) {
+                if (sugerenciaResultadoTemp.getSugTipoVak().toString().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL.toString())) {
                     listaSugerenciaTemp.add(sugerenciaResultadoTemp);
                     break;
                 }

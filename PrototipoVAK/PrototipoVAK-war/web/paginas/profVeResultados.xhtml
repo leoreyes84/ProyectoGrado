@@ -20,7 +20,18 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">
-                    <p:panel id="basic" header="Profesor - Ver resultados" style="margin-bottom:20px">
+                    <p:panel id="basic" 
+                             header="#{msg['profesor.ver.resultados.title']} - 
+                             #{profVeResultadosMB.grupo.progId.progNombre} - #{profVeResultadosMB.grupo.grupNombre} - 
+                             #{profVeResultadosMB.grupo.periId.periNombre}" 
+                             style="margin-bottom:20px">
+                        <p:panelGrid columns="2">
+                            <p:chart type="pie" model="#{profVeResultadosMB.resultadosPorcentajes}" 
+                                 style="width:400px; height:300px;display: block; margin: 0 auto;" />
+                            
+                            <p:chart type="pie" model="#{profVeResultadosMB.resultadosNumRespuestasGrupo}" 
+                                 style="width:400px; height:300px;display: block; margin: 0 auto;" />
+                        </p:panelGrid>
                         <p:commandButton  value="Volver" action="volver"/>
                     </p:panel>
                 </h:form>

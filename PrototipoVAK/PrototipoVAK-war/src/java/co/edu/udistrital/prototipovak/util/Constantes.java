@@ -21,8 +21,21 @@ public final class Constantes {
     /**
      * TIPOS DE APRENDIZAJE
      */
-    public static final Character TIPO_APRENDIZAJE_VISUAL = 'V';
-    public static final Character TIPO_APRENDIZAJE_AUDITIVO = 'A';
-    public static final Character TIPO_APRENDIZAJE_KINESTESICO = 'K';
+    public static final Character COD_TIPO_APRENDIZAJE_VISUAL = 'V';
+    public static final Character COD_TIPO_APRENDIZAJE_AUDITIVO = 'A';
+    public static final Character COD_TIPO_APRENDIZAJE_KINESTESICO = 'K';
+    
+    public static final String TIPO_APRENDIZAJE_VISUAL = "Visual";
+    public static final String TIPO_APRENDIZAJE_AUDITIVO = "Auditivo";
+    public static final String TIPO_APRENDIZAJE_KINESTESICO = "Kinestésico";
+    
+    /**
+     * Charts (pie)
+     */
+    public static final String TITULO_RESULTADO_TEST = "Resultados Test VAK";
+    public static final String TITULO_RESULTADO_ESTUDIANTES_GRUPO = "% Estudiantes por tipo de aprendizaje";
+    public static final String TITULO_RESULTADO_PREGUNTAS_GRUPO = "% Por tipo de respuestas en el grupo";
+    public static final String ORIENTACION_W_RESULTADOS_TEST = "w";
+    public static final String COLORES_RESULTADOS_TEST = "4BB2C5, EAA228, 4BD08B";
     
 }

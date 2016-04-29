@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import org.jboss.logging.Logger;
 
 /**
@@ -28,7 +29,7 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @ViewScoped
 public class ProfListaGruposMB {
-    
+
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
@@ -69,52 +70,10 @@ public class ProfListaGruposMB {
         listarPeriodos();
         listarGrupos();
     }
-
-    private void listarProgramasAcademicos() {
-
-        listaProgramasAcademicos = programaAcademicoFacade.findAll();
-        if (listNombreProg == null) {
-            listNombreProg = new HashMap<>();
-        }
-
-        for (ProgramaAcademico progAcadTemp : listaProgramasAcademicos) {
-
-            listNombreProg.put(progAcadTemp.getProgNombre(), progAcadTemp.getProgId());
-            System.out.println(progAcadTemp.getProgNombre());
-        }
-
-    }
-
-    private void listarPeriodos() {
-
-        listaPeriodos = periodoFacade.findAll();
-        if (listNombrePeriodo == null) {
-            listNombrePeriodo = new HashMap<>();
-        }
-
-        for (Periodo periodoTemp : listaPeriodos) {
-
-            listNombrePeriodo.put(periodoTemp.getPeriNombre(), periodoTemp.getPeriId());
-            System.out.println(periodoTemp.getPeriNombre());
-        }
-
-    }
-
-    private void listarGrupos() {
-
-        listaGrupos = grupoFacade.findAll();
-        if (listNombreGrupo == null) {
-            listNombreGrupo = new HashMap<>();
-        }
-
-        for (Grupo grupoTemp : listaGrupos) {
-
-            listNombreGrupo.put(grupoTemp.getGrupNombre(), grupoTemp.getGrupId());
-            System.out.println(grupoTemp.getGrupNombre());
-        }
-
-    }
-
+    
+    /**
+     * Realiza la conusulta segun los filtros de pantalla
+     */
     public void obtenerResultados() {
         try {
             listaFiltrada = grupoFacade.filtrarBusqueda(idPrograma, idPeriodo, idGrupo);
@@ -125,6 +84,61 @@ public class ProfListaGruposMB {
             _logger.error("Error obteniendo resultados: " + e.getMessage());
         }
 
+    }
+    
+    /**
+     * Navega hacia ver resultados del grupo
+     * @param idGrupo Id del grupo a ver los resultados
+     * @return Regla de navegacion
+     */
+    public String verResultadosGrupos(Integer idGrupo){
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idGrupo", idGrupo);
+        return "veResultados";
+    }
+
+    /**
+     * Lista de programas
+     */
+    private void listarProgramasAcademicos() {
+        listaProgramasAcademicos = programaAcademicoFacade.findAll();
+        if (listNombreProg == null) {
+            listNombreProg = new HashMap<>();
+        }
+        for (ProgramaAcademico progAcadTemp : listaProgramasAcademicos) {
+            listNombreProg.put(progAcadTemp.getProgNombre(), progAcadTemp.getProgId());
+            System.out.println(progAcadTemp.getProgNombre());
+        }
+
+    }
+
+    /**
+     * Lista de periodos
+     */
+    private void listarPeriodos() {
+        listaPeriodos = periodoFacade.findAll();
+        if (listNombrePeriodo == null) {
+            listNombrePeriodo = new HashMap<>();
+        }
+        for (Periodo periodoTemp : listaPeriodos) {
+            listNombrePeriodo.put(periodoTemp.getPeriNombre(), periodoTemp.getPeriId());
+            System.out.println(periodoTemp.getPeriNombre());
+        }
+
+    }
+
+    /**
+     * Lista de grupos
+     */
+    private void listarGrupos() {
+        listaGrupos = grupoFacade.findAll();
+        if (listNombreGrupo == null) {
+            listNombreGrupo = new HashMap<>();
+        }
+        for (Grupo grupoTemp : listaGrupos) {
+
+            listNombreGrupo.put(grupoTemp.getGrupNombre(), grupoTemp.getGrupId());
+            System.out.println(grupoTemp.getGrupNombre());
+        }
     }
 
     public Map<String, Integer> getListNombreProg() {
