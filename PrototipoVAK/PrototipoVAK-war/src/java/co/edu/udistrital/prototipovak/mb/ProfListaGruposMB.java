@@ -8,16 +8,19 @@ package co.edu.udistrital.prototipovak.mb;
 import co.edu.udistrital.prototipovak.entity.Grupo;
 import co.edu.udistrital.prototipovak.entity.Periodo;
 import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
+import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.PeriodoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.ProgramaAcademicoFacadeLocal;
+import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.jboss.logging.Logger;
@@ -29,6 +32,7 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @ViewScoped
 public class ProfListaGruposMB {
+    
 
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
@@ -54,6 +58,8 @@ public class ProfListaGruposMB {
     private PeriodoFacadeLocal periodoFacade;
     @EJB
     private GrupoFacadeLocal grupoFacade;
+    @EJB
+    private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
 
     /**
      * Creates a new instance of ProfListaGruposMB
@@ -70,7 +76,7 @@ public class ProfListaGruposMB {
         listarPeriodos();
         listarGrupos();
     }
-    
+
     /**
      * Realiza la conusulta segun los filtros de pantalla
      */
@@ -85,15 +91,29 @@ public class ProfListaGruposMB {
         }
 
     }
-    
+
     /**
      * Navega hacia ver resultados del grupo
+     *
      * @param idGrupo Id del grupo a ver los resultados
      * @return Regla de navegacion
      */
-    public String verResultadosGrupos(Integer idGrupo){
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idGrupo", idGrupo);
-        return "veResultados";
+    public String verResultadosGrupos(Integer idGrupo) {
+        try {
+            //Validar que existan respuestas de los estudiantes para el grupo seleccionado
+            List<UsuarioRespuesta> respuestas = usuarioRespuestaFacade.obtenerRespuestasGrupo(idGrupo);
+            if (respuestas != null && respuestas.size()>0) {
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idGrupo", idGrupo);
+                return "veResultados";
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Los estudiantes pertencientes al grupo no han respondido el test", ""));
+                return null;
+            }
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "ERROR, fue posible consultar los resultados", ""));
+            _logger.error("Error verResultadosGrupos: " + ex.getMessage());;
+            return null;
+        }
     }
 
     /**

@@ -22,6 +22,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import org.jboss.logging.Logger;
@@ -31,16 +32,13 @@ import org.jboss.logging.Logger;
  * @author Leonardo
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class EstPresentaTestMB {
-    @EJB
-    private PeriodoFacadeLocal periodoFacade;
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
     @EJB
     private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
-
-    @EJB
-    private UsuarioFacadeLocal usuarioFacade;
-
     @EJB
     private PreguntaFacadeLocal preguntaFacade;
 
@@ -103,7 +101,6 @@ public class EstPresentaTestMB {
     public String guardarRespuestas() {
         try {
             if (itemTestTO != null && itemTestTO.length > 0) {
-                Periodo periodo = periodoFacade.findPeriodoById(idPeriodo);
                 //Recorrer el arreglo para guardar las respuestas
                 for (ItemTestTO itemRespuestas : itemTestTO) {
                     UsuarioRespuesta respuesta = new UsuarioRespuesta();

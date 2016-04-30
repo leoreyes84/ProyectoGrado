@@ -5,7 +5,6 @@
  */
 package co.edu.udistrital.prototipovak.mb;
 
-import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
 import co.edu.udistrital.prototipovak.entity.SugerenciaResultado;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.session.SugerenciaResultadoFacadeLocal;
@@ -18,6 +17,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import org.jboss.logging.Logger;
 import org.primefaces.model.chart.PieChartModel;
 
 /**
@@ -27,6 +27,10 @@ import org.primefaces.model.chart.PieChartModel;
 @ManagedBean
 @RequestScoped
 public class EstVeResultadosMB {
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(EstVeResultadosMB.class);
 
     private List<UsuarioRespuesta> listaUsuRespuesta;
     private List<SugerenciaResultado> listaSugerenciaResultado;
@@ -57,7 +61,11 @@ public class EstVeResultadosMB {
         int contVisual = 0;
         int contAuditivo = 0;
         int contKines = 0;
-        listaUsuRespuesta = usuarioRespuestaFacade.obtenerRespuestaUsuario(idUsuario);
+        try {
+            listaUsuRespuesta = usuarioRespuestaFacade.obtenerRespuestaUsuario(idUsuario);
+        } catch (Exception ex) {
+            _logger.error("Error listarRespuestasUsu: " + ex.getMessage());;
+        }
 
         for (UsuarioRespuesta usuarioRespuestaTemp : listaUsuRespuesta) {
             System.out.println(usuarioRespuestaTemp.getRespuesta().getRtaRespuesta());

@@ -33,10 +33,14 @@ and open the template in the editor.
                             </h:panelGrid>
                             <p:spacer/>
                         </c:forEach>
-                        <p:spacer/>
-                        <p:commandButton value="Enviar Respuestas" icon="ui-icon-check" 
-                                         oncomplete="PF('dlg').show()" process="@all" update="formPrincipal"
-                                         action="#{estPresentaTestMB.guardarRespuestas()}"/>
+                    </p:panel>
+                    <p:panel>
+                        <div align="right">
+                            <p:commandButton value="Enviar Respuestas" icon="ui-icon-check" 
+                                             oncomplete="PF('dlg').show()" process="@all" update="formPrincipal"
+                                             action="#{estPresentaTestMB.guardarRespuestas()}"/>
+                            <p:commandButton value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>
+                        </div>
                     </p:panel>
                 </h:form>
             </ui:define>

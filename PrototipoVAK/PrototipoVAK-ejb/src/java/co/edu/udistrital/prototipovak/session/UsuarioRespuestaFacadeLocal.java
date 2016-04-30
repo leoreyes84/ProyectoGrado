@@ -30,6 +30,8 @@ public interface UsuarioRespuestaFacadeLocal {
 
     int count();
     
-    List<UsuarioRespuesta> obtenerRespuestaUsuario(Integer idUsuario);
+    List<UsuarioRespuesta> obtenerRespuestaUsuario(Integer idUsuario) throws Exception;
+    
+    List<UsuarioRespuesta> obtenerRespuestasGrupo(Integer idGrupo) throws Exception;
     
 }

@@ -21,6 +21,7 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">
+                    <p:messages id="messages" showDetail="false" /> 
                     <p:panel id="panelListaGrupos" header="#{msg['profesor.lista.grupos.panel.lista.grupos']}" style="margin-bottom:20px">
                         <p:fieldset id="fieldSetFiltros" legend="#{msg['profesor.lista.grupos.fieldset.lista.grupos.filtros']}" style="margin-bottom:20px">
                             <h:panelGrid columns="3">
@@ -62,9 +63,10 @@ and open the template in the editor.
                                 </p:column> 
 
                                 <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
-                                    <div align="right">
+                                    <div align="center">
                                         <p:commandButton value="#{msg['profesor.lista.test.resultados']}" 
-                                                         action="#{profListaGruposMB.verResultadosGrupos(grupoFiltr.grupId)}" />
+                                                         action="#{profListaGruposMB.verResultadosGrupos(grupoFiltr.grupId)}" 
+                                                         update=":formPrincipal:messages"/>
                                     </div>
                                 </p:column>                            
                             </p:dataTable>

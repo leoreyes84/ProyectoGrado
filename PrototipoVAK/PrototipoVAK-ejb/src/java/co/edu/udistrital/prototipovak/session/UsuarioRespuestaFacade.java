@@ -31,18 +31,36 @@ public class UsuarioRespuestaFacade extends AbstractFacade<UsuarioRespuesta> imp
     }
     
     @Override
-    public List<UsuarioRespuesta> obtenerRespuestaUsuario(Integer idUsuario) {
+    public List<UsuarioRespuesta> obtenerRespuestaUsuario(Integer idUsuario) throws Exception{
         try {
             Query consulta;
-            String cadena_consulta = "select * from usuario_respuesta where usr_id = " + idUsuario;
+            StringBuilder cadena_consulta = new StringBuilder();
+            cadena_consulta.append("select * from usuario_respuesta where usr_id = ").append(idUsuario);
             
             // Asigna crea el query de cadena_consulta
-            consulta = getEntityManager().createNativeQuery(cadena_consulta, UsuarioRespuesta.class);
+            consulta = getEntityManager().createNativeQuery(cadena_consulta.toString(), UsuarioRespuesta.class);
             List<UsuarioRespuesta> consultada = (List<UsuarioRespuesta>) consulta.getResultList();
             return consultada;
         } catch (Exception e) {
-            e.getCause();
-            return null;
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public List<UsuarioRespuesta> obtenerRespuestasGrupo(Integer idGrupo) throws Exception {
+        try {
+            Query consulta;
+            StringBuilder cadena_consulta = new StringBuilder();
+            cadena_consulta.append("select * from usuario_respuesta urta ");
+            cadena_consulta.append("join usuario_grupo ugrupo on ugrupo.usr_id = urta.usr_id ");
+            cadena_consulta.append("where ugrupo.grup_id = ").append(idGrupo);
+            
+            // Asigna crea el query de cadena_consulta
+            consulta = getEntityManager().createNativeQuery(cadena_consulta.toString(), UsuarioRespuesta.class);
+            List<UsuarioRespuesta> consultada = (List<UsuarioRespuesta>) consulta.getResultList();
+            return consultada;
+        } catch (Exception e) {
+            throw new Exception();
         }
     }
     
