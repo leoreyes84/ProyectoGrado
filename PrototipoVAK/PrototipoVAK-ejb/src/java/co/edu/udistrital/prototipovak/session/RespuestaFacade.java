@@ -27,5 +27,17 @@ public class RespuestaFacade extends AbstractFacade<Respuesta> implements Respue
     public RespuestaFacade() {
         super(Respuesta.class);
     }
+
+    @Override
+    public Respuesta findRespuestaByID(Integer idRespuesta) throws Exception {
+        try {
+            Respuesta consultada = (Respuesta) getEntityManager().createNamedQuery("Respuesta.findByRtaId")
+                    .setParameter("rtaId", idRespuesta)
+                    .getSingleResult();
+            return consultada;
+        } catch (Exception e) {
+            throw new Exception();
+        }
+    }
     
 }

@@ -138,7 +138,7 @@ public class AdminGestionarPreguntasMB {
                 //Eliminar Entity
                 Pregunta preguntaEntity = preguntaEntity = preguntaDelegate.toPreguntaEntity(selectedPregunta);
                 //Remover respuestas (hijas)
-                for(Respuesta rta: preguntaEntity.getRespuestaList()){
+                for (Respuesta rta : preguntaEntity.getRespuestaList()) {
                     respuestaFacade.remove(rta);
                 }
                 //Remover pregunta (padre)

@@ -16,7 +16,6 @@ import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -32,26 +31,10 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @ViewScoped
 public class ProfListaGruposMB {
-    
 
     // /////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
+    // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(AdminGestionarGruposMB.class);
-
-    private List<ProgramaAcademico> listaProgramasAcademicos;
-    private List<Periodo> listaPeriodos;
-    private List<Grupo> listaGrupos;
-    private List<Grupo> listaFiltrada;
-
-    private Map<String, Integer> listNombreProg = new HashMap<String, Integer>();
-    private Map<String, Integer> listNombrePeriodo = new HashMap<String, Integer>();
-    private Map<String, Integer> listNombreGrupo = new HashMap<String, Integer>();
-
-    private Integer idPrograma;
-    private Integer idPeriodo;
-    private Integer idGrupo;
-
     @EJB
     private ProgramaAcademicoFacadeLocal programaAcademicoFacade;
     @EJB
@@ -61,12 +44,30 @@ public class ProfListaGruposMB {
     @EJB
     private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
 
-    /**
-     * Creates a new instance of ProfListaGruposMB
-     */
-    public ProfListaGruposMB() {
-    }
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(AdminGestionarGruposMB.class);
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Atributos de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private List<ProgramaAcademico> listaProgramasAcademicos;
+    private List<Periodo> listaPeriodos;
+    private List<Grupo> listaGrupos;
+    private List<Grupo> listaFiltrada;
+
+    private Map<String, Integer> listNombreProg;
+    private Map<String, Integer> listNombrePeriodo;
+    private Map<String, Integer> listNombreGrupo;
+
+    private Integer idPrograma;
+    private Integer idPeriodo;
+    private Integer idGrupo;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Metodos de la clase
+    // /////////////////////////////////////////////////////////////////////////
     /**
      * Metodo que inicializa el backing bean
      */
@@ -83,9 +84,6 @@ public class ProfListaGruposMB {
     public void obtenerResultados() {
         try {
             listaFiltrada = grupoFacade.filtrarBusqueda(idPrograma, idPeriodo, idGrupo);
-            for (Grupo grupoTemp : listaFiltrada) {
-                System.out.println(grupoTemp.getProgId().getProgNombre());
-            }
         } catch (Exception e) {
             _logger.error("Error obteniendo resultados: " + e.getMessage());
         }
@@ -102,7 +100,7 @@ public class ProfListaGruposMB {
         try {
             //Validar que existan respuestas de los estudiantes para el grupo seleccionado
             List<UsuarioRespuesta> respuestas = usuarioRespuestaFacade.obtenerRespuestasGrupo(idGrupo);
-            if (respuestas != null && respuestas.size()>0) {
+            if (respuestas != null && respuestas.size() > 0) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idGrupo", idGrupo);
                 return "veResultados";
             } else {

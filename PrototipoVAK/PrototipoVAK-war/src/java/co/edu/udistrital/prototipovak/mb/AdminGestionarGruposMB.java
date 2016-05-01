@@ -29,15 +29,15 @@ import org.jboss.logging.Logger;
 public class AdminGestionarGruposMB {
     
     // /////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
-    // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(AdminGestionarGruposMB.class);
-    
-    // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
     @EJB
     private GrupoFacadeLocal grupoFacade;
+    
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(AdminGestionarGruposMB.class);
     
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
@@ -133,7 +133,7 @@ public class AdminGestionarGruposMB {
      * Carga la tabla de programas
      */
     private void cargarTabla() {
-        grupos = new ArrayList<Grupo>();
+        grupos = new ArrayList<>();
         // Consulta todos los programas
         grupos = grupoFacade.findAll();
         // Adiciona al data model para selección por pantalla
@@ -215,9 +215,5 @@ public class AdminGestionarGruposMB {
     public void setMediumGrupoModel(GrupoDataModel mediumGrupoModel) {
         this.mediumGrupoModel = mediumGrupoModel;
     }
-    
-    
-
-   
     
 }

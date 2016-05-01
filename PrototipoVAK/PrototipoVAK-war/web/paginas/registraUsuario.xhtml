@@ -35,7 +35,7 @@ and open the template in the editor.
                                                      value="#{registraUsuarioMB.idPrograma}" required="true">
                                         <f:selectItem itemLabel="- Seleccione -" itemValue="" />
                                         <f:selectItems value="#{comboMB.comboProgramaAcademico}" />
-                                        <p:ajax listener="#{registraUsuarioMB.obtenerComboGrupo}" update=":registroUsuario:grupo" />
+                                        <p:ajax listener="#{registraUsuarioMB.obtenerComboGrupo}" update="grupo" />
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -47,8 +47,8 @@ and open the template in the editor.
                                      <p:selectOneMenu id="grupo" label="#{msg['registro.usuario.grupo.label']}"
                                                       value="#{registraUsuarioMB.idGrupo}" required="false">
                                         <f:selectItem itemLabel="- Seleccione -" itemValue="" />
-                                        <!--<f:selectItems value="#{registraUsuarioMB.listGrupos}" />-->
-                                        <f:selectItems value="#{comboMB.comboGrupo}" />
+                                        <f:selectItems value="#{registraUsuarioMB.listGrupos}" />
+                                        <!--<f:selectItems value="#{comboMB.comboGrupo}" />-->
                                     </p:selectOneMenu>
                                 </p:column>
                             </p:row>
@@ -101,7 +101,8 @@ and open the template in the editor.
                                 <p:column colspan="2">
                                     <div align="center">
                                         <p:commandButton value="#{msg['button.aceptar']}" process="@all" 
-                                                         update=":registroUsuario" action="#{registraUsuarioMB.guardarUsuario()}"/>
+                                                         update=":registroUsuario" icon="ui-icon-check"
+                                                         action="#{registraUsuarioMB.guardarUsuario()}"/>
                                     </div>
                                 </p:column>
                             </p:row>

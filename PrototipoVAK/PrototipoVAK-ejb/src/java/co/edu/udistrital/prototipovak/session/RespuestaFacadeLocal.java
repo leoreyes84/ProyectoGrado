@@ -30,4 +30,6 @@ public interface RespuestaFacadeLocal {
 
     int count();
     
+    Respuesta findRespuestaByID(Integer idRespuesta) throws Exception;
+    
 }

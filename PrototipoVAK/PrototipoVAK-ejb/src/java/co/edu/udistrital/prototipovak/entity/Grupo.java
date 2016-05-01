@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,13 +52,13 @@ public class Grupo implements Serializable {
     @JoinTable(name = "usuario_grupo", joinColumns = {
         @JoinColumn(name = "grup_id", referencedColumnName = "grup_id")}, inverseJoinColumns = {
         @JoinColumn(name = "usr_id", referencedColumnName = "usr_id")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Usuario> usuarioList;
     @JoinColumn(name = "peri_id", referencedColumnName = "peri_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Periodo periId;
     @JoinColumn(name = "prog_id", referencedColumnName = "prog_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ProgramaAcademico progId;
 
     public Grupo() {

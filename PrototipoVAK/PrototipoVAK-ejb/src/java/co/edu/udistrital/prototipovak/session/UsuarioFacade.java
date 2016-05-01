@@ -32,7 +32,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     }
 
     @Override
-    public Usuario usuarioByEmailYPass(String codigoUsuario, String password) throws Exception{
+    public Usuario usuarioByEmailYPass(String codigoUsuario, String password){
         try {
             Query consulta;
             String cadena_consulta = "select * from usuario where usr_codigo= '" + codigoUsuario + "'and usr_contrasenia = '" + password + "'";
@@ -41,7 +41,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             Usuario consultada = (Usuario) consulta.getSingleResult();
             return consultada;
         } catch (Exception e) {
-            throw new Exception();
+            return null;
+//            throw new Exception();
         }
     }
 

@@ -23,22 +23,21 @@ and open the template in the editor.
                 <h:form id="formPrincipal">
                     <p:growl id="growl" showDetail="false" sticky="true" life="500"/>
                     <p:panel id="basic" header="#{msg['estudiante.presentar.test.title']}" style="margin-bottom:20px">
-                        <c:forEach items="#{estPresentaTestMB.itemTestTO}" var="itemPregunta">
+                        <ui:repeat value="#{estPresentaTestMB.itemTestTO}" var="itemPregunta">
                             <h:panelGrid columns="1" style="width:100%">
                                 <p:outputLabel value="#{itemPregunta.pregunta}"/>
                                 <p:selectOneRadio id="radioRespuesta" value="#{itemPregunta.idRadioRespuesta}" 
-                                                  layout="grid" columns="1">
-                                    <f:selectItems value="#{itemPregunta.itemsRespuestas}" /><b/>
+                                                  layout="grid" columns="1" required="true" label="Respuestas">
+                                    <f:selectItems value="#{itemPregunta.itemsRespuestas}"/><b/>
                                 </p:selectOneRadio>
                             </h:panelGrid>
                             <p:spacer/>
-                        </c:forEach>
-                    </p:panel>
-                    <p:panel>
+                        </ui:repeat>
+                        <p:outputLabel value="" style="height: 15px"/>
                         <div align="right">
                             <p:commandButton value="Enviar Respuestas" icon="ui-icon-check" 
-                                             oncomplete="PF('dlg').show()" process="@all" update="formPrincipal"
-                                             action="#{estPresentaTestMB.guardarRespuestas()}"/>
+                                             action="#{estPresentaTestMB.guardarRespuestas()}" update="formPrincipal"
+                                             process="@all"/>
                             <p:commandButton value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>
                         </div>
                     </p:panel>

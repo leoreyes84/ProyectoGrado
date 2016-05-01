@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,9 +51,9 @@ public class Periodo implements Serializable {
     @Size(max = 45)
     @Column(name = "peri_descripcion")
     private String periDescripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periId", fetch = FetchType.LAZY)
     private List<Grupo> grupoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "periodo", fetch = FetchType.LAZY)
     private List<UsuarioRespuesta> usuarioRespuestaList;
 
     public Periodo() {

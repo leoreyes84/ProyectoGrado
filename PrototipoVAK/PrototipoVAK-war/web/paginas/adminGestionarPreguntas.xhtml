@@ -20,11 +20,9 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">
-                    <!--<p:growl id="growl" showDetail="false" sticky="true" life="500"/>-->
-                    <p:panel id="basic" header="#{msg['admin.gestionar.pregunta.title']}" style="margin-bottom:20px;width: 90%">
+                    <p:panel id="basic" header="#{msg['admin.gestionar.pregunta.title']}">
                         <h:panelGroup layout="block">
                             <p:commandButton value="#{msg['button.agregar']}" onclick="PF('nuevoItem').show()" id="agregar" icon="ui-icon-circle-plus" />
-                            <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                         </h:panelGroup>
                         <h:panelGroup layout="block" style="margin-top: 10px">
                             <p:outputPanel id="panelTabla">
@@ -44,22 +42,22 @@ and open the template in the editor.
                                     </p:column>
                                     <p:column headerText="#{msg['admin.gestionar.pregunta.datatable.columna.pregunta']}"
                                               filterBy="#{item.pregunta}" sortBy="#{item.pregunta}" 
-                                              filterMatchMode="contains">  
+                                              filterMatchMode="contains" filterStyle="width: 60%">  
                                         #{item.pregunta}
                                     </p:column>
                                     <p:column headerText="#{msg['admin.gestionar.pregunta.datatable.columna.rta.v']}"
                                               filterBy="#{item.respuestaV}" sortBy="#{item.respuestaV}" 
-                                              filterMatchMode="contains">  
+                                              filterMatchMode="contains" filterStyle="width: 60%">  
                                         #{item.respuestaV}
                                     </p:column>
                                     <p:column headerText="#{msg['admin.gestionar.pregunta.datatable.columna.rta.a']}"
                                               filterBy="#{item.respuestaA}" sortBy="#{item.respuestaA}" 
-                                              filterMatchMode="contains">  
+                                              filterMatchMode="contains" filterStyle="width: 60%">  
                                         #{item.respuestaA}
                                     </p:column>
                                     <p:column headerText="#{msg['admin.gestionar.pregunta.datatable.columna.rta.k']}"
                                               filterBy="#{item.respuestaK}" sortBy="#{item.respuestaK}" 
-                                              filterMatchMode="contains">  
+                                              filterMatchMode="contains" filterStyle="width: 60%">  
                                         #{item.respuestaK}
                                     </p:column>
                                     <f:facet name="footer"> 
@@ -67,7 +65,7 @@ and open the template in the editor.
                                                          process="idDataTable"
                                                          actionListener="#{adminGestionarPreguntasMB.cargarValoresModificar()}"
                                                          update=":formModificar:panelGridModificar" oncomplete="if(PF('tablaItems').selection != ''){PF('modificaItem').show()}else{PF('informacion').show()}"/>
-                                        <p:commandButton value="#{msg['button.eliminar']}" icon="ui-icon-circle-close"
+                                        <p:commandButton value="#{msg['button.eliminar']}" icon="ui-icon-trash"
                                                          actionListener="#{adminGestionarPreguntasMB.cargarObjetoSeleccionado()}"
                                                          update=":formEliminar:dialogEliminar" oncomplete="if(PF('tablaItems').selection != ''){PF('eliminaItem').show()}else{PF('informacion').show()}"/>
                                     </f:facet> 
@@ -78,9 +76,9 @@ and open the template in the editor.
                 </h:form>
                 <!-- NUEVO ITEM -->
                 <h:form id="formNuevo">
-                    <!--<p:growl id="messagesNuevo" showDetail="false" autoUpdate="false"/>-->
                     <p:dialog id="dialogNuevo" header="#{msg['admin.gestionar.pregunta.agregar.pregunta']}" widgetVar="nuevoItem"
-                              visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true">  
+                              visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true">
+                        <p:growl id="messages" showDetail="false" autoUpdate="false"/>
                         <p:panelGrid id="panelGridNuevo">
                             <p:row>
                                 <p:column>
@@ -121,11 +119,11 @@ and open the template in the editor.
                             <p:row>
                                 <p:column colspan="2">
                                     <div align="center">
-                                        <p:commandButton id="aceptarNuevo" value="#{msg['button.agregar']}" oncomplete="PF('nuevoItem').hide()"
+                                        <p:commandButton value="#{msg['button.agregar']}"
                                                          actionListener="#{adminGestionarPreguntasMB.guardarItem()}"
-                                                         update="dialogNuevo,:formPrincipal:idDataTable,:formPrincipal:messages" 
+                                                         update="dialogNuevo,:formPrincipal:idDataTable," 
                                                          process="@this,panelGridNuevo" icon="ui-icon-check"/>  
-                                        <p:commandButton id="cancelarNuevo" value="#{msg['button.cancelar']}" 
+                                        <p:commandButton value="#{msg['button.cerrar']}" 
                                                          actionListener="#{adminGestionarPreguntasMB.limpiarValores()}"
                                                          update="dialogNuevo" process="@none" icon="ui-icon-close"/>
                                     </div>
@@ -136,9 +134,9 @@ and open the template in the editor.
                 </h:form>
                 <!-- MODIFICAR PRODUCTO -->
                 <h:form id="formModificar">
-                    <!--<p:growl id="messagesModificar" showDetail="false" autoUpdate="false"/>-->
                     <p:dialog id="dialogModificar" header="#{msg['admin.gestionar.programa.modificar.programa']}" widgetVar="modificaItem"
-                              visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true">  
+                              visible="#{not empty facesContext.maximumSeverity}" closable="false" modal="true"> 
+                        <p:growl id="messages" showDetail="false" autoUpdate="false"/>
                         <p:panelGrid id="panelGridModificar">
                             <p:row>
                                 <p:column>
@@ -179,11 +177,11 @@ and open the template in the editor.
                             <p:row>
                                 <p:column colspan="2">
                                     <div align="center">
-                                        <p:commandButton value="#{msg['button.modificar']}" oncomplete="PF('modificaItem').hide()"
+                                        <p:commandButton value="#{msg['button.modificar']}"
                                                          actionListener="#{adminGestionarPreguntasMB.modificarItem()}"
-                                                         update="dialogModificar,:formPrincipal:idDataTable,:formPrincipal:messages" 
+                                                         update="dialogModificar,:formPrincipal:idDataTable" 
                                                          process="@this,panelGridModificar" icon="ui-icon-check"/>  
-                                        <p:commandButton value="#{msg['button.cancelar']}" 
+                                        <p:commandButton value="#{msg['button.cerrar']}" 
                                                          actionListener="#{adminGestionarPreguntasMB.limpiarValores()}"
                                                          update="dialogModificar" process="@none" icon="ui-icon-close"/> 
                                     </div>
@@ -194,11 +192,11 @@ and open the template in the editor.
                 </h:form>
                 <!-- ELIMINAR ITEM -->
                 <h:form id="formEliminar">
-                    <!--                    <p:growl id="messagesEliminar" showDetail="false" autoUpdate="false"/>-->
+                    <p:growl id="messages" showDetail="false" autoUpdate="false"/>
                     <p:confirmDialog id="dialogEliminar" message="#{msg['confirm.pregunta']}" 
                                      header="Confirme" widgetVar="eliminaItem" closable="false">  
                         <p:commandButton id="confirmElim" value="#{msg['button.confirm.si']}" 
-                                         update="dialogEliminar,:formPrincipal:idDataTable,:formPrincipal:messages" 
+                                         update="messages,:formPrincipal:idDataTable" 
                                          oncomplete="PF('eliminaItem').hide()"  
                                          actionListener="#{adminGestionarPreguntasMB.eliminarItem()}" 
                                          icon="ui-icon-check"/>  

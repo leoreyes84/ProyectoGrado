@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Clase encargada de transformar el entity de Preguntas en TO y viceversa 
  * @author Leonardo
  */
 public class PreguntaDelegate {

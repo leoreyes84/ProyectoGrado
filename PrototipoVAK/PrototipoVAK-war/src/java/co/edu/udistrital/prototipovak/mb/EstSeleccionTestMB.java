@@ -26,17 +26,17 @@ import org.jboss.logging.Logger;
 public class EstSeleccionTestMB {
 
     // /////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
-    // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(EstSeleccionTestMB.class);
-
-    // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
     @EJB
     private GrupoFacadeLocal grupoFacade;
     @EJB
     private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(EstSeleccionTestMB.class);
 
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
@@ -72,6 +72,11 @@ public class EstSeleccionTestMB {
         }
     }
 
+    /**
+     * Regla de navegacion para presentar el test 
+     * @param idPeriodo
+     * @return 
+     */
     public String presentarTest(Integer idPeriodo) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idPeriodo", idPeriodo);
         return "presentaTest";

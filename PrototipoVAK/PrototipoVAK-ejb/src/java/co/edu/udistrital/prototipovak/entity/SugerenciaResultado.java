@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Gerson Cespedes
+ * @author Leonardo
  */
 @Entity
 @Table(name = "sugerencia_resultado")

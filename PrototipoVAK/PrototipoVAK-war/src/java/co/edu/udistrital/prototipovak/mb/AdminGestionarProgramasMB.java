@@ -27,16 +27,16 @@ import org.jboss.logging.Logger;
 public class AdminGestionarProgramasMB {
 
     // /////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
-    // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(AdminGestionarProgramasMB.class);
-    
-    // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
     @EJB
     private ProgramaAcademicoFacadeLocal programaAcademicoFacade;
-    
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(AdminGestionarProgramasMB.class);
+
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
     // /////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,6 @@ public class AdminGestionarProgramasMB {
     //////////////////////////////////////
     ////Métodos de la clase
     //////////////////////////////////////
-  
     /**
      * Metodo que inicializa el bean
      */
@@ -74,10 +73,10 @@ public class AdminGestionarProgramasMB {
             _logger.info("Programa creado");
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error guardar Programa) "+ex.getMessage(), ex);
+            _logger.error("Error guardar Programa) " + ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Modifica el programa
      */
@@ -97,10 +96,10 @@ public class AdminGestionarProgramasMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error modificar Programa "+ex.getMessage(), ex);
+            _logger.error("Error modificar Programa " + ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Elimina el programa
      */
@@ -117,21 +116,21 @@ public class AdminGestionarProgramasMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error eliminar Programa "+ex.getMessage(), ex);
+            _logger.error("Error eliminar Programa " + ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Carga la tabla de programas
      */
     private void cargarTabla() {
-        programas = new ArrayList<ProgramaAcademico>();
+        programas = new ArrayList<>();
         // Consulta todos los programas
         programas = programaAcademicoFacade.findAll();
         // Adiciona al data model para selección por pantalla
         mediumProgramaModel = new ProgramaDataModel(programas);
     }
-    
+
     /**
      * Limpia valores de ventana emergente
      */
@@ -140,7 +139,7 @@ public class AdminGestionarProgramasMB {
         this.codigoPrograma = null;
         this.nombrePrograma = null;
     }
-    
+
     /**
      * Carga objeto a modificar
      */
@@ -197,5 +196,4 @@ public class AdminGestionarProgramasMB {
         this.selectedPrograma = selectedPrograma;
     }
 
-    
 }

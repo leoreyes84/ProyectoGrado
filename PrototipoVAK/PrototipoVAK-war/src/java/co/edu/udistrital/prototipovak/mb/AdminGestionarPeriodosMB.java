@@ -27,15 +27,15 @@ import org.jboss.logging.Logger;
 public class AdminGestionarPeriodosMB {
 
     // /////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
-    // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(AdminGestionarPeriodosMB.class);
-
-    // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
     @EJB
     private PeriodoFacadeLocal periodoFacade;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(AdminGestionarPeriodosMB.class);
 
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
@@ -57,9 +57,9 @@ public class AdminGestionarPeriodosMB {
         //Cargar tabla
         cargarTabla();
     }
-    
+
     /**
-     * Guarda el programa académico
+     * Guarda el periodo
      */
     public void guardarItem() {
         try {
@@ -73,12 +73,12 @@ public class AdminGestionarPeriodosMB {
             _logger.info("Periodo creado");
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error guardarPeriodo() "+ex.getMessage(), ex);
+            _logger.error("Error guardarPeriodo() " + ex.getMessage(), ex);
         }
     }
-    
+
     /**
-     * Modifica el programa
+     * Modifica el perido
      */
     public void modificarItem() {
         try {
@@ -96,12 +96,12 @@ public class AdminGestionarPeriodosMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error modificarPeriodo() "+ex.getMessage(), ex);
+            _logger.error("Error modificarPeriodo() " + ex.getMessage(), ex);
         }
     }
-    
+
     /**
-     * Elimina el programa
+     * Elimina el periodo
      */
     public void eliminarItem() {
         try {
@@ -116,10 +116,10 @@ public class AdminGestionarPeriodosMB {
             }
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error en el sistema!", ""));
-            _logger.error("Error eliminarPeriodo() "+ex.getMessage(), ex);
+            _logger.error("Error eliminarPeriodo() " + ex.getMessage(), ex);
         }
     }
-    
+
     /**
      * Carga la tabla de programas
      */
@@ -130,7 +130,7 @@ public class AdminGestionarPeriodosMB {
         // Adiciona al data model para selección por pantalla
         mediumPeriodoModel = new PeriodoDataModel(periodos);
     }
-    
+
     /**
      * Limpia valores de ventana emergente
      */
@@ -139,7 +139,7 @@ public class AdminGestionarPeriodosMB {
         this.nombrePeriodo = null;
         this.descripcion = null;
     }
-    
+
     /**
      * Carga objeto a modificar
      */
@@ -196,5 +196,4 @@ public class AdminGestionarPeriodosMB {
         this.mediumPeriodoModel = mediumPeriodoModel;
     }
 
-    
 }

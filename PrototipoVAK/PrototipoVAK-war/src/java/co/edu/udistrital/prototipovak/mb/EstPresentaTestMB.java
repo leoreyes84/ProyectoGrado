@@ -5,15 +5,13 @@
  */
 package co.edu.udistrital.prototipovak.mb;
 
-import co.edu.udistrital.prototipovak.entity.Periodo;
 import co.edu.udistrital.prototipovak.entity.Pregunta;
 import co.edu.udistrital.prototipovak.entity.Respuesta;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuestaPK;
-import co.edu.udistrital.prototipovak.session.PeriodoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.PreguntaFacadeLocal;
-import co.edu.udistrital.prototipovak.session.UsuarioFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
+import co.edu.udistrital.prototipovak.util.Constantes;
 import co.edu.udistrital.prototipovak.util.ItemTestTO;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +32,7 @@ import org.jboss.logging.Logger;
 @ManagedBean
 @ViewScoped
 public class EstPresentaTestMB {
+
     // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
@@ -100,22 +99,18 @@ public class EstPresentaTestMB {
      */
     public String guardarRespuestas() {
         try {
-            if (itemTestTO != null && itemTestTO.length > 0) {
-                //Recorrer el arreglo para guardar las respuestas
-                for (ItemTestTO itemRespuestas : itemTestTO) {
-                    UsuarioRespuesta respuesta = new UsuarioRespuesta();
-                    UsuarioRespuestaPK respuestaPK = new UsuarioRespuestaPK();
-                    respuestaPK.setPeriId(idPeriodo);
-                    respuestaPK.setUsrId(idUsuario);
-                    respuestaPK.setRtaId(itemRespuestas.getIdRadioRespuesta());
-                    respuesta.setUsuarioRespuestaPK(respuestaPK);
-                    usuarioRespuestaFacade.create(respuesta);
-                }
-                _logger.info("Test guardado");
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Test guardado con éxito.", ""));
-                return "verResultados";
+            //Recorrer el arreglo para guardar las respuestas
+            for (ItemTestTO itemRespuesta : itemTestTO) {
+                UsuarioRespuesta respuesta = new UsuarioRespuesta();
+                UsuarioRespuestaPK respuestaPK = new UsuarioRespuestaPK();
+                respuestaPK.setPeriId(idPeriodo);
+                respuestaPK.setUsrId(idUsuario);
+                respuestaPK.setRtaId(itemRespuesta.getIdRadioRespuesta());
+                respuesta.setUsuarioRespuestaPK(respuestaPK);
+                usuarioRespuestaFacade.create(respuesta);
             }
-            return null;
+            _logger.info("Test guardado");
+            return "verResultados";
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error guardando los datos.", ""));
             _logger.error("Error guardando respuestas " + Arrays.toString(ex.getStackTrace()));

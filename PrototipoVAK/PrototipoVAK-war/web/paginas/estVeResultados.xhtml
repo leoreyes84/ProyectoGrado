@@ -14,7 +14,6 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <f:event type="preRenderView" listener="#{estVeResultadosMB.init}" /> 
         <ui:composition template="../templates/template.xhtml">
             <ui:define name="title">
                 <h:outputText value="#{msg['estudiante.ver.resultados.title']}" />
@@ -23,11 +22,12 @@ and open the template in the editor.
                 <h:form id="formPrincipal">
                     <p:panel id="basic" header="#{msg['estudiante.ver.resultados.title']}" style="margin-bottom:20px">
                         <p:chart type="pie" model="#{estVeResultadosMB.resultadosTest}" 
-                                 style="width:400px; height:300px;display: block; margin: 0 auto;" />
+                                 style="width:400px; height:300px;display: block; margin: 0 auto;"/>
                         <div style="width:800px;">
-                            <p:dataList value="#{estVeResultadosMB.listaSugerenciaResultado}" var="sugerencia" type="ordered">
+                            <p:dataList value="#{estVeResultadosMB.listaSugerenciaResultado}" var="sugerencia" type="ordered" 
+                                        emptyMessage="#{msg['datatable.empty']}">
                                 <f:facet name="header">
-                                    Sugerencias para el Resultado
+                                    #{msg['estudiante.presentar.test.caracteristicas']}
                                 </f:facet>
                                 <div style="font-size: 15px;">
                                     #{sugerencia.sugParrafo}
@@ -37,7 +37,10 @@ and open the template in the editor.
                         </div>
                         <br></br>                         
                         <div style="text-align:center;">
-                            <p:commandButton  value="Volver" action="volver"/>  
+<!--                            <p:commandButton value="Implirmir" type="button" icon="ui-icon-print">
+                                <p:printer target="basic" />
+                            </p:commandButton>-->
+                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>  
                         </div>
                     </p:panel>
                 </h:form>

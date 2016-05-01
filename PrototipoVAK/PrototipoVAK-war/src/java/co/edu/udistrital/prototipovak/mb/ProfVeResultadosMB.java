@@ -6,12 +6,13 @@
 package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Grupo;
+import co.edu.udistrital.prototipovak.entity.Respuesta;
 import co.edu.udistrital.prototipovak.entity.Usuario;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
+import co.edu.udistrital.prototipovak.session.RespuestaFacadeLocal;
 import co.edu.udistrital.prototipovak.util.Constantes;
 import java.util.List;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -29,15 +30,17 @@ import org.primefaces.model.chart.PieChartModel;
 public class ProfVeResultadosMB {
 
     // /////////////////////////////////////////////////////////////////////////
-    // Logger de la clase
-    // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(ProfVeResultadosMB.class);
-
-    // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
     @EJB
     private GrupoFacadeLocal grupoFacade;
+    @EJB
+    private RespuestaFacadeLocal respuestaFacade;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(ProfVeResultadosMB.class);
 
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
@@ -46,7 +49,12 @@ public class ProfVeResultadosMB {
     private PieChartModel resultadoNumRespuestas;
     private PieChartModel resultadoEstudiantes;
     private Grupo grupo;
+    private int numeroEstudiatesGrupo;
+    private int numeroEstudiantesConRespuesta;
 
+    // /////////////////////////////////////////////////////////////////////////
+    // Metodos de la clase
+    // /////////////////////////////////////////////////////////////////////////
     @PostConstruct
     public void init() {
         //Obtiene de sesion el grupo para obtener resultados
@@ -65,6 +73,7 @@ public class ProfVeResultadosMB {
             //Obtiene los usuarios (Estudiantes) del grupo
             List<Usuario> lstUsuario = grupo != null ? grupo.getUsuarioList() : null;
             if (lstUsuario != null && lstUsuario.size() > 0) {
+                numeroEstudiatesGrupo = lstUsuario.size();
                 //Instanciar charts
                 resultadoNumRespuestas = new PieChartModel();
                 resultadoEstudiantes = new PieChartModel();
@@ -80,14 +89,16 @@ public class ProfVeResultadosMB {
                     //Obtiene las respuestas del estudiante
                     List<UsuarioRespuesta> lstRespuestas = estudiante.getUsuarioRespuestaList();
                     if (lstRespuestas != null && lstRespuestas.size() > 0) {
-                        for (UsuarioRespuesta respuesta : lstRespuestas) {
+                        ++numeroEstudiantesConRespuesta;
+                        for (UsuarioRespuesta usuarioRespuestaTemp : lstRespuestas) {
+                            Respuesta respuesta = respuestaFacade.findRespuestaByID(usuarioRespuestaTemp.getUsuarioRespuestaPK().getRtaId());
                             //Numero de respuestas por tipo V o A o K
-                            if (respuesta.getRespuesta().getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL)) {
-                                resultadoNumRespuestas.set(Constantes.TIPO_APRENDIZAJE_VISUAL, contRespuestaVisual++);
-                            } else if (respuesta.getRespuesta().getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO)) {
-                                resultadoNumRespuestas.set(Constantes.TIPO_APRENDIZAJE_AUDITIVO, contRespuestaAuditivo++);
-                            } else if (respuesta.getRespuesta().getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO)) {
-                                resultadoNumRespuestas.set(Constantes.TIPO_APRENDIZAJE_KINESTESICO, contRespuestaKines++);
+                            if (respuesta.getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL)) {
+                                resultadoNumRespuestas.set(Constantes.TIPO_APRENDIZAJE_VISUAL, ++contRespuestaVisual);
+                            } else if (respuesta.getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO)) {
+                                resultadoNumRespuestas.set(Constantes.TIPO_APRENDIZAJE_AUDITIVO, ++contRespuestaAuditivo);
+                            } else if (respuesta.getRtaTipoRespuesta().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO)) {
+                                resultadoNumRespuestas.set(Constantes.TIPO_APRENDIZAJE_KINESTESICO, ++contRespuestaKines);
                             }
                         }
                         //Numero de estudiantes por tipo V o A o K
@@ -100,18 +111,11 @@ public class ProfVeResultadosMB {
                         }
                     }
                 }
+                //PieChart de numero de estudiantes
                 resultadoEstudiantes.set(Constantes.TIPO_APRENDIZAJE_VISUAL, contEstudianteVisual);
                 resultadoEstudiantes.set(Constantes.TIPO_APRENDIZAJE_AUDITIVO, contEstudianteAuditivo);
                 resultadoEstudiantes.set(Constantes.TIPO_APRENDIZAJE_KINESTESICO, contEstudianteKines);
-                _logger.info("visual " + contRespuestaVisual);
-                _logger.info("auditivo " + contRespuestaAuditivo);
-                _logger.info("kinestesico " + contRespuestaKines);
 
-                _logger.info("--------------");
-
-                _logger.info("visual " + contEstudianteVisual);
-                _logger.info("auditivo " + contEstudianteAuditivo);
-                _logger.info("kinestesico " + contEstudianteKines);
                 //Caracteristicas chart respuestas
                 resultadoNumRespuestas.setTitle(Constantes.TITULO_RESULTADO_PREGUNTAS_GRUPO);
                 resultadoNumRespuestas.setLegendPosition(Constantes.ORIENTACION_W_RESULTADOS_TEST);
@@ -152,6 +156,22 @@ public class ProfVeResultadosMB {
 
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
+    }
+
+    public int getNumeroEstudiatesGrupo() {
+        return numeroEstudiatesGrupo;
+    }
+
+    public void setNumeroEstudiatesGrupo(int numeroEstudiatesGrupo) {
+        this.numeroEstudiatesGrupo = numeroEstudiatesGrupo;
+    }
+
+    public int getNumeroEstudiantesConRespuesta() {
+        return numeroEstudiantesConRespuesta;
+    }
+
+    public void setNumeroEstudiantesConRespuesta(int numeroEstudiantesConRespuesta) {
+        this.numeroEstudiantesConRespuesta = numeroEstudiantesConRespuesta;
     }
 
 }

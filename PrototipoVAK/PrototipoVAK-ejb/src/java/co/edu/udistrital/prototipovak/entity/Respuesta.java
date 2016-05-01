@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,10 +54,10 @@ public class Respuesta implements Serializable {
     @NotNull
     @Column(name = "rta_tipo_respuesta")
     private Character rtaTipoRespuesta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "respuesta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "respuesta", fetch = FetchType.LAZY)
     private List<UsuarioRespuesta> usuarioRespuestaList;
     @JoinColumn(name = "preg_id", referencedColumnName = "preg_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Pregunta pregId;
 
     public Respuesta() {

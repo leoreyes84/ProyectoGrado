@@ -27,6 +27,20 @@ import org.jboss.logging.Logger;
 @SessionScoped
 public class IndexMB {
 
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Logger de la clase
+    // /////////////////////////////////////////////////////////////////////////
+    private static Logger _logger = Logger.getLogger(IndexMB.class);
+
+    // /////////////////////////////////////////////////////////////////////////
+    // Atributos de la clase
+    // /////////////////////////////////////////////////////////////////////////
     private String codigoUsuario;
     private String contrasenia;
     private List<Rol> lstRoles;
@@ -36,10 +50,9 @@ public class IndexMB {
     private Boolean estudiante;
     private Boolean variosRoles;
 
-    @EJB
-    private UsuarioFacadeLocal usuarioFacade;
-    private static Logger _logger = Logger.getLogger(IndexMB.class);
-
+    // /////////////////////////////////////////////////////////////////////////
+    // Metodos de la clase
+    // /////////////////////////////////////////////////////////////////////////
     @PostConstruct
     public void inint() {
         limpiarValores();
@@ -61,11 +74,11 @@ public class IndexMB {
             Usuario usuario = usuarioFacade.usuarioByEmailYPass(codigoUsuario, Seguridad.Sha(contrasenia));
             if (usuario != null) {
                 _logger.info("Login " + codigoUsuario);
-                menuVisible = true;
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idUsuario", usuario.getUsrId());
                 lstRoles = usuario.getRolList();
                 String tmpReturn = "";
                 if (lstRoles != null && lstRoles.size() > 0) {
+                    menuVisible = true;
                     for (Rol rolTemp : lstRoles) {
                         if (rolTemp.getRolCodigo().equals(Constantes.ROL_CODIGO_ADMINISTRADOR)) {
                             administrador = true;
@@ -78,6 +91,8 @@ public class IndexMB {
                             tmpReturn = "estudiante";
                         }
                     }
+                }else{
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario no tiene rol asociado", ""));
                 }
                 if (lstRoles != null && lstRoles.size() > 1) {
                     variosRoles = true;
@@ -98,8 +113,8 @@ public class IndexMB {
     }
 
     /**
-     * Pone la variable que controla el menú en falso para ocultarlo al salir de
-     * la aplicación.
+     * Reset de valores en sesion e inicializacion de variables
+     * que controlan visualizacion del menu
      */
     public void limpiarValores() {
         variosRoles = false;

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,9 +7,11 @@
 package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Grupo;
+import co.edu.udistrital.prototipovak.entity.ProgramaAcademico;
 import co.edu.udistrital.prototipovak.entity.Rol;
 import co.edu.udistrital.prototipovak.entity.Usuario;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
+import co.edu.udistrital.prototipovak.session.ProgramaAcademicoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.RolFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioFacadeLocal;
 import co.edu.udistrital.prototipovak.util.Constantes;
@@ -19,9 +22,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import org.hibernate.validator.constraints.Email;
 import org.jboss.logging.Logger;
 
 /**
@@ -29,8 +33,10 @@ import org.jboss.logging.Logger;
  * @author lreyes
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class RegistraUsuarioMB {
+    @EJB
+    private ProgramaAcademicoFacadeLocal programaAcademicoFacade;
 
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
@@ -53,6 +59,7 @@ public class RegistraUsuarioMB {
     private String codigo;
     private String nombres;
     private String apellidos;
+    @Email(message = "No es un correo válido")
     private String email;
     private String contrasenia;
     private Integer idPrograma;
@@ -111,6 +118,22 @@ public class RegistraUsuarioMB {
             _logger.error("Error validando "+Arrays.toString(ex.getStackTrace()));
             return false;
         }
+    }
+    
+    /**
+     * Consulta los programas académicos
+     * @return Lista tipo selectItem con los programas académicos
+     */
+    public List<SelectItem> getComboProgramaAcademico() {
+        //Consutar Programas académicos
+        List<ProgramaAcademico> list = programaAcademicoFacade.findAll();
+        List<SelectItem> res = new ArrayList<>();
+        if (list != null) {
+            for (ProgramaAcademico progAcad : list) {
+                res.add(new SelectItem(progAcad.getProgId(), progAcad.getProgNombre()));
+            }
+        }
+        return res;
     }
 
     /**

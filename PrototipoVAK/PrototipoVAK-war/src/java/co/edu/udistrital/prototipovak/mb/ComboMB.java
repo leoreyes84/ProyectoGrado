@@ -19,13 +19,16 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.model.SelectItem;
 
 /**
- *
+ * Clase encargada de cargar los combos comunes de la aplicacion
  * @author lreyes
  */
 @ManagedBean
 @ApplicationScoped
 public class ComboMB {
 
+    // /////////////////////////////////////////////////////////////////////////
+    // EJB de la clase
+    // /////////////////////////////////////////////////////////////////////////
     @EJB
     private GrupoFacadeLocal grupoFacade;
     @EJB
@@ -80,6 +83,5 @@ public class ComboMB {
         }
         return res;
     }
-    
 
 }

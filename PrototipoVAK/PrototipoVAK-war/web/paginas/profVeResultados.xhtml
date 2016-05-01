@@ -7,7 +7,6 @@ and open the template in the editor.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core" 
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <head>
@@ -25,14 +24,21 @@ and open the template in the editor.
                              #{profVeResultadosMB.grupo.progId.progNombre} - #{profVeResultadosMB.grupo.grupNombre} - 
                              #{profVeResultadosMB.grupo.periId.periNombre}" 
                              style="margin-bottom:20px">
+                        <b>
+                            <p:outputLabel value="#{msg['profesor.ver.resultados.numero.estudiates.grupo']}
+                                           #{profVeResultadosMB.numeroEstudiantesConRespuesta} /
+                                           #{profVeResultadosMB.numeroEstudiatesGrupo}"/><br/><br/>
+                        </b>
                         <p:panelGrid columns="2">
                             <p:chart type="pie" model="#{profVeResultadosMB.resultadosPorcentajes}" 
-                                 style="width:400px; height:300px;display: block; margin: 0 auto;" />
-                            
+                                     style="width:400px; height:300px;display: block; margin: 0 auto;" />
+
                             <p:chart type="pie" model="#{profVeResultadosMB.resultadosNumRespuestasGrupo}" 
-                                 style="width:400px; height:300px;display: block; margin: 0 auto;" />
+                                     style="width:400px; height:300px;display: block; margin: 0 auto;" />
                         </p:panelGrid>
-                        <p:commandButton  value="Volver" action="volver"/>
+                        <div align="center"><br/>
+                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>
+                        </div>
                     </p:panel>
                 </h:form>
             </ui:define>

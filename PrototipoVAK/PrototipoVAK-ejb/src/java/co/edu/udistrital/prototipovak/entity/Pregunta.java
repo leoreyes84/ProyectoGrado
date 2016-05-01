@@ -47,7 +47,7 @@ public class Pregunta implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "preg_pregunta")
     private String pregPregunta;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pregId", fetch=FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pregId", fetch = FetchType.LAZY)
     private List<Respuesta> respuestaList;
 
     public Pregunta() {

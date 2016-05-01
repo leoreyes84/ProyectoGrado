@@ -8,6 +8,7 @@ package co.edu.udistrital.prototipovak.entity;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -31,15 +32,14 @@ public class UsuarioRespuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UsuarioRespuestaPK usuarioRespuestaPK;
-    
-    @JoinColumn(name = "rta_id", referencedColumnName = "rta_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Respuesta respuesta;
     @JoinColumn(name = "peri_id", referencedColumnName = "peri_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Periodo periodo;
+    @JoinColumn(name = "rta_id", referencedColumnName = "rta_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Respuesta respuesta;
     @JoinColumn(name = "usr_id", referencedColumnName = "usr_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
 
     public UsuarioRespuesta() {

@@ -35,10 +35,11 @@ and open the template in the editor.
                                 <h:outputText value="#{testGrupo.periId.periNombre}" />
                             </p:column> 
                             <p:column headerText="#{msg['estudiante.seleccionar.test.opcion']}">
-                                <div align="right">
+                                <div align="center">
                                    <p:commandButton value="#{msg['estudiante.seleccionar.test.presentar']}" 
                                                     rendered="#{!estSeleccionTestMB.presentarVerTestResultados}" 
-                                                    action="#{estSeleccionTestMB.presentarTest(testGrupo.periId.periId)}"/>
+                                                    action="#{estSeleccionTestMB.presentarTest(testGrupo.periId.periId)}"
+                                                    icon="ui-icon-script"/>
                                    <p:commandButton value="#{msg['estudiante.seleccionar.test.resultados']}" 
                                                     rendered="#{estSeleccionTestMB.presentarVerTestResultados}" 
                                                     action="verResultados"/>
