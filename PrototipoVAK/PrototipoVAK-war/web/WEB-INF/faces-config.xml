@@ -18,18 +18,22 @@
         <navigation-case>
             <from-outcome>bienvenida</from-outcome>
             <to-view-id>/paginas/bienvenida.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>profesor</from-outcome>
             <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>estudiante</from-outcome>
             <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>registroUsuario</from-outcome>
             <to-view-id>/paginas/registraUsuario.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -37,26 +41,32 @@
         <navigation-case>
             <from-outcome>gestionarProgramas</from-outcome>
             <to-view-id>/paginas/adminGestionarProgramas.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>gestionarPeridos</from-outcome>
             <to-view-id>/paginas/adminGestionarPeridos.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>gestionarGrupos</from-outcome>
             <to-view-id>/paginas/adminGestionarGrupos.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>gestionarPreguntas</from-outcome>
             <to-view-id>/paginas/adminGestionarPreguntas.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>profesor</from-outcome>
             <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>estudiante</from-outcome>
             <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -64,6 +74,7 @@
         <navigation-case>
             <from-outcome>veResultados</from-outcome>
             <to-view-id>/paginas/profVeResultados.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -71,10 +82,12 @@
         <navigation-case>
             <from-outcome>presentaTest</from-outcome>
             <to-view-id>/paginas/estPresentaTest.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>verResultados</from-outcome>
             <to-view-id>/paginas/estVeResultados.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -82,6 +95,7 @@
         <navigation-case>
             <from-outcome>registroExitoso</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -97,6 +111,7 @@
         <navigation-case>
             <from-outcome>volver</from-outcome>
             <to-view-id>/paginas/profListaGrupos.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -104,10 +119,12 @@
         <navigation-case>
             <from-outcome>verResultados</from-outcome>
             <to-view-id>/paginas/estVeResultados.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>volver</from-outcome>
             <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -115,6 +132,7 @@
         <navigation-case>
             <from-outcome>volver</from-outcome>
             <to-view-id>/paginas/estSeleccionTest.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 </faces-config>
