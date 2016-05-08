@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{msg['profesor.ver.resultados.title']}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="formPrincipal">
+                    <p:panel id="basic" 
+                             header="#{msg['profesor.ver.resultados.title']} - 
+                             #{profVeResultadosXEstudianteMB.grupo.progId.progNombre} - #{profVeResultadosXEstudianteMB.grupo.grupNombre} - 
+                             #{profVeResultadosXEstudianteMB.grupo.periId.periNombre}" 
+                             style="margin-bottom:20px">
+                        <div align="left">
+                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>
+                        </div><br/>
+                        <div>
+                            <p:dataTable value="#{profVeResultadosXEstudianteMB.lstEstudiantes}" var="estudiante"
+                                         emptyMessage="#{msg['datatable.empty']}" rowIndexVar="row">
+                                <p:column style="width: 15px">
+                                    #{row+1}
+                                </p:column>
+                                <p:column headerText="#{msg['profesor.ver.resultados.individuales.codigo']}"
+                                          sortBy="#{estudiante.usrCodigo}" filterBy="#{estudiante.usrCodigo}"
+                                          filterMatchMode="contains" filterStyle="width: 50%">
+                                    #{estudiante.usrCodigo}
+                                </p:column>
+                                <p:column headerText="#{msg['profesor.ver.resultados.individuales.apellidos']}" 
+                                          sortBy="#{estudiante.usrApellidos}" filterBy="#{estudiante.usrApellidos}"
+                                          filterMatchMode="contains" filterStyle="width: 60%">
+                                    #{estudiante.usrApellidos}
+                                </p:column>
+                                <p:column headerText="#{msg['profesor.ver.resultados.individuales.nombres']}" 
+                                          sortBy="#{estudiante.usrNombres}" filterBy="#{estudiante.usrNombres}"
+                                          filterMatchMode="contains" filterStyle="width: 60%">
+                                    #{estudiante.usrNombres}
+                                </p:column>
+                                <p:column headerText="#{msg['profesor.ver.resultados.individuales.opcion']}" style="text-align: center">
+                                    <h:panelGroup rendered="#{estudiante.usuarioRespuestaList.size() > 0}">
+                                        <p:commandButton value="Ver Resultados" icon="ui-icon-search"
+                                                         action="#{profVeResultadosXEstudianteMB.mostrarResultadoEstudiante(estudiante.usrId)}"/>
+                                    </h:panelGroup>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

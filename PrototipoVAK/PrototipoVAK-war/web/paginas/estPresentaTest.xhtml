@@ -9,8 +9,7 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core" 
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:p="http://primefaces.org/ui">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -35,10 +34,12 @@ and open the template in the editor.
                         </ui:repeat>
                         <p:outputLabel value="" style="height: 15px"/>
                         <div align="right">
-                            <p:commandButton value="Enviar Respuestas" icon="ui-icon-check" 
+                            <p:commandButton value="#{msg['button.enviar.respuestas']}" icon="ui-icon-check" 
                                              action="#{estPresentaTestMB.guardarRespuestas()}" update="formPrincipal"
                                              process="@all"/>
-                            <p:commandButton value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>
+                            <p:commandButton value="#{msg['button.volver']}" action="volver" 
+                                             immediate="true"
+                                             icon="ui-icon-circle-triangle-w"/>
                         </div>
                     </p:panel>
                 </h:form>

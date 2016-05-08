@@ -30,4 +30,6 @@ public interface PreguntaFacadeLocal {
 
     int count();
     
+    List<Pregunta> findPreguntaRandom() throws Exception;
+    
 }

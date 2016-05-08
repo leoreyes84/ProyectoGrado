@@ -36,4 +36,6 @@ public interface UsuarioFacadeLocal {
     
     Usuario findUsuarioById(Integer idUsuario) throws Exception;
     
+    List<Usuario> findEstudiantesByIdGrupo(Integer idGrupo) throws Exception;
+    
 }

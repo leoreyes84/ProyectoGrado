@@ -6,11 +6,9 @@
 package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Respuesta;
-import co.edu.udistrital.prototipovak.entity.SugerenciaResultado;
 import co.edu.udistrital.prototipovak.entity.Usuario;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.session.RespuestaFacadeLocal;
-import co.edu.udistrital.prototipovak.session.SugerenciaResultadoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import co.edu.udistrital.prototipovak.util.Constantes;
@@ -18,7 +16,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import org.jboss.logging.Logger;
 import org.primefaces.model.chart.PieChartModel;
@@ -28,33 +26,28 @@ import org.primefaces.model.chart.PieChartModel;
  * @author Leonardo
  */
 @ManagedBean
-@ViewScoped
-public class EstVeResultadosMB {
-
+@RequestScoped
+public class ProfVeDetalleResultadosMB {
+    
     // /////////////////////////////////////////////////////////////////////////
     // EJB de la clase
     // /////////////////////////////////////////////////////////////////////////
     @EJB
-    private UsuarioFacadeLocal usuarioFacade;
-    @EJB
     private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
     @EJB
-    private SugerenciaResultadoFacadeLocal sugerenciaResultadoFacade;
+    private UsuarioFacadeLocal usuarioFacade;
     @EJB
     private RespuestaFacadeLocal respuestaFacade;
-
+    
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
     // /////////////////////////////////////////////////////////////////////////
-    private static Logger _logger = Logger.getLogger(EstVeResultadosMB.class);
-
+    private static Logger _logger = Logger.getLogger(ProfVeDetalleResultadosMB.class);
+    
     // /////////////////////////////////////////////////////////////////////////
     // Atributos de la clase
     // /////////////////////////////////////////////////////////////////////////
     private List<UsuarioRespuesta> listaUsuRespuesta;
-    private List<SugerenciaResultado> listaSugerenciaVisual;
-    private List<SugerenciaResultado> listaSugerenciaAuditivo;
-    private List<SugerenciaResultado> listaSugerenciaKinestesico;
     private PieChartModel resultadosTest;
 
     // /////////////////////////////////////////////////////////////////////////
@@ -109,57 +102,6 @@ public class EstVeResultadosMB {
         resultadosTest.setShadow(true);
         resultadosTest.setSeriesColors(Constantes.COLORES_RESULTADOS_TEST);
 
-        try {
-            //Consulta de sugerencias/caracteristicas de las respuestas
-            listaSugerenciaVisual = sugerenciaResultadoFacade.findSugerenciasEstutianteVisual();
-            listaSugerenciaAuditivo = sugerenciaResultadoFacade.findSugerenciasEstutianteAuditivo();
-            listaSugerenciaKinestesico = sugerenciaResultadoFacade.findSugerenciasEstutianteKinestesico();
-        } catch (Exception ex) {
-            _logger.error("Error consultando sugerencias " + ex.getMessage());
-        }
-//        List<SugerenciaResultado> listaSugerenciaTemp = new ArrayList<>();
-
-//        for (SugerenciaResultado sugerenciaResultadoTemp : listaSugerenciaResultado) {
-//
-//            if ((contVisual > contAuditivo) && (contVisual > contKines)) {
-//
-//                if (!sugerenciaResultadoTemp.getSugTipoVak().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL.toString())) {
-//                    listaSugerenciaTemp.add(sugerenciaResultadoTemp);
-//                }
-//            }
-//            if ((contAuditivo > contVisual) && (contAuditivo > contKines)) {
-//                if (!sugerenciaResultadoTemp.getSugTipoVak().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO.toString())) {
-//                    listaSugerenciaTemp.add(sugerenciaResultadoTemp);
-//                }
-//            }
-//            if ((contKines > contAuditivo) && (contKines > contVisual)) {
-//                if (!sugerenciaResultadoTemp.getSugTipoVak().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO.toString())) {
-//                    listaSugerenciaTemp.add(sugerenciaResultadoTemp);
-//                }
-//            }
-//            if ((contVisual == contAuditivo) && (contVisual == contKines) && (contAuditivo == contKines)) {
-//                break;
-//            }
-//            if ((contVisual == contAuditivo)) {
-//                if (sugerenciaResultadoTemp.getSugTipoVak().equals(Constantes.COD_TIPO_APRENDIZAJE_KINESTESICO.toString())) {
-//                    listaSugerenciaTemp.add(sugerenciaResultadoTemp);
-//                    break;
-//                }
-//            }
-//            if ((contVisual == contKines)) {
-//                if (sugerenciaResultadoTemp.getSugTipoVak().equals(Constantes.COD_TIPO_APRENDIZAJE_AUDITIVO.toString())) {
-//                    listaSugerenciaTemp.add(sugerenciaResultadoTemp);
-//                    break;
-//                }
-//            }
-//            if ((contAuditivo == contKines)) {
-//                if (sugerenciaResultadoTemp.getSugTipoVak().equals(Constantes.COD_TIPO_APRENDIZAJE_VISUAL.toString())) {
-//                    listaSugerenciaTemp.add(sugerenciaResultadoTemp);
-//                    break;
-//                }
-//            }
-//        }
-//        listaSugerenciaResultado.removeAll(listaSugerenciaTemp);
     }
 
     public PieChartModel getResultadosTest() {
@@ -169,31 +111,5 @@ public class EstVeResultadosMB {
     public void setResultadosTest(PieChartModel resultadosTest) {
         this.resultadosTest = resultadosTest;
     }
-
-    public List<SugerenciaResultado> getListaSugerenciaVisual() {
-        return listaSugerenciaVisual;
-    }
-
-    public void setListaSugerenciaVisual(List<SugerenciaResultado> listaSugerenciaVisual) {
-        this.listaSugerenciaVisual = listaSugerenciaVisual;
-    }
-
-    public List<SugerenciaResultado> getListaSugerenciaAuditivo() {
-        return listaSugerenciaAuditivo;
-    }
-
-    public void setListaSugerenciaAuditivo(List<SugerenciaResultado> listaSugerenciaAuditivo) {
-        this.listaSugerenciaAuditivo = listaSugerenciaAuditivo;
-    }
-
-    public List<SugerenciaResultado> getListaSugerenciaKinestesico() {
-        return listaSugerenciaKinestesico;
-    }
-
-    public void setListaSugerenciaKinestesico(List<SugerenciaResultado> listaSugerenciaKinestesico) {
-        this.listaSugerenciaKinestesico = listaSugerenciaKinestesico;
-    }
-
     
-
 }

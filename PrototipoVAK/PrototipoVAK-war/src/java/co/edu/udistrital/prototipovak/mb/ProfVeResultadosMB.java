@@ -7,10 +7,13 @@ package co.edu.udistrital.prototipovak.mb;
 
 import co.edu.udistrital.prototipovak.entity.Grupo;
 import co.edu.udistrital.prototipovak.entity.Respuesta;
+import co.edu.udistrital.prototipovak.entity.SugerenciaResultado;
 import co.edu.udistrital.prototipovak.entity.Usuario;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.RespuestaFacadeLocal;
+import co.edu.udistrital.prototipovak.session.SugerenciaResultadoFacadeLocal;
+import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
 import co.edu.udistrital.prototipovak.util.Constantes;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -36,6 +39,10 @@ public class ProfVeResultadosMB {
     private GrupoFacadeLocal grupoFacade;
     @EJB
     private RespuestaFacadeLocal respuestaFacade;
+    @EJB
+    private SugerenciaResultadoFacadeLocal sugerenciaResultadoFacade;
+    @EJB
+    private UsuarioRespuestaFacadeLocal usuarioRespuestaFacade;
 
     // /////////////////////////////////////////////////////////////////////////
     // Logger de la clase
@@ -51,6 +58,9 @@ public class ProfVeResultadosMB {
     private Grupo grupo;
     private int numeroEstudiatesGrupo;
     private int numeroEstudiantesConRespuesta;
+    private List<SugerenciaResultado> listaSugerenciaVisual;
+    private List<SugerenciaResultado> listaSugerenciaAuditivo;
+    private List<SugerenciaResultado> listaSugerenciaKinestesico;
 
     // /////////////////////////////////////////////////////////////////////////
     // Metodos de la clase
@@ -68,7 +78,6 @@ public class ProfVeResultadosMB {
     private void cargarResulados() {
         //Consultar los estudiantes del grupo
         try {
-            //TODO: se puede mejorar la consulta, trayendo unicamente los usuarios con rol estudiante
             grupo = grupoFacade.findGrupoByID(idGrupo);
             //Obtiene los usuarios (Estudiantes) del grupo
             List<Usuario> lstUsuario = grupo != null ? grupo.getUsuarioList() : null;
@@ -77,17 +86,17 @@ public class ProfVeResultadosMB {
                 //Instanciar charts
                 resultadoNumRespuestas = new PieChartModel();
                 resultadoEstudiantes = new PieChartModel();
-                //Contador respuestas
-                int contRespuestaVisual = 0;
-                int contRespuestaAuditivo = 0;
-                int contRespuestaKines = 0;
                 //Contador estudiantes
                 int contEstudianteVisual = 0;
                 int contEstudianteAuditivo = 0;
                 int contEstudianteKines = 0;
                 for (Usuario estudiante : lstUsuario) {
+                    //Contador respuestas
+                    int contRespuestaVisual = 0;
+                    int contRespuestaAuditivo = 0;
+                    int contRespuestaKines = 0;
                     //Obtiene las respuestas del estudiante
-                    List<UsuarioRespuesta> lstRespuestas = estudiante.getUsuarioRespuestaList();
+                    List<UsuarioRespuesta> lstRespuestas = usuarioRespuestaFacade.obtenerRespuestaUsuario(estudiante.getUsrId());
                     if (lstRespuestas != null && lstRespuestas.size() > 0) {
                         ++numeroEstudiantesConRespuesta;
                         for (UsuarioRespuesta usuarioRespuestaTemp : lstRespuestas) {
@@ -128,6 +137,14 @@ public class ProfVeResultadosMB {
                 resultadoEstudiantes.setShowDataLabels(true);
                 resultadoEstudiantes.setShadow(true);
                 resultadoEstudiantes.setSeriesColors(Constantes.COLORES_RESULTADOS_TEST);
+            }
+            try {
+                //Consulta de sugerencias/caracteristicas de las respuestas
+                listaSugerenciaVisual = sugerenciaResultadoFacade.findSugerenciasProfesorVisual();
+                listaSugerenciaAuditivo = sugerenciaResultadoFacade.findSugerenciasProfesorAuditivo();
+                listaSugerenciaKinestesico = sugerenciaResultadoFacade.findSugerenciasProfesorKinestesico();
+            } catch (Exception ex) {
+                _logger.error("Error consultando sugerencias " + ex.getMessage());
             }
         } catch (Exception ex) {
             _logger.error("Error cargarResulados " + ex.getMessage(), ex);
@@ -172,6 +189,30 @@ public class ProfVeResultadosMB {
 
     public void setNumeroEstudiantesConRespuesta(int numeroEstudiantesConRespuesta) {
         this.numeroEstudiantesConRespuesta = numeroEstudiantesConRespuesta;
+    }
+
+    public List<SugerenciaResultado> getListaSugerenciaVisual() {
+        return listaSugerenciaVisual;
+    }
+
+    public void setListaSugerenciaVisual(List<SugerenciaResultado> listaSugerenciaVisual) {
+        this.listaSugerenciaVisual = listaSugerenciaVisual;
+    }
+
+    public List<SugerenciaResultado> getListaSugerenciaAuditivo() {
+        return listaSugerenciaAuditivo;
+    }
+
+    public void setListaSugerenciaAuditivo(List<SugerenciaResultado> listaSugerenciaAuditivo) {
+        this.listaSugerenciaAuditivo = listaSugerenciaAuditivo;
+    }
+
+    public List<SugerenciaResultado> getListaSugerenciaKinestesico() {
+        return listaSugerenciaKinestesico;
+    }
+
+    public void setListaSugerenciaKinestesico(List<SugerenciaResultado> listaSugerenciaKinestesico) {
+        this.listaSugerenciaKinestesico = listaSugerenciaKinestesico;
     }
 
 }

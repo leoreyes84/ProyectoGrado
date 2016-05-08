@@ -30,4 +30,16 @@ public interface SugerenciaResultadoFacadeLocal {
 
     int count();
     
+    List<SugerenciaResultado> findSugerenciasEstutianteVisual() throws Exception;
+    
+    List<SugerenciaResultado> findSugerenciasEstutianteAuditivo() throws Exception;
+    
+    List<SugerenciaResultado> findSugerenciasEstutianteKinestesico() throws Exception;
+    
+    List<SugerenciaResultado> findSugerenciasProfesorVisual() throws Exception;
+    
+    List<SugerenciaResultado> findSugerenciasProfesorAuditivo() throws Exception;
+    
+    List<SugerenciaResultado> findSugerenciasProfesorKinestesico() throws Exception;
+    
 }

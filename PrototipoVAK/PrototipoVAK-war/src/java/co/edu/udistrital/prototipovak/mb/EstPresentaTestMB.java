@@ -11,7 +11,6 @@ import co.edu.udistrital.prototipovak.entity.UsuarioRespuesta;
 import co.edu.udistrital.prototipovak.entity.UsuarioRespuestaPK;
 import co.edu.udistrital.prototipovak.session.PreguntaFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioRespuestaFacadeLocal;
-import co.edu.udistrital.prototipovak.util.Constantes;
 import co.edu.udistrital.prototipovak.util.ItemTestTO;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +18,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -68,27 +66,32 @@ public class EstPresentaTestMB {
      * Obtiene la lista de preguntas
      */
     public void obtenerPreguntasTest() {
-        //Busca las preguntas junto con sus respuestas
-        lstPreguntas = preguntaFacade.findAll();
-        if (lstPreguntas != null && lstPreguntas.size() > 0) {
-            //Tamaño del arreglo de preguntas
-            this.itemTestTO = new ItemTestTO[lstPreguntas.size()];
-            int i = 0;
-            for (Pregunta pregunta : lstPreguntas) {
-                itemTestTO[i] = new ItemTestTO();
-                itemTestTO[i].setIdPregunta(pregunta.getPregId());
-                itemTestTO[i].setPregunta(pregunta.getPregPregunta());
-                //Tamaño del arreglo de las respuestas
-                SelectItem[] itemsRespuestas = new SelectItem[pregunta.getRespuestaList().size()];
-                int j = 0;
-                for (Respuesta respuesta : pregunta.getRespuestaList()) {
-                    SelectItem item = new SelectItem(respuesta.getRtaId(), respuesta.getRtaRespuesta());
-                    itemsRespuestas[j] = item;
-                    j++;
+        try {
+            //Busca las preguntas junto con sus respuestas
+            lstPreguntas = preguntaFacade.findPreguntaRandom();
+            if (lstPreguntas != null && lstPreguntas.size() > 0) {
+                //Tamaño del arreglo de preguntas
+                this.itemTestTO = new ItemTestTO[lstPreguntas.size()];
+                int i = 0;
+                for (Pregunta pregunta : lstPreguntas) {
+                    itemTestTO[i] = new ItemTestTO();
+                    itemTestTO[i].setIdPregunta(pregunta.getPregId());
+                    itemTestTO[i].setPregunta(pregunta.getPregPregunta());
+                    //Tamaño del arreglo de las respuestas
+                    SelectItem[] itemsRespuestas = new SelectItem[pregunta.getRespuestaList().size()];
+                    int j = 0;
+                    for (Respuesta respuesta : pregunta.getRespuestaList()) {
+                        SelectItem item = new SelectItem(respuesta.getRtaId(), respuesta.getRtaRespuesta());
+                        itemsRespuestas[j] = item;
+                        j++;
+                    }
+                    this.itemTestTO[i].setItemsRespuestas(itemsRespuestas);
+                    i++;
                 }
-                this.itemTestTO[i].setItemsRespuestas(itemsRespuestas);
-                i++;
             }
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "No fue posible cargar el test.", ""));
+            _logger.error("Error obteniendo test " + Arrays.toString(ex.getStackTrace()));
         }
     }
 

@@ -24,6 +24,11 @@ and open the template in the editor.
                              #{profVeResultadosMB.grupo.progId.progNombre} - #{profVeResultadosMB.grupo.grupNombre} - 
                              #{profVeResultadosMB.grupo.periId.periNombre}" 
                              style="margin-bottom:20px">
+                        <div align="left">
+                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>
+                            <p:commandButton  value="#{msg['button.ver.resultados.individuales']}" action="verResultadosXEstudiante" 
+                                              icon="ui-icon-zoomin"/>
+                        </div><br/>
                         <b>
                             <p:outputLabel value="#{msg['profesor.ver.resultados.numero.estudiates.grupo']}
                                            #{profVeResultadosMB.numeroEstudiantesConRespuesta} /
@@ -35,10 +40,41 @@ and open the template in the editor.
 
                             <p:chart type="pie" model="#{profVeResultadosMB.resultadosNumRespuestasGrupo}" 
                                      style="width:400px; height:300px;display: block; margin: 0 auto;" />
-                        </p:panelGrid>
-                        <div align="center"><br/>
-                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>
+                        </p:panelGrid><br/>
+                        <div style="width:800px;">
+                            <p:panel header="#{msg['profesor.ver.resultados.caracteristicas']}">
+                                <!-- SUGERENCIAS VISUALES-->
+                                <b><p:outputLabel value="#{msg['profesor.ver.resultados.caracteristicas.visual']}"/></b>
+                                <p:dataList value="#{profVeResultadosMB.listaSugerenciaVisual}" var="sugerencia" type="ordered" 
+                                            emptyMessage="#{msg['datatable.empty']}">
+                                    <div style="font-size: 15px;">
+                                        #{sugerencia.sugParrafo}
+                                    </div>
+                                    <p:spacer />
+                                </p:dataList>
+                                <br/>
+                                <!-- SUGERENCIAS AUDITIVAS-->
+                                <b><p:outputLabel value="#{msg['profesor.ver.resultados.caracteristicas.auditivo']}"/></b>
+                                <p:dataList value="#{profVeResultadosMB.listaSugerenciaAuditivo}" var="sugerencia" type="ordered" 
+                                            emptyMessage="#{msg['datatable.empty']}">
+                                    <div style="font-size: 15px;">
+                                        #{sugerencia.sugParrafo}
+                                    </div>
+                                    <p:spacer />
+                                </p:dataList>
+                                <br/>
+                                <!-- SUGERENCIAS KINESTÉSICAS-->
+                                <b><p:outputLabel value="#{msg['profesor.ver.resultados.caracteristicas.kinestesico']}"/></b>
+                                <p:dataList value="#{profVeResultadosMB.listaSugerenciaKinestesico}" var="sugerencia" type="ordered" 
+                                            emptyMessage="#{msg['datatable.empty']}">
+                                    <div style="font-size: 15px;">
+                                        #{sugerencia.sugParrafo}
+                                    </div>
+                                    <p:spacer />
+                                </p:dataList>
+                            </p:panel>
                         </div>
+                        
                     </p:panel>
                 </h:form>
             </ui:define>

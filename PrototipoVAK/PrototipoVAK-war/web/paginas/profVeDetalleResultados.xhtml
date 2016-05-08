@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="../templates/template.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{msg['estudiante.ver.resultados.title']}" />
+            </ui:define>
+            <ui:define name="body">
+                <h:form id="formPrincipal">
+                    <p:panel id="basic" header="#{msg['estudiante.ver.resultados.title']}" style="margin-bottom:20px">
+                        <div>
+                            <!--                            <p:commandButton value="Implirmir" type="button" icon="ui-icon-print">
+                                                            <p:printer target="basic" />
+                                                        </p:commandButton>-->
+                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>  
+                        </div>
+                        <p:chart type="pie" model="#{profVeDetalleResultadosMB.resultadosTest}" 
+                                 style="width:400px; height:300px;display: block; margin: 0 auto;"/>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

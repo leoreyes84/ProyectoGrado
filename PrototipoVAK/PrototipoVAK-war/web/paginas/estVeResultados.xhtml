@@ -6,8 +6,7 @@ and open the template in the editor.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <head>
@@ -20,29 +19,49 @@ and open the template in the editor.
             </ui:define>
             <ui:define name="body">
                 <h:form id="formPrincipal">
-                    <p:panel id="basic" header="#{msg['estudiante.ver.resultados.title']}" style="margin-bottom:20px">
+                    <!--<p:panel id="basic" header="#{msg['estudiante.ver.resultados.title']}" style="margin-bottom:20px">-->
+                        <div>
+                            <!--                            <p:commandButton value="Implirmir" type="button" icon="ui-icon-print">
+                                                            <p:printer target="basic" />
+                                                        </p:commandButton>-->
+                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>  
+                        </div>
                         <p:chart type="pie" model="#{estVeResultadosMB.resultadosTest}" 
                                  style="width:400px; height:300px;display: block; margin: 0 auto;"/>
                         <div style="width:800px;">
-                            <p:dataList value="#{estVeResultadosMB.listaSugerenciaResultado}" var="sugerencia" type="ordered" 
-                                        emptyMessage="#{msg['datatable.empty']}">
-                                <f:facet name="header">
-                                    #{msg['estudiante.presentar.test.caracteristicas']}
-                                </f:facet>
-                                <div style="font-size: 15px;">
-                                    #{sugerencia.sugParrafo}
-                                </div>
-                                <p:spacer />
-                            </p:dataList>
+                            <p:panel header="#{msg['estudiante.ver.resultados.caracteristicas']}">
+                                <!-- SUGERENCIAS VISUALES-->
+                                <b><p:outputLabel value="#{msg['estudiante.ver.resultados.caracteristicas.visual']}"/></b>
+                                <p:dataList value="#{estVeResultadosMB.listaSugerenciaVisual}" var="sugerencia" type="ordered" 
+                                            emptyMessage="#{msg['datatable.empty']}">
+                                    <div style="font-size: 15px;">
+                                        #{sugerencia.sugParrafo}
+                                    </div>
+                                    <p:spacer />
+                                </p:dataList>
+                                <br/>
+                                <!-- SUGERENCIAS AUDITIVAS-->
+                                <b><p:outputLabel value="#{msg['estudiante.ver.resultados.caracteristicas.auditivo']}"/></b>
+                                <p:dataList value="#{estVeResultadosMB.listaSugerenciaAuditivo}" var="sugerencia" type="ordered" 
+                                            emptyMessage="#{msg['datatable.empty']}">
+                                    <div style="font-size: 15px;">
+                                        #{sugerencia.sugParrafo}
+                                    </div>
+                                    <p:spacer />
+                                </p:dataList>
+                                <br/>
+                                <!-- SUGERENCIAS KINESTÉSICAS-->
+                                <b><p:outputLabel value="#{msg['estudiante.ver.resultados.caracteristicas.kinestesico']}"/></b>
+                                <p:dataList value="#{estVeResultadosMB.listaSugerenciaKinestesico}" var="sugerencia" type="ordered" 
+                                            emptyMessage="#{msg['datatable.empty']}">
+                                    <div style="font-size: 15px;">
+                                        #{sugerencia.sugParrafo}
+                                    </div>
+                                    <p:spacer />
+                                </p:dataList>
+                            </p:panel>
                         </div>
-                        <br></br>                         
-                        <div style="text-align:center;">
-<!--                            <p:commandButton value="Implirmir" type="button" icon="ui-icon-print">
-                                <p:printer target="basic" />
-                            </p:commandButton>-->
-                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>  
-                        </div>
-                    </p:panel>
+                    <!--</p:panel>-->
                 </h:form>
             </ui:define>
         </ui:composition>

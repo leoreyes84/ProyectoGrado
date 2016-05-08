@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SugerenciaResultado.findAll", query = "SELECT s FROM SugerenciaResultado s"),
     @NamedQuery(name = "SugerenciaResultado.findBySugId", query = "SELECT s FROM SugerenciaResultado s WHERE s.sugId = :sugId"),
     @NamedQuery(name = "SugerenciaResultado.findBySugTipoVak", query = "SELECT s FROM SugerenciaResultado s WHERE s.sugTipoVak = :sugTipoVak"),
+    @NamedQuery(name = "SugerenciaResultado.findBySugTipoUsr", query = "SELECT s FROM SugerenciaResultado s WHERE s.sugTipoUsr = :sugTipoUsr"),
     @NamedQuery(name = "SugerenciaResultado.findBySugParrafo", query = "SELECT s FROM SugerenciaResultado s WHERE s.sugParrafo = :sugParrafo")})
 public class SugerenciaResultado implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -39,7 +40,10 @@ public class SugerenciaResultado implements Serializable {
     @Size(max = 1)
     @Column(name = "sug_tipo_vak")
     private String sugTipoVak;
-    @Size(max = 1000)
+    @Size(max = 5)
+    @Column(name = "sug_tipo_usr")
+    private String sugTipoUsr;
+    @Size(max = 1500)
     @Column(name = "sug_parrafo")
     private String sugParrafo;
 
@@ -64,6 +68,14 @@ public class SugerenciaResultado implements Serializable {
 
     public void setSugTipoVak(String sugTipoVak) {
         this.sugTipoVak = sugTipoVak;
+    }
+
+    public String getSugTipoUsr() {
+        return sugTipoUsr;
+    }
+
+    public void setSugTipoUsr(String sugTipoUsr) {
+        this.sugTipoUsr = sugTipoUsr;
     }
 
     public String getSugParrafo() {

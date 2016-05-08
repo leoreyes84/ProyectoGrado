@@ -78,6 +78,35 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/paginas/profVeDetalleResultados.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>volver</from-outcome>
+            <to-view-id>/paginas/profVeResultadosXEstudiante.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/profVeResultadosXEstudiante.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>volver</from-outcome>
+            <to-view-id>/paginas/profVeResultados.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>verResultadosIndividuales</from-outcome>
+            <to-view-id>/paginas/profVeDetalleResultados.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/paginas/profVeResultados.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>verResultadosXEstudiante</from-outcome>
+            <to-view-id>/paginas/profVeResultadosXEstudiante.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/paginas/estSeleccionTest.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>presentaTest</from-outcome>
