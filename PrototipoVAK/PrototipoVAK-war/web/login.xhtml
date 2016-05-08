@@ -21,7 +21,7 @@
                     <p:password value="#{indexMB.contrasenia}" required="false" label="#{msg['login.label.contrasenia']}" maxlength="50"/>
                 </h:panelGrid>
                 <div align="center">
-                    <p:commandButton action="#{indexMB.iniciarSesion()}" value="#{msg['login.button.ingresar']}"/>
+                    <p:commandButton action="#{indexMB.iniciarSesion()}" value="#{msg['login.button.ingresar']}" ajax="false"/>
                 </div>                        
                 <div align="right ">
                     <h:commandLink action="registroUsuario" value="#{msg['login.button.registro']}"/>
