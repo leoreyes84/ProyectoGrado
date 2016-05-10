@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -79,7 +80,7 @@ public class Usuario implements Serializable {
     @JoinTable(name = "rol_usuario", joinColumns = { @JoinColumn(name = "usr_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "rol_id") })
     private List<Rol> rolList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<UsuarioRespuesta> usuarioRespuestaList;
 
     public Usuario() {

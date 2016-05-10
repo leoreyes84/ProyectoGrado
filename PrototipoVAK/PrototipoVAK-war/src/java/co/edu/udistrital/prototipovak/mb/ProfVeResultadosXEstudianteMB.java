@@ -10,7 +10,6 @@ import co.edu.udistrital.prototipovak.entity.Usuario;
 import co.edu.udistrital.prototipovak.session.GrupoFacadeLocal;
 import co.edu.udistrital.prototipovak.session.UsuarioFacadeLocal;
 import java.util.List;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
