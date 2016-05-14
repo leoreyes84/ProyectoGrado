@@ -36,7 +36,7 @@ public class PreguntaFacade extends AbstractFacade<Pregunta> implements Pregunta
         try {
             Query consulta;
             StringBuilder cadena_consulta = new StringBuilder();
-            cadena_consulta.append("SELECT * FROM db_vak.pregunta ORDER BY RAND() LIMIT 5");
+            cadena_consulta.append("SELECT * FROM db_vak.pregunta ORDER BY RAND() LIMIT 20");
 
             // Crea el query de cadena_consulta
             consulta = getEntityManager().createNativeQuery(cadena_consulta.toString(), Pregunta.class);
