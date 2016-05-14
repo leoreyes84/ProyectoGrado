@@ -56,6 +56,9 @@ public class EstVeResultadosMB {
     private List<SugerenciaResultado> listaSugerenciaAuditivo;
     private List<SugerenciaResultado> listaSugerenciaKinestesico;
     private PieChartModel resultadosTest;
+    private boolean visual;
+    private boolean auditivo;
+    private boolean kinestesico;
 
     // /////////////////////////////////////////////////////////////////////////
     // Metodos de la clase
@@ -117,8 +120,45 @@ public class EstVeResultadosMB {
         } catch (Exception ex) {
             _logger.error("Error consultando sugerencias " + ex.getMessage());
         }
-//        List<SugerenciaResultado> listaSugerenciaTemp = new ArrayList<>();
 
+        if ((contVisual > contAuditivo) && (contVisual > contKines)) {
+            visual = true;
+            auditivo = false;
+            kinestesico = false;
+
+        } else if ((contAuditivo > contVisual) && (contAuditivo > contKines)) {
+            visual = false;
+            auditivo = true;
+            kinestesico = false;
+
+        } else if ((contKines > contAuditivo) && (contKines > contVisual)) {
+            visual = false;
+            auditivo = false;
+            kinestesico = true;
+
+        } else if ((contVisual == contAuditivo) && (contVisual == contKines) && (contAuditivo == contKines)) {
+            visual = true;
+            auditivo = true;
+            kinestesico = true;
+
+        } else if ((contVisual == contAuditivo)) {
+            visual = true;
+            auditivo = true;
+            kinestesico = false;
+
+        } else if ((contVisual == contKines)) {
+            visual = true;
+            auditivo = false;
+            kinestesico = true;
+
+        } else if ((contAuditivo == contKines)) {
+            visual = false;
+            auditivo = true;
+            kinestesico = true;
+
+        }
+
+//        List<SugerenciaResultado> listaSugerenciaTemp = new ArrayList<>();
 //        for (SugerenciaResultado sugerenciaResultadoTemp : listaSugerenciaResultado) {
 //
 //            if ((contVisual > contAuditivo) && (contVisual > contKines)) {
@@ -194,6 +234,28 @@ public class EstVeResultadosMB {
         this.listaSugerenciaKinestesico = listaSugerenciaKinestesico;
     }
 
-    
+    public boolean isVisual() {
+        return visual;
+    }
+
+    public void setVisual(boolean visual) {
+        this.visual = visual;
+    }
+
+    public boolean isAuditivo() {
+        return auditivo;
+    }
+
+    public void setAuditivo(boolean auditivo) {
+        this.auditivo = auditivo;
+    }
+
+    public boolean isKinestesico() {
+        return kinestesico;
+    }
+
+    public void setKinestesico(boolean kinestesico) {
+        this.kinestesico = kinestesico;
+    }
 
 }

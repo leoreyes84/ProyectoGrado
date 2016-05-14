@@ -20,47 +20,47 @@ and open the template in the editor.
             <ui:define name="body">
                 <h:form id="formPrincipal">
                     <!--<p:panel id="basic" header="#{msg['estudiante.ver.resultados.title']}" style="margin-bottom:20px">-->
-                        <div>
-                            <!--                            <p:commandButton value="Implirmir" type="button" icon="ui-icon-print">
-                                                            <p:printer target="basic" />
-                                                        </p:commandButton>-->
-                            <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>  
-                        </div>
-                        <p:chart type="pie" model="#{estVeResultadosMB.resultadosTest}" 
-                                 style="width:400px; height:300px;display: block; margin: 0 auto;"/>
-                        <div style="width:800px;">
-                            <p:panel header="#{msg['estudiante.ver.resultados.caracteristicas']}">
-                                <!-- SUGERENCIAS VISUALES-->
-                                <b><p:outputLabel value="#{msg['estudiante.ver.resultados.caracteristicas.visual']}"/></b>
-                                <p:dataList value="#{estVeResultadosMB.listaSugerenciaVisual}" var="sugerencia" type="ordered" 
-                                            emptyMessage="#{msg['datatable.empty']}">
-                                    <div style="font-size: 15px;">
-                                        #{sugerencia.sugParrafo}
-                                    </div>
-                                    <p:spacer />
-                                </p:dataList>
-                                <br/>
-                                <!-- SUGERENCIAS AUDITIVAS-->
-                                <b><p:outputLabel value="#{msg['estudiante.ver.resultados.caracteristicas.auditivo']}"/></b>
-                                <p:dataList value="#{estVeResultadosMB.listaSugerenciaAuditivo}" var="sugerencia" type="ordered" 
-                                            emptyMessage="#{msg['datatable.empty']}">
-                                    <div style="font-size: 15px;">
-                                        #{sugerencia.sugParrafo}
-                                    </div>
-                                    <p:spacer />
-                                </p:dataList>
-                                <br/>
-                                <!-- SUGERENCIAS KINESTÉSICAS-->
-                                <b><p:outputLabel value="#{msg['estudiante.ver.resultados.caracteristicas.kinestesico']}"/></b>
-                                <p:dataList value="#{estVeResultadosMB.listaSugerenciaKinestesico}" var="sugerencia" type="ordered" 
-                                            emptyMessage="#{msg['datatable.empty']}">
-                                    <div style="font-size: 15px;">
-                                        #{sugerencia.sugParrafo}
-                                    </div>
-                                    <p:spacer />
-                                </p:dataList>
-                            </p:panel>
-                        </div>
+                    <div>
+                        <!--                            <p:commandButton value="Implirmir" type="button" icon="ui-icon-print">
+                                                        <p:printer target="basic" />
+                                                    </p:commandButton>-->
+                        <p:commandButton  value="#{msg['button.volver']}" action="volver" icon="ui-icon-circle-triangle-w"/>  
+                    </div>
+                    <p:chart type="pie" model="#{estVeResultadosMB.resultadosTest}" 
+                             style="width:400px; height:300px;display: block; margin: 0 auto;"/>
+                    <div style="width:800px;">
+                        <p:panel header="#{msg['estudiante.ver.resultados.caracteristicas']}">
+                            <!-- SUGERENCIAS VISUALES-->
+                            <b><p:outputLabel rendered="#{estVeResultadosMB.visual}" value="#{msg['estudiante.ver.resultados.caracteristicas.visual']}"/></b>
+                            <p:dataList rendered="#{estVeResultadosMB.visual}" value="#{estVeResultadosMB.listaSugerenciaVisual}" var="sugerencia" type="ordered" 
+                                        emptyMessage="#{msg['datatable.empty']}">
+                                <div style="font-size: 15px;">
+                                    #{sugerencia.sugParrafo}
+                                </div>
+                                <p:spacer />
+                            </p:dataList>
+                            <br/>
+                            <!-- SUGERENCIAS AUDITIVAS-->
+                            <b><p:outputLabel rendered="#{estVeResultadosMB.auditivo}" value="#{msg['estudiante.ver.resultados.caracteristicas.auditivo']}"/></b>
+                            <p:dataList rendered="#{estVeResultadosMB.auditivo}" value="#{estVeResultadosMB.listaSugerenciaAuditivo}" var="sugerencia" type="ordered" 
+                                        emptyMessage="#{msg['datatable.empty']}">
+                                <div style="font-size: 15px;">
+                                    #{sugerencia.sugParrafo}
+                                </div>
+                                <p:spacer />
+                            </p:dataList>
+                            <br/>
+                            <!-- SUGERENCIAS KINESTÉSICAS-->
+                            <b><p:outputLabel rendered="#{estVeResultadosMB.kinestesico}" value="#{msg['estudiante.ver.resultados.caracteristicas.kinestesico']}"/></b>
+                            <p:dataList rendered="#{estVeResultadosMB.kinestesico}" value="#{estVeResultadosMB.listaSugerenciaKinestesico}" var="sugerencia" type="ordered" 
+                                        emptyMessage="#{msg['datatable.empty']}">
+                                <div style="font-size: 15px;">
+                                    #{sugerencia.sugParrafo}
+                                </div>
+                                <p:spacer />
+                            </p:dataList>
+                        </p:panel>
+                    </div>
                     <!--</p:panel>-->
                 </h:form>
             </ui:define>
